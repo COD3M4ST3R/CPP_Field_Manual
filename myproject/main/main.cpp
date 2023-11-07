@@ -35,6 +35,7 @@
 #include <map>
 #include <ctime>
 #include <iomanip>
+#include <stdexcept>
 
 // INTERNAL INCLUDES
 #include "static/MyLibrary.hpp"
@@ -746,10 +747,32 @@ class InterfaceClass
 
 
 
+/* ERROR HANDLING
+*/
+/*
+void myfunction(const int& param)
+{
+    try
+    {
+        if(param < 0)
+        {
+            throw std::runtime_error("param can not be a negative number!");
+        }
+
+        std::cout << "param: " << param << std::endl;
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+}
+*/
+
+
+
 int main(int argc, char* argv[])
 {   
     std::cout << ". . ." << std::endl;
-
 
     /* CMAKE
     // Static Library

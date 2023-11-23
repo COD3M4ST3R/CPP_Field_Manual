@@ -238,7 +238,7 @@ class Human
 class Me : private Human
 {
     private:
-        short int age;
+        unsigned short int age;
         std::string_view department;
         
     public:

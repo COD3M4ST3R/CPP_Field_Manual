@@ -57,17 +57,6 @@ if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 endif()
 
 
-
-### CHECKING IF THIRD PARTY LIBRARIES HAS BEEN INSTALLED 
-find_package(Boost REQUIRED)
-if(Boost_FOUND)
-    message("-- Boost has been found!")
-else()
-    message(FATAL_ERROR "-- Boost has been not found!")
-endif()
-
-
-
 ### ADD LIBRARIES
 # Generate the static library from the library sources
 add_library(

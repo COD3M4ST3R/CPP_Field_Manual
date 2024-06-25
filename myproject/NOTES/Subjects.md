@@ -36,7 +36,8 @@
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
@@ -71,7 +72,7 @@
 - Iterators
 - Algorithms
 - Function Objects (Functors)
-- Allocators
+- Allocators (Custom)
 - Utilities
 
 ### SLF(STANDARD LIBRARY FEATURES)
@@ -862,8 +863,11 @@ When defining function signatures or public interfaces, using explicit type decl
 >
 > **When To Use**
 > - Best for maintaining a collection of key-value pairs where order is not important, but fast access by key is needed.
+
+
+
 >
-> <hr>
+>
 >
 > ### <font color="#a442f5">Algorithms</font>
 >
@@ -1076,6 +1080,9 @@ When defining function signatures or public interfaces, using explicit type decl
 > std::vector<int> result;
 > std::set_difference(set1.begin(), set1.end(), set2.begin(), set2.end(), std::back_inserter(result));
 >```
+
+>
+>
 >
 > ### <font color="#a442f5">Functors (Function Objects)</font>
 > Function objects, also known as functors, are objects that can be invoked or called as if they were functions.In C++, functors are primarily used as conjuction with STL algorithms to provide custom behavior for sorting, comparison, transformations and other operations on element in containers. Functors can encapsulate state and provide more flexibility than regular functions in certain scenarios.
@@ -1130,7 +1137,7 @@ When defining function signatures or public interfaces, using explicit type decl
 > Functors can encapsulate complex behaviors and conditions that are not easily expressed with regular functions. This allows for more customized and flexible operations.
 >
 > - **State Management**:
-> Functors can maintain state across multiple class, which can be useful when performing operations that require context or history.
+> Functors can maintain state across multiple class, which can be useful when performing operations that require contegxt or history.
 >
 > - **Customization**: 
 > Functors allow algorithms to be customized with different behaviors without modifying the algorithm itself. This promotes code reuse and separation of concerns.
@@ -1149,3 +1156,87 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 > - **Object-Oriented Overhead**: 
 > Functors are objects, so they incur the overhead of object-oriented programming, such as memory allocation and potential performance implications in some scenarios.
 >
+
+
+
+>
+>
+>
+> ### <font color="#a442f5">Allocators (Custom)</font>
+> Allocators are a fundamental part of the Standard Template Library (STL) in C++. They define memory management policies for containers, specifying how memory is allocated, deallocated, and managed. While the default allocator (std::allocator) is sufficient for most use cases, custom allocators can be created to optimize performance, improve memory usage, or adapt to specific requirements.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> template <typename T>
+> class MyAllocator
+> {
+>    public:
+>        using value_type = T;
+>
+>         MyAllocator() = default;
+>         
+>         template <typename U>
+>         MyAllocator(const MyAllocator<U>&) {}
+>  
+>         T* allocate(std::size_t n) // 'allocate' as a key component.
+>         {
+>              return static_cast<T*>(::operator new(n * sizeof(T)));
+>         }
+>
+>         void deallocate(T* p, std::size_t n) // 'deallocate' as a key component.
+>         {
+>              ::operator delete(p);
+>         }
+>
+>         template <typename U, typename... Args>
+>         void construct(U* p, Args&&... args) // 'construct' as a key component.
+>         {
+>              new(p) U(std::forward<Args>(args)...);  
+>         }
+>
+>         void destroy(T* p) // 'destroy' as a key component.
+>         {
+>              p -> ~T();
+>         }
+>};
+>```
+>
+> **When To Use**
+> 
+> - **Performance Optimization**:
+> Use custom allocators to optimize performance by reducing allocation overhead, improving cache locality, or minimizing fragmentation.
+>
+> - **Memory Management**:
+> Implement custom memory management strategies, such as pooling to control and optimize memory usage.
+>
+> - **Embedded Systems**:
+> In enviroments with limited resources, custom allocators can help manage memory more efficiently and predictably.
+>
+> **When Not to Use**
+>
+> - **General-Purpose Code**:
+> Avoid using custom allocators for general-purpose code where the default allocator provides sufficient performance and simplicity.
+>
+> - **Complexity**
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Performance**: 
+> Custom allocators can improve performance by tailoring memory management to specific needs and usage patterns.
+>
+> - **Control**:
+> Provides fine-grained control over memory allocation and deallocation, enabling optimization that are not possible with the default allocator.
+>
+> - **Flexibility**:
+> Allows for implementation of specialized memory management strategies, such as pooling, slab allocation or garbage collection.
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Complexity**
+>
+> - **Portability**:
+> Custom allocators may rely on platform-specific features or behaviors, potentially reducing portability.
+>
+> - **Debugging**:
+> Memory management bugs can be difficult to debug and custom allocators may introduce new sources of errors. 

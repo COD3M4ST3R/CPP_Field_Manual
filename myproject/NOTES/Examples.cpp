@@ -775,6 +775,37 @@ void myfunction(const int& param)
 }
 */
 
+template<typename T>
+class MyAllocator
+{
+    public:
+        using value_type = T;
+        MyAllocator() = default;
+
+        template<typename U>
+        MyAllocator(const MyAllocator<U>&) {}
+
+        T* allocate(std::size_t n)
+        {
+            return static_cast<T*>(::operator new(n * sizeof(T)));
+        }
+
+        void deallocate(T* p, std::size_t n)
+        {
+            ::operator delete(p);
+        }
+
+        template <typename U, typename... Args>
+        void construct(U* p, Args&&... args)
+        {
+            new(p) U(std::forward<Args>(args)...);
+        }
+
+        void destroy(T* p)
+        {
+            p -> ~T();
+        }
+};       
 
 
 int main(int argc, char* argv[])

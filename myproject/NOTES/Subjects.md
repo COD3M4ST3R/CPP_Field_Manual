@@ -1137,7 +1137,7 @@ When defining function signatures or public interfaces, using explicit type decl
 > Functors can encapsulate complex behaviors and conditions that are not easily expressed with regular functions. This allows for more customized and flexible operations.
 >
 > - **State Management**:
-> Functors can maintain state across multiple class, which can be useful when performing operations that require contegxt or history.
+> Functors can maintain state across multiple class, which can be useful when performing operations that require context or history.
 >
 > - **Customization**: 
 > Functors allow algorithms to be customized with different behaviors without modifying the algorithm itself. This promotes code reuse and separation of concerns.
@@ -1240,3 +1240,136 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 >
 > - **Debugging**:
 > Memory management bugs can be difficult to debug and custom allocators may introduce new sources of errors. 
+>
+>
+>
+
+>
+>
+>
+> ### <font color="#a442f5">Utilities</font>
+> 
+> The Standard Template Library (STL) includes a variety of utility components that assist with common programming tasks, enhancing the functionality and convenience of C++ development. These utilities provide basic services like pair management, tuple handling, and type traits. They help with tasks such as element swapping, moving objects, and type manipulations, making the STL more powerful and flexible.
+>
+> ### std::pair
+> A simple container to store two heterogeneous objects as a single unit. It is often used to return two values from a function or to store key-value pairs.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> std::pair<int, std::string> p = {1, "example"};
+> 
+>```
+>
+> ### std::tuple
+> Similar to std::pair, but can hold any number of elements of different types. Useful for returning multiple values from functions and for making heterogeneous collections.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> std::tuple<int, std::string, double> t = {1, "example", 3.14};
+>```
+>
+> ### std::move
+> Enables efficient transfer of resources from one object to another, using move semantics to avoid deep copying. Essential for performance optimization, especially in resource-intensive applications.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> std::string source = "hello";
+> std::string target = std::move(source); // source is now empty.
+>```
+>
+> ### std::swap
+> Exchanges the values of two objects. This utility function is essential for many algorithms, such as sorting.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> int a = 1, b = 2;
+> std::swap(a, b);
+>```
+>
+> ### std::forward
+> Perfect forwarding utility that preserves the value category (lvalue or rvalue) of the arguments passed to a function. Often used in template programming to implement forwarding functions.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> template <typename T>
+> void wrapper(T&& arg)
+> {
+>     function(std::forward<T>(arg));
+> }
+>```
+>
+> ### std::tie
+> Unpacks tuples into individual variables. Often used in conjunction with functions that return std::tuple.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> int a, b;
+> std::tie(a, b) = std::make_tuple(1, 2);
+>```
+>
+> ### Type Traits
+> Compile-time utilities for querying and manipulating types. They are useful in template metaprogramming.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> template <typename T>
+> void checkType()
+> {
+>     if (std::is_integral<T>::value)
+>     {
+>        std::cout << "T is an integral type." << std::endl;
+>     }
+> }
+>```
+>
+> ### std::reference_wrapper
+> Wraps a reference in an object that can be copied, useful for storing references in containers.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> int x = 10;
+> std::vector<std::reference_wrapper<int>> v = {x};
+> v[0] = 20; // x is now 20.
+>```
+>
+> ### std::any
+> A type-safe container for single values of any type. It can hold values of anyx type and provides type erasure.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> std::any a = 42;
+> a = std::string("hello");
+>```
+>
+> ### std::optional
+> A container that may or may not hold a value, providing a way to represent optional or nullable values without using pointers.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> std::optional<int> maybeValue;
+> maybeValue = 42;
+> if (maybeValue)
+> {
+>     std::cout << "Value is " << *maybeValue << std::endl;  
+> }
+>```
+>
+> ### std::variant
+> A type-safe union that can hold a value of one of several types, providing a way to work with union-like structures safely.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> std::variant<int, std::string> v = "hello";
+> v = 42;
+>```

@@ -1373,3 +1373,175 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 > std::variant<int, std::string> v = "hello";
 > v = 42;
 >```
+
+
+
+
+### <font color="#ffc900">SLF (Standard Library Features)</font>
+> ### <font color="#a442f5">Initializer List</font>
+> The primary reason for std::initializer_list is to provide a convenient way to pass a fixed list of values to functions or constructors. It allows for easy initialization of containers and other objects with a list of values.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> void printList(std::initializer_list<int> list)
+> {
+>    for(const auto& element : list )
+>    {
+>        std::cout << element << std::endl;
+>    }
+> }
+>```
+>
+> **When To Use**
+> 
+> - **Initialization**:
+> when you need to initialize objects or containers with a fixed list of values directly.
+>
+> - **Function Paramaters**:
+> When you want to write function that accept a variable number of arguments in a concise and convenient manner.
+>
+> - **Constructor Overloading**:
+> When designing class constructors to accept a list of values.
+>
+> **When Not to Use**
+>
+> - **Mutable Containers**:
+> When you need to modify the list of values after passing it it to a function might be significant.
+>
+> - **Dynamic Data**:
+> When the size of the collection may change dynamically during runtime.
+>
+> - **Large Data**:
+> When dealing with large collections of data where the overhead of copying might be significant.
+>
+> - **Advanced Container Features**:
+> When you need advances functionalities like sorting, searching or other operations provided by containers like 'std::vector'.
+>
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Simplicity**: 
+> Provides a simple and concise syntax for initializing objects with a list of values.
+>
+> - **Readability**:
+> Enhances code readability by allowing direct initialization within function calls and constructors.
+>
+> - **Immutable**:
+> Ensures that the list of values cannot be modified, which can help prevent certain types of bugs.
+>
+> - **Performance**:
+> For small, fixed-size lists, it avoids the overhead associated with dynamic memory allocation and management.
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Fixed Size**:
+> The size of an 'initializer_list' is fixed and cannot be changed after initialization.
+>
+> - **Read-Only**:
+> The elements of an 'initializer_list' cannot be modified.
+>
+> - **Limited Use**:
+> Not suitable for scenarios requiring dynamic resizing, advanced container operations or modifications.
+>
+> - **Temporary Object**:
+> Often involves temporary objects, which might lead to unnecessary copying or memory overhead in some cases.
+
+
+
+
+
+> ### <font color="#a442f5">Smart Pointers</font>
+> Smart pointers are a feature in C++ that manage the lifetime of dynamically allocated objects, helping to prevent memory leaks and dangling pointers by automatically deallocating memory when it is no longer needed. The Standard Library provides several types of smart pointers, each designed for different use cases.
+>
+> ### std::unique_ptr
+> A smart pointer that owns and manages another object through a pointer and disposes of that object when the 'std::unique_ptr' goes out of scope. Unique ownership, non-copyable, movable.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> std::unique_ptr<int> ptr1(new int(10));
+> // std::unique_ptr<int> ptr2 = ptr1; // Error: cannot copy
+> std::unique_ptr<int> ptr2 = std::move(ptr1);
+>```
+>
+> **When To Use**
+> 
+> - When you need exclusive ownership of a resource.
+> - For managing the lifetime of resources that are not shared.
+> - For implementing RAII (Resource Acquisition Is Initialization) patters.
+>
+> **When Not to Use**
+>
+> - When you need shared ownership or the ability to copy the smart pointer.
+> - When passing ownership to function that do not accept 'std::unique_ptr'.
+>
+> <hr>
+>
+> ### std::shared_ptr
+> A smart pointer that retains shared ownership of an object through a pointer. Multiple 'std::shared_ptr' instances can manage the same object. Shared ownership, reference counting.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> std::shared_ptr<int> ptr1 = std::make_shared<int>(20);
+> std::shared_ptr<int> ptr2 = ptr2; // Okay: shared ownership.
+>```
+>
+> **When To Use**
+> - When multiple parts of your program need to share ownership of a resource.
+> - When object need to be shared across multiple scopes or threads.
+>
+> **When Not to Use**
+> - When exclusive ownership is sufficient or required.
+> - In performace-critical code where reference counting overhead is unacceptable.
+>
+> <hr>
+>
+> ### std::weak_ptr
+> A smart pointer that holds a non-owning (weak) reference to an object that is managed by 'std::shared_ptr'. It is used to break circular references. Non-owning, does not affect reference count.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> std::shared_ptr<int> sp = std::make_shared<int>(30);
+> std::weak_ptr<int> wp = sp; // wp does not affect reference count.
+> if(auto sp2 = wp.lock()) // Check if the object still exist. 
+> { 
+>     // use sp2. 
+> } else{
+>     // sp2 has been destroyed.
+> }
+>```
+>
+> **When To Use**
+> - When you need to reference an object managed by 'std::shared_ptr' without affecting its lifetime.
+> - For breaking circular references between 'std::shared_ptr' instances.
+>
+> **When Not to Use**
+> - As a primary owning reference, since it does not manage the object's lifetime.
+> - When you do not need to break cycles between 'std::shared_ptr' instances.
+>
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Automatic Memory Management**: 
+> Smart pointers automatically manage the lifetime of dynamically allocated objects, reducing the risk of memory leaks.
+>
+> - **Exception Safety**:
+> They ensure that resources are properly relased even in the presence of exceptions.
+>
+> - **Clear Ownership Semantics**:
+> Different types of smart pointers provide clear semantics for ownership and resource management.
+>
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Overhead**: 'std::shared_ptr' has some overhead due to reference counting and atomic operations, which can impact performance.
+>
+> - **Complexity**:
+> Using smart pointers can add complexity, especially when dealing with circular dependencies and weak references.
+>
+> - **Incorrect Usage**:
+> Misuse of smart pointers(e.g., creating cycles with 'std::shared_ptr') can still lead to resource management issues.
+>

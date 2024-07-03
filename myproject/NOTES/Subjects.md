@@ -155,6 +155,9 @@
 - Copy Elision
 - Inlining
 
+### CONCEPTS
+- PIMPL (Pointer to IMPLementation)
+
 <hr>
 
 

@@ -20,10 +20,7 @@
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> class Example
-> {
->    // code goes here...
-> }
+> // code goes here...
 >```
 >
 > **When To Use**
@@ -79,14 +76,7 @@
 - Initializer List
 - Smart Pointers
 - Streams
-- Strings
 - Date and Time
-
-### SLA(STANDARD ALGORITHM FEATURES)
-- Sorting
-- Searching
-- Numeric Algorithms
-- Permutations
 
 ### SPACESHIP COMPARISION
 
@@ -94,9 +84,10 @@
 
 ### LAMBDA EXPRESSIONS
 
-### STACK AND HEAP CLASSES
-- Constructors
-- Deconstructurs
+### STACK VS HEAP
+
+### FUNDAMENTALS OF OBJECT-ORIENTED PROGRAMMING IN C++
+- Constructors & Destructors
 - Polymorphism
 - Encapsulation
 - Inheritance
@@ -206,6 +197,10 @@
 > **wchar_t**: A wide character type typically used for Unicode characters.
 >
 > **void**: Represents the absence of type, commonly used as the return type of functions with no return value or as a placeholder for generic pointers.
+>
+> **std::string**: Dynamic, owning string class that provides many functions for manipulating strings. It owns the memory for the characters in the string and can grow or shrink as needed.
+>
+> **std::string_view**: Non-owning view of sequence of characters. It provides lightweight way to reference a string or part of a string without copying it. It does not manage the lifetime of the string data it refers to.
 
 
 
@@ -1158,13 +1153,11 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 >
 > - **Object-Oriented Overhead**: 
 > Functors are objects, so they incur the overhead of object-oriented programming, such as memory allocation and potential performance implications in some scenarios.
->
 
 
 
->
->
->
+
+
 > ### <font color="#a442f5">Allocators (Custom)</font>
 > Allocators are a fundamental part of the Standard Template Library (STL) in C++. They define memory management policies for containers, specifying how memory is allocated, deallocated, and managed. While the default allocator (std::allocator) is sufficient for most use cases, custom allocators can be created to optimize performance, improve memory usage, or adapt to specific requirements.
 >
@@ -1243,13 +1236,11 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 >
 > - **Debugging**:
 > Memory management bugs can be difficult to debug and custom allocators may introduce new sources of errors. 
->
->
->
 
->
->
->
+
+
+
+
 > ### <font color="#a442f5">Utilities</font>
 > 
 > The Standard Template Library (STL) includes a variety of utility components that assist with common programming tasks, enhancing the functionality and convenience of C++ development. These utilities provide basic services like pair management, tuple handling, and type traits. They help with tasks such as element swapping, moving objects, and type manipulations, making the STL more powerful and flexible.
@@ -1376,6 +1367,7 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 > std::variant<int, std::string> v = "hello";
 > v = 42;
 >```
+
 
 
 
@@ -1547,4 +1539,421 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 >
 > - **Incorrect Usage**:
 > Misuse of smart pointers(e.g., creating cycles with 'std::shared_ptr') can still lead to resource management issues.
+
+
+
+
+
+> ### <font color="#a442f5">Streams</font>
+> Streams in C++ provide a powerful and flexible way to perform input and output (I/O) operations. They are part of the Standard Library and offer a consistent interface for reading from and writing to various sources, such as files, standard input/output, and strings.
 >
+> **<font color="#428df5">Example</font>**
+>
+> ### std::cin
+> Standard input stream. Used for reading input from the console.
+>
+> ### std::cout
+> Standard output stream. Used for writing output to the console.
+>
+> ### std::ifstream
+> Input file stream. Used for reading data from files.
+>
+> ### std::ofstream
+> Output file stream. Used for writing data to files.
+>
+> ### std::stringstream
+> String stream. Used for reading from and writing to strings.
+
+
+
+
+
+> ### <font color="#a442f5">Date & Time</font>
+> Handling dates and times in C++ is facilitated by the <chrono> library, introduced in C++11, which provides a set of types and functions for working with time points, durations, and clocks.
+>
+> **<font color="#428df5">Example</font>**
+>
+> ### std::chrono::system_clock:
+> Represents the system-wide real-time clock. Can be used to get the current time and convert it to a time_t object for human-readable time.
+>
+>```cpp
+> auto now = std::chrono::system_clock::now();
+> std::time_t now_time_t = std::chrono::system_clock::to_time_t(now);
+>```
+>
+> ### std::chrono::steady_clock:
+> Represents a clock that cannot be adjusted and is steady (monotonically increasing). Useful for measuring time intervals.
+>
+>```cpp
+> auto start = std::chrono::steady_clock::now();
+> auto end = std::chrono::steady_clock::now();
+> auto duration = end - start;
+>```
+>
+> ### std::chrono::high_resolution_clock:
+> Provides the smallest possible tick period, useful for high-precision timing.
+>
+>```cpp
+> auto start = std::chrono::high_resolution_clock::now();
+> auto end = std::chrono::high_resolution_clock::now();
+> auto duration = end - start;
+>```
+
+
+
+### <font color="#ffc900">Space Ship Comparision</font>
+> The spaceship operator (<=>), introduced in C++20, simplifies the implementation of comparison operators by providing a unified syntax for all three-way comparisons. It can be used for both std::weak_ordering and std::strong_ordering.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // Example 1
+> auto smallest = (a <=> b) ? b : a;
+>
+> // Example 2
+> auto result = (a <=> b) == 0 ? "equal" : (a <=> b) < 0 ? "less than" : "greater than";
+>
+> // Example 3
+> struct Point 
+> {
+>     int x, y:
+>
+>     auto operator<=>(const Point& other) const
+>     {
+>        if(auto cmp = x <=> other.x; cmp != 0)
+>        {
+>           return cmp;
+>        }
+>        return y <=> other.y;
+>     }   
+> };
+> 
+> Point p1 {1, 2};
+> Point p2 {2, 3};
+> if (auto cmp = (p1 <=> p2); cmp < 0) 
+> {
+>     std::cout << "p1 is less than p2" << std::endl;
+> } else if (cmp > 0) {
+>     std::cout << "p1 is greater than p2" << std::endl;
+> } else {
+>     std::cout << "p1 is equal to p2" << std::endl;
+> }
+>```
+>
+> **When To Use**
+> 
+> - **Simplifying Comparisons**
+>
+> **When Not to Use**
+>
+> - **Complex Comparisions**
+>
+> - **Non-Comparable Data**: Do not use if the data inherently lacks a meaningful ordering.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Unified Syntax**
+>
+> - **Reduced Boilerplate**
+>
+> - **Consistency** 
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Complexity**
+>
+> - **Compatibility**
+
+
+
+
+
+### <font color="#ffc900">Function Overloading</font>
+> Function overloading in C++ allows multiple functions with the same name but different parameter lists to be defined within the same scope. This enables functions to perform similar operations on different types or numbers of arguments. Function overloading is a form of polymorphism where the compiler selects the appropriate function to call based on the arguments' types, number, and order. The functions must differ in at least one of these aspects:
+>
+> - Number of parameters
+> - Type of parameters
+> - Order of parameters
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> int square(int x)
+> {
+>     return x * x;  
+> }
+>
+> double square(double x)
+> {
+>     return x * x;  
+> }
+>```
+>
+> **When To Use**
+> 
+> - **Same Operation, Different Types**: Use function overloading when you want to perform the same operation on different types of data.
+>
+> - **Default Arguments**: Overload functions with default arguments to provide flexibility in function call without repeating code.
+>
+> - **Cleaner Code**: Use overloading to write cleaner and more readable code by grouping related under the same name.
+>
+> **When Not to Use**
+>
+> - **Ambiguity**: Avoid overloading id it leads to ambiguous function calls where the compiler cannot determine the correct function to call based on the arguments.
+>
+> - **Overuse**: Overloading can make code harder to understand if used excessively or unnecessarily.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Code Reusability**
+>
+> - **Readability**
+>
+> - **Flexibility** 
+> 
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Complexity**: Overloading can lead to code complexity if not used judiciously, expecially when multiple overloaded functions exist.
+>
+> - **Ambiguity**: May result in ambiguous function calls if the overloaded functions are not distinct enough.
+
+
+
+
+
+
+### <font color="#ffc900">Lambda Expressions</font>
+> Lambda expressions, introduced in C++11, provide a concise way to define anonymous functions or function objects directly in-line within the code. They are particularly useful for writing quick functions that are used only once or for passing functions as arguments to other functions.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // [capture](parameters) -> return_types { body } 
+> auto square = [](int x) -> int
+> { 
+>     return x * x;
+> };
+>
+> int val = 5;
+> int result = square(val);
+> std::cout << "Square of " << val << "is: " << result << std::endl;
+>```
+>
+> **When To Use**
+> 
+> - **Inline Functionality**: Use lambda expressions when you need a small function that is used only once and it would be inconvenient to define a separate named function.
+>
+> - **Function Objects**: Use lambdas when passing a function as an argument to another function(e.g., in algorithms like 'std::transform', 'std::sort' etc.)
+>
+> - **Conciseness**: Use lambdas to write concise and readable code, especially for operations that are straightforward and do not require a separate names function.
+>
+> **When Not to Use**
+>
+> - **Complex Logic**: Avoid lambdas for complex logic that spans multiple lines or requires extensive error handling, as lambdas are meant to be compact and focused.
+>
+> - **Reuse**: If the same functionality is needed in multiple places, consider defining a named function instead for better code organization and reuse.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Conciseness**: Allows writing functions directly where they are needed, reducing boilerplate code.
+>
+> - **Capture**: Can capture variables from the enclosing scope, providing flexibility in accessing and modifying data.
+>
+> - **Integration**: Integrates seamlessly with standard library algorithms and other functions that accept callable objects.
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Readability**: Overuse of complex lambdas can reduce code readability, especially for developers unfamiliar with lambda syntax.
+>
+> - **Debugging**: Debugging can be more challenging with anonymous functions compared to named functions.
+>
+> - **Capture Issues**: Care must be taken with capture lists to avoid unintended side effects or dangling references.
+
+
+
+
+
+
+### <font color="#ffc900">Stack vs Heap </font>
+> In C++, memory allocation can occur in two primary areas: the stack and the heap. Understanding their differences is crucial for efficient memory management and avoiding common pitfalls in programming.
+>
+> ### Stack:
+> 
+> - **Allocation**: Stack memory is automatically allocated and deallocated as functions are enteres and exited. It operates in a Last In First Out (LIFO) manner.
+>
+> - **Size**: The stack size is generally limited and fixed (determined at compile-time or by system limits).
+>
+> - **Access Speed**: Accessing variables on the stack is faster than on the heap due to its simple allocation and deallocation mechanism.
+>
+> - **Lifetime**: Variables allocated on the stack exist only within the scope of the block they are defined in. They are automatically deallocated when they go out of scope.
+>
+> - **Usage**: Typically used for local variables, function parameters, return addresses and function call management.
+>
+> **<font color="#428df5">Example</font>**
+>```cpp
+> void functionOnStack() 
+> {
+>     int x = 10; // Variable 'x' is allocated on the stack.
+>     // . . . 
+> } // 'x' is automatically deallocated here.
+>```
+>
+> ### Heap:
+>
+> - **Allocation**: Heap memory is allocated manually by the programmer using functions like 'new' or 'malloc'. Deallocation is also manual using 'delete' or 'free' respectively.
+>
+> - **Size**: The heap size is larger than the stack and can grow dynamically during program execution, limited only by the available system memory.
+>
+> - **Lifetime**: Variables allocated on the heap persist beyond the scope of the block they are defined in, until explicitly deallocated.
+>
+> - **Usage**: Used for objects that need dynamic allocation, objects whose size is not known at compile-time or object that need to persist beyond the scope where they were created.
+>
+> **<font color="#428df5">Example</font>**
+>```cpp
+> void functionOnHeap() 
+> {
+>     int* ptr = new int(5); // Allocates an integer on the heap.
+>     // . . . 
+>     delete ptr; // Manually deallocate memory when no longer needed.
+> } 
+>```
+> ### Key Differences:
+>
+> - **Automatic vs Manual Management**: Stack memory is managed automatically by the compiler, while heap memory requires manual management by the programmer.
+>
+> - **Speed**: Stack access is faster due to its LIFO (Last in Firts Out) nature and simpler management. Heap access is slower due to dynamic allocation and deallocation.
+>
+> - **Size**: Stack size is limited and fixes, whereas heap size can grow dynamically (up to system limits).
+>
+> - **Scope**: Stack-allocated variables are local to block they are defines in and are automatically deallocated. Heap-allocated variables persist until explicitly deallocated.
+
+
+
+
+
+### <font color="#ffc900">Fundamentals of Object Oriented Programming in C++</font>
+> ### <font color="#a442f5">Constructors & Destructors</font>
+> In C++, constructors and destructors are special member functions of a class that are responsible for initializing and cleaning up objects, respectively. They play a fundamental role in managing the lifecycle of objects and ensuring proper resource management. Constructors are invoked automatically when an object of the class is created. They initialize the object's data members and set up the object for use.
+>
+> ### Constructors
+> - **Default Constructors**:
+> Initializes an object with default values if no explicit constructor is defined.
+>
+> - **Parameterized Constructor**:
+> Accepts parameters to initialize an object with specific values.
+>
+> - **Copy Constructor**:
+> Initializes an object as a copy of another object of the same type.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> class Person
+> {
+>     private:
+>        std::string name;
+>        short int age;
+>
+>     public:
+>        // Default Constructor
+>        Person() : name("NaN"), age(0) {}
+>
+>        // Parameterized Constructor
+>        Person(const std::string& p_name, const short int p_age) : name(p_name), age(p_age) {}
+>
+>        // Copy Constructor
+>        Person(const Person& other) : name(other.name), age(other.age) {}
+> };
+>```
+>
+> ### Destructors
+> Destructors are called automatically when an obejct goes out of scope or is explicitly deleted. They are responsible for relasing resources (e.g., memory, file handles, database connection ...) allocated by the object during its lifetime. A destructor is identified by its name preceded by a tilde '~'. It has no parameters and no return types.
+>
+> **<font color="#428df5">Example</font>**
+>```cpp
+> class Resource
+> {
+>     private:
+>        int* data;
+>  
+>     public:
+>        // Constructor
+>        Resource()
+>        {
+>           data = new int[10]; // Allocate memory.
+>        } 
+>
+>        // Destructor
+>        ~Resource()
+>        {
+>           delete[] data; // Free the allocated memory.
+>        } 
+> }
+>```
+>
+> **When To Use**
+> 
+> - **Constructor**: 
+> Use constructors to initialize object state, set default values, or perform any necessary setup operations.
+>
+> - **Destructors**:
+> Use destructors to release rsources acquired by the object during its lifetime, such as memory allocated with 'new' or 'new[]', file handles or network connections. 
+>
+> **When Not to Use**
+>
+> - **Constructors**:
+> Avoid complex logic or heavy computations in constructors, as they should focus on object initialization.
+>
+> - **Destructors**:
+> Avoid performing operations that may throw expectations or rely on other object that may have already been destroyed, as destructors should ideally be straightforward and efficient.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Resource Management**
+>
+> - **Initialization**:
+> Allow objects to be initialized with specific values or default settings. 
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Complexity**
+>
+> - **Performance**:
+> Poorly designed constructors or destructors can impact program performance, especially in resurce-intensive applications.
+
+
+
+
+
+
+> ### <font color="#a442f5">Polymorphism</font>
+> Fundamental concept in object-oriented programming that allow objects of different classes to be treated as objects of a common superclass. It enables a single interface to be used for entities of different types, providing flexibility and extensibility in software desing.
+>
+> ### Compile-Time Polymorphism (Static Binding):
+> Achieved through function overloading and templates.The compiler determines which function to call based on the function signature at compile-time.
+>
+> ### Run-Time Polymorphism (Dynamic Binding):
+> Achieved through inheritance and virtual functions. The decision on which function to call is made at run-time, based on the type of object pointed to by the base class pointer or reference.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation

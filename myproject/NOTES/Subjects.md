@@ -1933,7 +1933,68 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 > Achieved through function overloading and templates.The compiler determines which function to call based on the function signature at compile-time.
 >
 > ### Run-Time Polymorphism (Dynamic Binding):
-> Achieved through inheritance and virtual functions. The decision on which function to call is made at run-time, based on the type of object pointed to by the base class pointer or reference.
+> Achieved through inheritance and virtual functions. The decision on which function to call is made at run-time, based on the type of object pointed to by the base class pointer or reference. In C++, virtual functions enable run-time polymorphism. They are declared in the base class using the 'virtual' keyword and overridden in derived classes to provide specific implementations.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>class Shape
+>{
+>   // Virtual Function
+>   virtual void draw() const
+>   {
+>      std::cout << "Drawing a shape . . ." << std::endl;
+>   }
+>};
+>
+>class Circle : public Shape
+>{
+>   public:
+>      // Override the virtual function
+>      void draw() const override
+>      {
+>         std::cout << "Drawing a Circle . . ." << std::endl;
+>      }
+>};
+>```
+>
+> **When To Use**
+> 
+> - **Code Reuse**:
+> Use polymorphism to reuse code by treating objects of different derived classes through a common interface(base class).
+>
+>  - **Flexibility**:
+> Use polymorphism to write a generic algorithms that can operate on different types of objects without knowing their exact types at compile-time.
+>
+> **When Not to Use**
+>
+> - **Performance Considerations**:
+> Avoid excessive use of virtual functions in performance-critical code due to the overhead of dynamic dispatch.
+>
+> - **Over-Abstraction**:
+> Avoid unnecessary inheritance hierarchies or virtual functions that do not add value to the design.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Flexibility & Extensibility**:
+> Enables the addition of new classes and behaviors without modifying existing code.
+>
+> - **Code Reuse** 
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Runtime Overhead**:
+> Dynamic dispatch(virtual functions) introduces a slight runtime overhead compared to static function calls.
+>
+> - **Complexity** 
+
+
+
+
+
+
+> ### <font color="#a442f5">Encapsulation</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
 >
 > **<font color="#428df5">Example</font>**
 >

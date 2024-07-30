@@ -91,10 +91,7 @@
 - Polymorphism
 - Encapsulation
 - Inheritance
-- Abstract
-- Virtual
-- Override
-- Interface
+- Interface with Abstract & Virtual
 
 ### STRUCT, ENUM CLASS, TEMPLATES
 
@@ -1994,27 +1991,259 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 
 
 > ### <font color="#a442f5">Encapsulation</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> Encapsulation is one of the four fundamental concepts in object-oriented programming (OOP), alongside polymorphism, inheritance, and abstraction. It refers to the bundling of data (attributes) and methods (functions) that operate on the data into a single unit, or class. Encapsulation also involves restricting direct access to some of an object's components, which is a means of preventing unintended interference and misuse of the data.
+>
+> ### Data Hiding
+> Encapsulation allows the internal representation of an object to be hidden from the outside. Only the object's own methods can directly manipulate its fields.
+>
+> ### Access Modifiers
+> **Public**:
+> Members declared public can be accessed from outside the class.
+>
+> **Private**:
+> Members declared private can only be accessed from within the class.
+>
+> **Protected**:
+> Members declared protected can be accessed within the class and by derived classes.
+>
+> ### Getters & Setters
+> Encapsulation often uses getter and setter methods to control access to the private fields. Getters retrieve the value of a private member, while setters modify the value of a private member.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>class Person
+>{
+>   private:
+>      std::string name;
+>      short int age;
+>   
+>   public:
+>      Person(
+>         const std::string& p_name, 
+>         short int p_age
+>      ):
+>         name(p_name),
+>         age(p_age)
+>      {}
+>
+>      void set_name(const std::string& p_name) 
+>      {
+>         name = p_name;
+>      }
+>
+>      void set_age(const short int p_age) 
+>      {
+>         age = p_age;
+>      }
+>
+>      const std::string get_name() const
+>      {
+>         return name;
+>      }
+>
+>      const short int get_age() const
+>      {
+>         return age;
+>      }
+>};
+>```
+>
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Data Integrity** 
+> 
+> - **Modularity**
+>
+> - **Security**
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Overhead**
+>
+> - **Complexity**
+
+
+
+
+
+> ### <font color="#a442f5">Inheritance</font>
+> Inheritance is a fundamental concept in object-oriented programming that allows a class(called a derived class or subclass) to inherit attributes and methods from another class(called a base class or superclass). This mechanism promotes code reuse, improves organization and facilities the creation of hierarchical relationships between classes.
+>
+> ### Access Specifiers
+> **Public Inheritance**:
+> Public and protected members of the base class remain public and protected in the derived class, respectively.
+>
+> **Protected Inheritance**:
+> Public and protected members of the base class become protected in the derived class.
+>
+> **Private Inheritance**:
+> Public and protected members of the base class become private in the derived class.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>class Animal
+>{
+>   public:
+>      void eat()
+>      {
+>         std::cout << "Animal is eating . . ." << std::endl;
+>      }
+>};
+>
+>class Dog : public Animal
+>{
+>   public:
+>      void bark()
+>      {
+>         std::cout << "Animal is barking . . ." << std::endl;
+>      }
+>};
+>
+>int main
+>{
+>   Dog myDog;
+>   myDog.eat(); // Inherited from class Animal.
+>   myDog.bark(); // Defined in class Dog.
+>   
+>   return 0;
+>}
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - **Code Reuse**
+>
+> - **Hierarchical Relationships**:
+> Use inheritance to represent hierarchical relationships where a derived class is a specialized version of the base class.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - **Unrelated Classes**:
+> Avoid using inheritance for classes that do not share a logical relationship, as it can lead to a confusing and inappropriate hierarchy.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Data Integrity**
+>
+> - **Modularity**
+>
+> - **Security** 
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Overhead**
+>
+> - **Complexity**
+
+
+
+
+
+> ### <font color="#a442f5">Interface with Abstract & Virtual</font>
+> An abstract class is a class that cannot be instantiated on its own and is designed to be subclassed. Abstract classes are used to define interfaces or base classes that provide common functionality to derived classes while enforcing a specific design contract.
+>
+> ### Abstract Classes
+> These are classes that contain at least one pure virtual function. A pure virtual function is a virtual function that is declared by assigning 0 in its declaration.
+>
+> ### Pure Virtual Functions
+> These functions do not have a body in the base class and must be overridden in any derived class. They enforce that certain functions must be implemented in any concrete(non-abstract) subclass.
+>
+> **<font color="#428df5">Syntax</font>**
+>```cpp
+>class AbstractBase
+>{
+>   public:
+>      virtual void pureVirtualFunction() = 0;
+>};
+>
+>class Derived : public AbstractBase
+>{
+>   public:
+>      void pureVirtualFunction() override
+>      {
+>         // Implementation of the pure virtual function.
+>      }
+>};
+>```
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>class Shape
+>{
+>   public:
+>      // Pure virtual function providing interface framework
+>      virtual void draw() = 0; // Pure virtual function.
+>      virtual ~Shape() {} // Virtual destructor.
+>};
+>
+>class Circle : public Shape
+>{
+>   public:
+>      void draw() override
+>      {
+>         std::cout << "Drawing Circle . . ." << std::endl;
+>      }
+>};
+>
+>class Rectangle : public Shape
+>{
+>   public:
+>      void draw() override
+>      {
+>         std::cout << "Drawing Rectangle . . ." << std::endl;
+>      }
+>};
+>
+>int main()
+>{
+>   Shape* shape1 = new Circle();
+>   Shape* shape2 = new Rectangle();
+>
+>   shape1 -> draw(); // Drawing Circle . . .
+>   shape2 -> draw(); // Drawing Rectangle . . .
+>
+>   delete shape1;
+>   delete shape2;
+>
+>   return 0;
+>}
+>```
+>
+> **When To Use**
+> 
+> - **Interface Definition**:
+> Use abstract classes to define a common interface for a group of related classes, ensuring that they provide specific functionality.
+>
+> - **Code Reuse**:
+> Abstract classes can contain common code that can be reused by multiple derived classes, reducing redundancy.
+>
+> **When Not to Use**
+>
+> - **Instantiation**:
+> Do not use it if you need to create instances of the class directly. Abstract classes cannot be instantiated.
+>
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Design Flexibility**: 
+> Enforces a design contract, ensuring derived classes implement specific methods.
+>
+> - **Code Organization**:
+> Encourages organized and modular code, making it easier to manage and extend.
+>
+> - **Reusability**:
+> Common functionality can be implemented in the abstract class and shared across derived classes.
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Overhead**: 
+> Virtual functions calls have slight overhead compared to non-virtual calls.
+
+
+
+
+

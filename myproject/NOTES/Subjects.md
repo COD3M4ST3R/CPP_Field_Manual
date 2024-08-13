@@ -93,7 +93,9 @@
 - Inheritance
 - Interface with Abstract & Virtual
 
-### STRUCT, ENUM CLASS, TEMPLATES
+### STRUCT, ENUM CLASS
+
+### TEMPLATES
 
 ### PASSING VALUE
 - By Value 
@@ -101,7 +103,6 @@
 - By Raw Pointers
 - By Smart Pointers
     
-
 ### REFERENCE WRAPPERS
 
 ### STD::FUNCTION
@@ -2242,6 +2243,213 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 >
 > - **Overhead**: 
 > Virtual functions calls have slight overhead compared to non-virtual calls.
+
+
+
+
+
+> ### <font color="#a442f5">Struct & Enum Class</font>
+> 
+> ### Struct
+> User-defined data type that groups together variables of different types under a single name. By default, all members of a 'struct' are public, unlike in a class where they are private. Structs are commonly used for simple data structures.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>struct Point
+>{
+>   int x;
+>   int y;
+>};
+>
+>int main()
+>{
+>   Point p1 = {10, 20};
+>   
+>   return 0;
+>}
+>```
+>
+> **When To Use**
+> 
+> - Use structs when you need to group related data together without requiring complex functionality.
+>
+> **When Not to Use**
+>
+> - Avoid structs if you need encapsulation, inheritance or polymorphism; use classes instead.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Simple Syntax** 
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Lack of Encapsulation**
+
+
+
+
+
+> ### <font color="#a442f5">Enum Class</font>
+> Provides a way to define type-safe and scoped enumeration. Unlike traditional enums, 'enum class' values do not implicitly convert to integers and their scope is restricted to the enum class itself.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>enum class Direction { North, East, South, West };
+>
+>int main()
+>{
+>   Direction dir = Direction::North;
+>   if( dir == Direction::North )
+>   {
+>      std::cout << "Heading North" << std::endl;
+>   }
+>
+>   return 0;
+>}
+>```
+>
+> **When To Use**
+> 
+> - When you need a scoped and type-safe enumeration, especially when working in larger codebases where name collisions might occur.
+>
+> **When Not to Use**
+>
+> - If you need the underlying integer values of if you prefer implicit conversions to integers.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Scope & Type-Safety**
+
+
+
+
+
+> ### <font color="#a442f5">Templates</font>
+> Allows you to write generic and reusable code that can work with any data type. They enable the creation of functions, classes and other entities that can operate on different type without duplication of code. Templates are a powerful feature in C++, often used to implement data structures, algorithms and generic libraries.
+>
+> ### Function Templates
+> Allow you to create a function that can work with any data type. The specific type is determined when the function is called.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>template<typename T>
+>T add(T a, T b)
+>{
+>   return a + b;
+>}
+>
+>int main()
+>{
+>   int intResult = add(5, 4);
+>   double doubleResult = add(4.3, 6,2);
+>
+>   return 0;
+>}
+>```
+>
+> ### Class Templates
+> Allow you to create a class that can handle any data type. The type is specified when an instance of the class is created.
+>
+> **<font color="#428df5">Example</font>**
+>```cpp
+>template<typename T>
+>class Box
+>{
+>   private:
+>      T p_value;
+>
+>   public:
+>      Box(T value) : p_value(value) {}
+>      T get_p_value() { return p_value; }
+>};
+>
+>int main()
+>{
+>   Box<int> intBox(123);
+>   Box<double> doubleBox(3423.56);
+>
+>   return 0;
+>}
+>```
+>
+> ### Function Specialization
+> Allow you to define specific implementations of a template for particular data types.
+>
+> **<font color="#428df5">Example</font>**
+>```cpp
+>template<typename T>
+>class Printer
+>{
+>   public:
+>      void print(T value)
+>      {
+>         std::cout << value << std::endl;
+>      }
+>};
+>
+>// Specialization for char*
+>template<>
+>class Printer<char*>
+>{
+>   public:
+>      void print(char* value)
+>      {
+>         std::cout << value << std::endl;
+>      }
+>};
+>
+>int main()
+>{
+>   Printer<int> intPrinter;
+>   Printer<char*> stringPrinter;
+>
+>   intPrinter.print(69);
+>   stringPrinter.print("Hello");
+>
+>   return 0;
+>}
+>```
+>
+> **When To Use**
+> 
+> - **Generic Code**:
+> When you need to write functions or classes that should work with any data type.
+>
+> - **Reusable Libraries**:
+> Templates are ideal for creating reuable libraries, such as the Standard Template Library(STL), where data structures and algorithms work with any various types.
+>
+> - **Compile-Time Polymorphism**:
+> When you need polymorphism but want to avoid the runtime overhead of virtual functions.
+>
+> **When Not to Use**
+>
+> - **Complex Logic**:
+> If the logic inside the template varies greatly depending on the type, templates may add unneccassary complexity.
+>
+> - **Code Bloat**:
+> Templates can cause code bloat because each instantiation of a template with a new type generates new codem which can increase binary size.
+>
+> - **Compilation Time**:
+> Templates can significantly increase compilation time, especially with complex template metaprogramming.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Type Safety**
+>
+> - **Code Reusability**
+>
+> - **Flexibility** 
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Complexity** 
+>
+> - **Code Bloat**
+>
+> - **Long Compilation Time**
 
 
 

@@ -74,7 +74,6 @@
 
 ### SLF(STANDARD LIBRARY FEATURES)
 - Initializer List
-- Smart Pointers
 - Streams
 - Date and Time
 
@@ -1444,103 +1443,6 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 
 
 
-> ### <font color="#a442f5">Smart Pointers</font>
-> Smart pointers are a feature in C++ that manage the lifetime of dynamically allocated objects, helping to prevent memory leaks and dangling pointers by automatically deallocating memory when it is no longer needed. The Standard Library provides several types of smart pointers, each designed for different use cases.
->
-> ### std::unique_ptr
-> A smart pointer that owns and manages another object through a pointer and disposes of that object when the 'std::unique_ptr' goes out of scope. Unique ownership, non-copyable, movable.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> std::unique_ptr<int> ptr1(new int(10));
-> // std::unique_ptr<int> ptr2 = ptr1; // Error: cannot copy
-> std::unique_ptr<int> ptr2 = std::move(ptr1);
->```
->
-> **When To Use**
-> 
-> - When you need exclusive ownership of a resource.
-> - For managing the lifetime of resources that are not shared.
-> - For implementing RAII (Resource Acquisition Is Initialization) patters.
->
-> **When Not to Use**
->
-> - When you need shared ownership or the ability to copy the smart pointer.
-> - When passing ownership to function that do not accept 'std::unique_ptr'.
->
-> <hr>
->
-> ### std::shared_ptr
-> A smart pointer that retains shared ownership of an object through a pointer. Multiple 'std::shared_ptr' instances can manage the same object. Shared ownership, reference counting.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> std::shared_ptr<int> ptr1 = std::make_shared<int>(20);
-> std::shared_ptr<int> ptr2 = ptr2; // Okay: shared ownership.
->```
->
-> **When To Use**
-> - When multiple parts of your program need to share ownership of a resource.
-> - When object need to be shared across multiple scopes or threads.
->
-> **When Not to Use**
-> - When exclusive ownership is sufficient or required.
-> - In performace-critical code where reference counting overhead is unacceptable.
->
-> <hr>
->
-> ### std::weak_ptr
-> A smart pointer that holds a non-owning (weak) reference to an object that is managed by 'std::shared_ptr'. It is used to break circular references. Non-owning, does not affect reference count.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> std::shared_ptr<int> sp = std::make_shared<int>(30);
-> std::weak_ptr<int> wp = sp; // wp does not affect reference count.
-> if(auto sp2 = wp.lock()) // Check if the object still exist. 
-> { 
->     // use sp2. 
-> } else{
->     // sp2 has been destroyed.
-> }
->```
->
-> **When To Use**
-> - When you need to reference an object managed by 'std::shared_ptr' without affecting its lifetime.
-> - For breaking circular references between 'std::shared_ptr' instances.
->
-> **When Not to Use**
-> - As a primary owning reference, since it does not manage the object's lifetime.
-> - When you do not need to break cycles between 'std::shared_ptr' instances.
->
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - **Automatic Memory Management**: 
-> Smart pointers automatically manage the lifetime of dynamically allocated objects, reducing the risk of memory leaks.
->
-> - **Exception Safety**:
-> They ensure that resources are properly relased even in the presence of exceptions.
->
-> - **Clear Ownership Semantics**:
-> Different types of smart pointers provide clear semantics for ownership and resource management.
->
->
-> **<font color="#f56942">Disadvantages</font>**
->
-> - **Overhead**: 'std::shared_ptr' has some overhead due to reference counting and atomic operations, which can impact performance.
->
-> - **Complexity**:
-> Using smart pointers can add complexity, especially when dealing with circular dependencies and weak references.
->
-> - **Incorrect Usage**:
-> Misuse of smart pointers(e.g., creating cycles with 'std::shared_ptr') can still lead to resource management issues.
-
-
-
-
 
 > ### <font color="#a442f5">Streams</font>
 > Streams in C++ provide a powerful and flexible way to perform input and output (I/O) operations. They are part of the Standard Library and offer a consistent interface for reading from and writing to various sources, such as files, standard input/output, and strings.
@@ -2248,9 +2150,8 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 
 
 
-> ### <font color="#a442f5">Struct & Enum Class</font>
-> 
-> ### Struct
+### <font color="#ffc900">STRCUT & ENUM CLASS</font>
+> ### <font color="#a442f5">Struct</font>
 > User-defined data type that groups together variables of different types under a single name. By default, all members of a 'struct' are public, unlike in a class where they are private. Structs are commonly used for simple data structures.
 >
 > **<font color="#428df5">Example</font>**
@@ -2285,10 +2186,7 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 > **<font color="#f56942">Disadvantages</font>**
 >
 > - **Lack of Encapsulation**
-
-
-
-
+>
 
 > ### <font color="#a442f5">Enum Class</font>
 > Provides a way to define type-safe and scoped enumeration. Unlike traditional enums, 'enum class' values do not implicitly convert to integers and their scope is restricted to the enum class itself.
@@ -2325,11 +2223,10 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 
 
 
-
-> ### <font color="#a442f5">Templates</font>
+### <font color="#ffc900">TEMPLATES</font>
 > Allows you to write generic and reusable code that can work with any data type. They enable the creation of functions, classes and other entities that can operate on different type without duplication of code. Templates are a powerful feature in C++, often used to implement data structures, algorithms and generic libraries.
 >
-> ### Function Templates
+> ### <font color="#a442f5">Function Templates</font>
 > Allow you to create a function that can work with any data type. The specific type is determined when the function is called.
 >
 > **<font color="#428df5">Example</font>**
@@ -2349,8 +2246,8 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 >   return 0;
 >}
 >```
->
-> ### Class Templates
+
+> ### <font color="#a442f5">Class Templates</font>
 > Allow you to create a class that can handle any data type. The type is specified when an instance of the class is created.
 >
 > **<font color="#428df5">Example</font>**
@@ -2375,7 +2272,8 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 >}
 >```
 >
-> ### Function Specialization
+
+> ### <font color="#a442f5">Template Specialization</font>
 > Allow you to define specific implementations of a template for particular data types.
 >
 > **<font color="#428df5">Example</font>**
@@ -2450,6 +2348,250 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 > - **Code Bloat**
 >
 > - **Long Compilation Time**
+
+
+
+
+### <font color="#ffc900">PASSING VALUES</font>
+> ### <font color="#a442f5">By Value</font>
+> When you pass a variable by value, a copy of the variable is made. The function works with this copy, so any changes made to the variable inside the function do not affect the original variable.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>void modifyValue(int x)
+>{
+>   x = 10; // This change does not affect the original variable.
+>}
+>
+>int main()
+>{
+>   int a = 5;
+>   modifyValue(a);
+>
+>   return 0;
+>}
+>```
+>
+> **When To Use**
+> 
+> - When you do not need to modify the original value.
+>
+> - When the object being passed is small and cheap to copy, such as fundamental data types(int, char, etc...)
+>
+> **When Not to Use**
+>
+> - For large objects like vectors or strings, where copying is expensive in terms of performance.
+>
+> - When you need to modify the original value.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - Simple and safe, no need to worry about ownership or lifetime issues.
+>
+> - No risk of unintended side effects since the function works with a copy. 
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - Can be inefficient for large objects due to the overhead of copying.
+>
+> - Does not allow the function to modify the original value.
+
+
+
+
+
+> ### <font color="#a442f5">Passing by Reference</font>
+> When you pass a variable by reference, you pass the variable itself, not a copy. Any changes made to the variable inside the function will affect the original variable.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>void modifyValue(int& x)
+>{
+>   x = 10; // This change affects the original value
+>}
+>
+>int main()
+>{
+>   int a = 5;
+>   modifyValue(a);
+>
+>   return 0;
+>}
+>```
+>
+> **When To Use**
+> 
+> - When you need to modify the original variable.
+>
+> - When passing large objects, to avoid the overhead of copying.
+>
+> **When Not to Use**
+>
+> - When you want to ensure the original variable remains unchanged.
+>
+> - When dealing with simple, small data types where copying is inexpensive.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - No copying overhead, making it efficient for large objects.
+>
+> - Allows the function to modify the original variable. 
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - Potential for unintended side effects if the original variable is modified.
+>
+> - Requires careful management to avoid issues like dangling references.
+
+
+
+
+
+> ### <font color="#a442f5">Raw Pointer</font>
+> Is similiar to passing by reference, but you pass the address of the variable explicitly. The function works with the pointer to the variable, which allows modification of the original value.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>void modifyValue(int* x)
+>{
+>   *x = 10; // This change affects the original variable.
+>}
+>
+>int main()
+>{
+>   int a = 5;
+>   modifyValue(&a);
+>
+>   return 0;
+>}
+>```
+>
+> **When To Use**
+> 
+> - When you need to pass a variable that may be null.
+>
+> - When dealing with arrays or dynamically allocated memory.
+>
+> **When Not to Use**
+>
+> - When you can use references or smart pointers instead.
+>
+> - When ownership and lifetime management are important.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - Flexibility in passing null pointers and dynamic memory.
+>
+> - Can modify the original variable. 
+> 
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - Requires explicit memory management, increasing the risk of memory leaks and dangling pointers.
+>
+> - Pointers can be null, so you must check for null pointers to avoid crashes.
+
+
+
+
+
+
+
+> ### <font color="#a442f5">Smart Pointers</font>
+> Smart pointers are a feature in C++ that manage the lifetime of dynamically allocated objects, helping to prevent memory leaks and dangling pointers by automatically deallocating memory when it is no longer needed. The Standard Library provides several types of smart pointers, each designed for different use cases.
+>
+> ### std::unique_ptr
+> A smart pointer that owns and manages another object through a pointer and disposes of that object when the 'std::unique_ptr' goes out of scope. Unique ownership, non-copyable, movable.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> std::unique_ptr<int> ptr1(new int(10));
+> // std::unique_ptr<int> ptr2 = ptr1; // Error: cannot copy
+> std::unique_ptr<int> ptr2 = std::move(ptr1);
+>```
+>
+> **When To Use**
+> 
+> - When you need exclusive ownership of a resource.
+> - For managing the lifetime of resources that are not shared.
+> - For implementing RAII (Resource Acquisition Is Initialization) patters.
+>
+> **When Not to Use**
+>
+> - When you need shared ownership or the ability to copy the smart pointer.
+> - When passing ownership to function that do not accept 'std::unique_ptr'.
+>
+> <hr>
+>
+> ### std::shared_ptr
+> A smart pointer that retains shared ownership of an object through a pointer. Multiple 'std::shared_ptr' instances can manage the same object. Shared ownership, reference counting.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> std::shared_ptr<int> ptr1 = std::make_shared<int>(20);
+> std::shared_ptr<int> ptr2 = ptr2; // Okay: shared ownership.
+>```
+>
+> **When To Use**
+> - When multiple parts of your program need to share ownership of a resource.
+> - When object need to be shared across multiple scopes or threads.
+>
+> **When Not to Use**
+> - When exclusive ownership is sufficient or required.
+> - In performace-critical code where reference counting overhead is unacceptable.
+>
+> <hr>
+>
+> ### std::weak_ptr
+> A smart pointer that holds a non-owning (weak) reference to an object that is managed by 'std::shared_ptr'. It is used to break circular references. Non-owning, does not affect reference count.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> std::shared_ptr<int> sp = std::make_shared<int>(30);
+> std::weak_ptr<int> wp = sp; // wp does not affect reference count.
+> if(auto sp2 = wp.lock()) // Check if the object still exist. 
+> { 
+>     // use sp2. 
+> } else{
+>     // sp2 has been destroyed.
+> }
+>```
+>
+> **When To Use**
+> - When you need to reference an object managed by 'std::shared_ptr' without affecting its lifetime.
+> - For breaking circular references between 'std::shared_ptr' instances.
+>
+> **When Not to Use**
+> - As a primary owning reference, since it does not manage the object's lifetime.
+> - When you do not need to break cycles between 'std::shared_ptr' instances.
+>
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Automatic Memory Management**: 
+> Smart pointers automatically manage the lifetime of dynamically allocated objects, reducing the risk of memory leaks.
+>
+> - **Exception Safety**:
+> They ensure that resources are properly relased even in the presence of exceptions.
+>
+> - **Clear Ownership Semantics**:
+> Different types of smart pointers provide clear semantics for ownership and resource management.
+>
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Overhead**: 'std::shared_ptr' has some overhead due to reference counting and atomic operations, which can impact performance.
+>
+> - **Complexity**:
+> Using smart pointers can add complexity, especially when dealing with circular dependencies and weak references.
+>
+> - **Incorrect Usage**:
+> Misuse of smart pointers(e.g., creating cycles with 'std::shared_ptr') can still lead to resource management issues.
 
 
 

@@ -2597,3 +2597,105 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 
 
 
+
+> ### <font color="#a442f5">Reference Wrappers</font>
+> Allows you to store references in contexts where only objects are usually allowed, such as in containers like 'std::vector' or 'std::list'. The most common tool for this is 'std::reference_wrapper', which is part of Standard Library.
+>
+> 'std::reference_wrapper' wraps a reference is an object that can be copied and assigned like a regular object. This is useful because references themselves cannot be stored in containers, but 'std::reference_wrapper' can, allowing indirect reference storage.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> #include <functional>
+> #include <vector>
+>
+>int main()
+>{
+>   int a = 10;
+>   int b = 20;
+>   int c = 30;
+>
+>   // Create a vector of reference wrappers
+>   std::vector<std::vector_wrapper<int>> vec = { a, b, c };
+>
+>   // Modify the original variables through the reference wrapper
+>   for( int& element : vec )
+>   {
+>      element.get() += 5; // Use .get() to access the reference
+>   }
+>
+>   return 0;
+>}
+>```
+>
+> **When To Use**
+> 
+> - **Storing References in Containers**:
+> When you need to store references in containers, which normally store copies of objects.
+>
+> - **Passing References to Callbacks**:
+> It's useful when you need to pass references to functions or callbacks that expect objects.
+>
+> - **Avoiding Copy Overheads**:
+> When you want to avoid the overhead of copying large objects and instad work with their references.
+>
+> **When Not to Use**
+>
+> - **When Ownership is Important**:
+> If the ownership of the object matters, consider using smart pointer instead, as 'std::reference_wrapper' does not manage the object's lifetime.
+>
+> - **For Simple Reference Passing**:
+> If you do not need to store or pass the reference in a container or function expecting objects, a normal reference will suffice.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Efficiency**:
+> Allow passing and storing references without the overhead of copying.
+>
+> - **Container Compatibility**:
+> Enables references to be stored in standard containers that normally do not allow reference types.
+>
+> - **Integration**:
+> Works seamlessly with standard algorithms and other STL components.
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **No Ownership**:
+> 'std::reference_wrapper' does not manage the object's lifetime, which can lead to dangling references if the original object is destroyed.
+>
+> - **Additional Access Step**:
+> You need to use '.get()' to access the underlying reference, which adds a small overhead and complexity.
+>
+> - **Potential for Dangling References**:
+> If the object being references is destroyed while the reference wrapper is still in use, it leads to undefined behavior.
+
+
+
+
+### <font color="#ffc900">STD::FUNCTION</font>
+> ### <font color="#a442f5">Callbacks</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+

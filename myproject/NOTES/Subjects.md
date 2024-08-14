@@ -2674,28 +2674,96 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 
 ### <font color="#ffc900">STD::FUNCTION</font>
 > ### <font color="#a442f5">Callbacks</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> Callback functions are functions passed as arguments to other functions or methods. They are often used to customize or extend the behavior of libraries and frameworks by allowing the caller to specify a function to be called at a particular event or moment. The 'std::function' type from the Standard Library is powerful tool for implementing callback functions because it can store, copy and invoke any callable target functions, lambda expressions, bind expressions or other function objects.
+>
+> 'std::function' is a type-safe, general-purpose polymorphic function wrapper. It can encapsulate any callable target that is compatible with the signature specified when declaring the 'std::function' object. This includes:
+>
+> - Regular functions (free functions),
+> - Member functions,
+> - Lambda expressions,
+> - Bind expressions (created using 'std::bind'),
+> - Functors (objects of a class that overloads the 'operator()').
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>#include <iostream>
+>#include <functional>
+>
+>// A simple free function
+>void freeFunction(int value)
+>{
+>   std::cout << "Free function: " << value << std::endl;
+>}
+>
+>// A functor (function object)
+>struct Functor
+>{
+>   void operator()(int value) const
+>   {
+>      std::cout << "Functor: " << value << std::endl;
+>   }
+>}
+>
+>int main()
+>{
+>   // Using 'std::function' to wrap a free function
+>   std::function<void(int)> callback = freeFunction;
+>   callback(10);
+>
+>   // Using 'std::function' to wrap a lambda expression
+>   callback = [](int value)
+>   {
+>      std::cout << "Lambda: " << value << std::endl;
+>   };
+>   callback(20);
+>
+>   // Using 'std::function' to wrap a functor
+>   callback = Functor()
+>   callback(30);
+>
+>   return 0;
+>}
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - **Customizing Library Behavior**:
+> Use 'std::function' when you need to pass a callback function to a library or framework that requires custom behavior.
+>
+> - **Event Handling**:
+> When implementing event-driven systems, 'std::function' is ideal for storing and invoking event handlers.
+>
+> - **Deferred Execution**:
+> When you need to store a function to be executed later, such as in asynchronous operations.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - **Performance Critical Code**:
+> 'std::function' incurs some overhead due to type erasure and heap allocations. If performance is critical, prefer using template-based solutions or function pointers directly.
+>
+> - **Simple Use Cases**:
+> If you need to pass a simple function pointer, and do not require the flexibility of 'std::function', a regular function pointer might be more efficient.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Flexibility**: 
+> 'std::function' can store any callable target, providing a high level of flexibility in designing APIs.
+>
+> - **Type Safety**:
+> Ensures that the stores callable matches the specified function signature, reducing the risk of runtime errors.
+>
+> - **Ease of Use**:
+> Simplifies the process of passing and storing functions, especially in complex, callback-driven designs.
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Performance Overhead**:
+> Has some overhead compared to raw function pointers due to type erasure and potential heap allocations.
+>
+> - **Memory Usage**:
+> The underlying implementation may allocate memory dynamically, which can be a concern in low-level or performance-critical applications.
+>
+> - **Potential for Undefined Behavior**:
+> If the callabke target is a member function, care must be taken to ensure that the object outlives the 'std::function' instance or else it could lead to undefined behavior. 
 

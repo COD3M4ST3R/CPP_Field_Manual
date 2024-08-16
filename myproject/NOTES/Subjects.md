@@ -104,12 +104,13 @@
     
 ### REFERENCE WRAPPERS
 
-### STD::FUNCTION
-- Callbacks
-- Function Composition
-- Command Pattern
-- Dependency Injection
-- Generic Algorithms
+### CALLBACK & STD::FUNCTION
+
+### FUNCTION COMPOSITION
+
+### COMMAND PATTERN
+
+### DEPENDENCY INJECTION
 
 ### CASTING
 - Static Cast
@@ -2598,7 +2599,7 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 
 
 
-> ### <font color="#a442f5">Reference Wrappers</font>
+### <font color="#ffc900">REFERENCE WRAPPERS</font>
 > Allows you to store references in contexts where only objects are usually allowed, such as in containers like 'std::vector' or 'std::list'. The most common tool for this is 'std::reference_wrapper', which is part of Standard Library.
 >
 > 'std::reference_wrapper' wraps a reference is an object that can be copied and assigned like a regular object. This is useful because references themselves cannot be stored in containers, but 'std::reference_wrapper' can, allowing indirect reference storage.
@@ -2672,8 +2673,7 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 
 
 
-### <font color="#ffc900">STD::FUNCTION</font>
-> ### <font color="#a442f5">Callbacks</font>
+### <font color="#ffc900">CALLBACKS & STD::FUNCTION</font>
 > Callback functions are functions passed as arguments to other functions or methods. They are often used to customize or extend the behavior of libraries and frameworks by allowing the caller to specify a function to be called at a particular event or moment. The 'std::function' type from the Standard Library is powerful tool for implementing callback functions because it can store, copy and invoke any callable target functions, lambda expressions, bind expressions or other function objects.
 >
 > 'std::function' is a type-safe, general-purpose polymorphic function wrapper. It can encapsulate any callable target that is compatible with the signature specified when declaring the 'std::function' object. This includes:
@@ -2767,3 +2767,355 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 > - **Potential for Undefined Behavior**:
 > If the callabke target is a member function, care must be taken to ensure that the object outlives the 'std::function' instance or else it could lead to undefined behavior. 
 
+
+
+
+### <font color="#ffc900">FUNCTION COMPOSITION</font>
+> Refers to the process of combining multiple functions into a single function, where the output of one becomes the input to the next. This concept is common in functional programming but can also be effectively used in C++ through the use of function objects, lambdas and 'std::function'
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>#include <iostream>
+>#include <functional>
+>
+>// Define two simple functions
+>int multiplyByTwo(int x)
+>{
+>   return (x * 2);
+>}
+>
+>int addFive(int x)
+>{
+>   return (x + 5);
+>}
+>
+>// A utility function to compose two functions
+>std::function<int(int)> compose(std::function<int>(int)> f, std::function<int(int)> g)
+>{
+>   return [f, g](int x)
+>   {
+>      return g(f(x));
+>   };
+>}
+>
+>int main()
+>{
+>   // Compose multipleByTwo and AddFive
+>   auto composedFunction = compose(multiplyByTwo, addFive);
+>
+>   // Use the composed function
+>   int result = composedFunction(4); // Equivalent to addFive(multiplyByTwo(3))
+>
+>   return 0;
+>}
+>```
+>
+> **When To Use**
+> 
+> - **Complex Transformations**:
+> When you need to apply multiple transformations to data and want to encapsulate the sequence of operations in a single callable entity.
+>
+> - **Readable and Maintainable Code**:
+> Function composition can make your code more readable and maintainable by clearly expressing a sequence of operations.
+>
+> - **Reusable Code**:
+> If you have a set of reusable operations that can be combined in different ways, function composition allows you to easily create new behaviors from existing functions.
+>
+> **When Not to Use**
+>
+> - **Performance Critical Code**:
+> Composing functions, especially using 'std::function', may introduce overhead due to additional function calls and potential heap allocations.
+>
+> - **Simple Operations**:
+> For very simple operations, composing functions might overcomplicate the code compared to just writing the operations inline.
+>
+> - **Immediate Execution**:
+> If functions are only used once and the composition does not add clarity or reusability, it is better to execute them directly without composition.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Modularity**
+>
+> - **Clarity**
+>
+> - **Flexibility** 
+> 
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Performance Overhead**
+>
+> - **Complexity**
+>
+> - **Debugging Difficulty** 
+
+
+
+
+
+
+### <font color="#ffc900">COMMAND PATTERN</font>
+> Is a behavioral design pattern that turns a request into a stand-alone object that contains all the information about the request. This transformation allows you to parameterize methods with different requests, delay or queue a request's execution and support undoable operations. This pattern is particulary useful for implementing actions that can be executed, undone or queue dynamically at runtime.
+>
+> In the Command Pattern, you encapsulate a request as an object, thereby allowing you to pass the request as a parameter, queue the request, log it and support undoable operations. The pattern typically involves four main components.
+>
+> - **Command Interface**:
+> An abstract interface that declares the method for executing a command.
+>
+> - **Concrete Commands**:
+> Classes that implement the command interface and define the relationship between the receiver and an action.
+>
+> - **Receiver**:
+> The component that performs the actual work when the command is executed.
+>
+> - **Invoker**:
+> The component that triggers the command to be executed. It can also manage the command history to support undo operations.
+>
+> - **Client**:
+> The component that creates and configures commands, receivers and invokers.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>#include <iostream>
+>#include <vector>
+>#include <memory>
+>
+>// Command Interface
+>class Command
+>{
+>   public:
+>      virtual ~Command() {}
+>      virtual void execute() = 0;
+>};
+>
+>// Receiver Class
+>class Light
+>{
+>   public:
+>      void on()
+>      {
+>         std::cout << "Light is ON" << std::endl;
+>      }
+>
+>      void off()
+>      {
+>         std::cout << "Light is OFF" << std::endl;
+>      }
+>};
+>
+>// Concrete command for turning the light on
+>class LightOnCommand : public Command
+>{
+>   private:
+>      Light& m_light;
+>
+>   public:
+>      LightOnCommand(Light& light) : m_light(light) {}
+>
+>      void execute() override
+>      {
+>         m_light.on();
+>      }
+>}
+>
+>// Concrete command for turning the light off
+>class LightOffCommand : public Command
+>{
+>   private:
+>      Light& m_light;
+>
+>   public:
+>      LightOffCommand(Light& light) : m_light(light) {}
+>
+>      void execute() override
+>      {
+>         m_light.off();
+>      }
+>}
+>
+>// Invoker Class
+>class RemoteControl
+>{
+>   private:
+>      std::unique_ptr<Command> m_command;
+>
+>   public:
+>      void setCommand(std::unique_ptr<Command> command)
+>      {
+>         m_command = std::move(command);
+>      }
+>
+>      void pressButton()
+>      {
+>         if(m_command)
+>         {
+>            m_command -> execute();
+>         }
+>      }
+>}
+>
+>// Client Code
+>int main()
+>{
+>   Light light;
+>
+>   // Create command objects
+>   auto lightOn = std::make_unique<LightOnCommand>(light);
+>   auto lightOff = std::make_unique<LightOffCommand>(ligth);
+>
+>   // Create the invoker
+>   RemoteControl remote;
+>
+>   // Turn the light on
+>   remote.setCommand(std::move(lightOn));
+>   remote.pressButton();
+>
+>   // Turn the light off
+>   remote.setCommand(std::move(lightOff));
+>   remote.pressButton();
+>
+>   return 0;
+>}
+>```
+>
+> **When To Use**
+> 
+> - **Decoupling Invoker and Receiver**:
+> Use it when you need to decouple the object that invokes the operation from the one that knows how to perform it.
+>
+> - **Queuing and Logging Requests**:
+> When you need to queue, log or undo/redo operations, the 'Command Pattern' provides a structure to handle these needs.
+>
+> - **Parametrizing Objects with Operations**:
+> It is useful when you need to parameterize objects with operations (commands).
+>
+> **When Not to Use**
+>
+> - **Simple Operations**:
+> If the actions are simple and there is no need for undo functionality or complex command management, the pattern may add unnecsary complexity.
+>
+> - **Performance Critical Code**:
+> The additional layers introduces by the 'Command Pattern' can introduce overhead, which might be undesirable in performance-critical applications.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Decoupling**
+>
+> - **Undo/Redo Operations**
+>
+> - **Command Queuing** 
+> 
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Increased Complexity**
+>
+> - **Potential Overhead** 
+
+
+
+
+
+### <font color="#ffc900">DEPENDENCY INJECTION</font>
+> Dependency Injection(DI) is a design pattern used to achive Inversion of Control(IoC) between classes and their dependencies. In simplier terms, it allows you to inject dependencies (services, objects, etc.) into a class rather than the class creating them itself. This pattern is crucial for building loosely coupled, easily testable and maintainable code. There are three common ways to implement DI:
+>
+> - **Constructor Injection**:
+> Dependencies are provided through a class constructor.
+>
+> - **Setter Injection**:
+> Dependencies are provided through setter methods.
+>
+> - **Interface Injection**:
+> The dependency provided an injection method that will inject the dependency into any client passed to it.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>#include <iostream>
+>#include <memory>
+>
+>// Service Interface
+>class Logger
+>{
+>   public:
+>      virtual void log(const std::string& message) = 0;
+>      virtual ~Logger() = default;
+>};
+>
+>// Concrete Service
+>class ConsoleLogger : public Logger
+>{
+>   public:
+>      void log(const std::string& message) override
+>      {
+>         std::cout << "Log:" << message << std::endl;
+>      }
+>};
+>
+>// Client Class
+>class Application
+>{
+>   private:
+>      std::shared_ptr<Logger> m_logger;
+>
+>   public:
+>      Application(std::shared_ptr<Logger> logger) : m_logger(logger) {}
+>
+>      void run()
+>      {
+>         m_logger -> log("Application is running . . .");
+>      }
+>}
+>
+>// Main function (Client code)
+>int main()
+>{
+>   // Injection dependency (ConsoleLogger) into Application
+>   std::shared_ptr<Logger> logger = std::make_shared<ConsoleLogger>();
+>   Application app(logger);
+>   app.run();
+>
+>   return 0;
+>}
+>```
+>
+> **When To Use**
+> 
+> - **Loose Coupling**:
+> Use DI when you want to decouple your classes from their dependencies, making the code more modular and flexible.
+>
+> - **Unit Testing**:
+> DI is essential for unit testing because it allows you to inject mock dependencies, making it easier to isolate and test individual components.
+>
+> **Extensibility**:
+> When your application needs to be easily extendable with new features, DI allows you to inject new services without modifying existing classes.
+>
+> **When Not to Use**
+>
+> - **Simple Application**
+>
+> - **Performance Critical Code**
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Decoupling**:
+> DI promotes loose coupling between components, making your codebase more modular and easier to maintain.
+>
+> - **Testability**:
+> DI enables easier unit testing by allowing dependencies to be mocked or stubbed.
+>
+> - **Flexibility**:
+> You can easily swap out different implementations of a dependency without modifying the dependent class.
+>
+> - **Maintainability**:
+> DI makes is easier to manage changes in dependencies, as you do not need to modify the dependent classes. 
+
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Increased Complexity**:
+> Implementing DI, especially using DI frameworks, can add complexity to the codebase.
+>
+> - **Learning Curve**
+>
+> - **Overhead** 

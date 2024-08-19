@@ -12,7 +12,7 @@
 
 
 
-
+### <font color="#ffc900">KEYWORDS</font>
 
 > ### <font color="#a442f5">. . . </font>
 > ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
@@ -112,11 +112,12 @@
 
 ### DEPENDENCY INJECTION
 
-### CASTING
+### CASTS
 - Static Cast
 - Dynamic Cast
 - Const Cast
 - Reinterpret Cast
+- C-Style Cast(Type Casting)
 
 ### ERROR / EXCEPTION HANDLING
 
@@ -3109,7 +3110,6 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 >
 > - **Maintainability**:
 > DI makes is easier to manage changes in dependencies, as you do not need to modify the dependent classes. 
-
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
@@ -3119,3 +3119,320 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 > - **Learning Curve**
 >
 > - **Overhead** 
+
+
+
+
+
+### <font color="#ffc900">CASTS</font>
+> C++ provides several casting operators to convert between different types of pointers, references or objects. Each type of cast serves a specific purporse and has different impilcations for safety, performance and use cases. 
+>
+> ### <font color="#a442f5">static_cast</font>
+> It is the most common and safest type of cast in C++. It is used for well-defined conversions between types, such as converting a pointer to a base class to a pointer to a derived class or converting between numeric types.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> int num = 10;
+> double d = static_cast<double>(num);
+>```
+>
+> **When To Use**
+> 
+> - When you need to perform a conversion that is well-defined and non-polymorphic such as numeric conversions or pointer upcasts (from derived to base).
+>
+> **When Not to Use**
+>
+> - When dealing with polymorphic types where you might need a runtime check (use 'dynamic_cast' instead).
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Safety**:
+> Provides a compile-time type checking, making it safer than C-style casts. 
+> 
+> - **Clarity**:
+> It clearly indicates the intent to perform a specific type of conversion.
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **No Runtime Check**:
+> There is no runtime type checking, so incorrect downcasting (from base to derived) can lead to undefined behavior. 
+
+
+
+
+
+> ### <font color="#a442f5">dynamic_cast</font>
+> Used for safe downcasting in polymorphic hieracrhies. It checks at runtime whether the conversion is valid and returns 'nullptr' if it is not.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>class Base
+>{
+>   public:
+>      virtual ~Base() = default;
+>};
+>
+>class Derived : public Base {};
+>
+>Base* basePtr = new Derived();
+>Derived* derivedPtr = dynamic_cast<Derived*>(basePtr);
+>```
+>
+> **When To Use**
+> 
+> - When you need to safely downcast pointers or references in a polymorphic class hierarchy.
+>
+> **When Not to Use**
+>
+> - When you do not require runtime type checking of when performance is critical (as 'dynamic_cast' can be slower due to runtime checks).
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Safety**: 
+> It provides runtime type safety by checking if the cast is valid.
+>
+> - **Polymorphism**:
+> It is essential for safely downcasting in polymorphic class hierarchies.
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Performance**:
+> It incurs a runtime overhead due to type checking.
+>
+> - **Limited to Polymorphism**:
+> It can only be used with polymorphic types (classes with virtual functions). 
+
+
+
+
+
+> ### <font color="#a442f5">const_cast</font>
+> It is used to add or remove the 'const' qualifer from a variable. It is the only cast that change the 'const' or 'volatile' qualifier.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>void foo(const int* p)
+>{
+>   int* q = const_cast<int*>(p);
+>   *q = 20;
+>}
+>```
+>
+> **When To Use**
+> 
+> - When you need to remove 'const' or 'volatile' qualifiers in a controlled environment where you know the cast is safe.
+>
+> **When Not to Use**
+>
+> - When the original object was declared as 'const' and modifying it would lead to undefined behavior.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Controlled Usage**:
+> It allows modification of otherwise immutable data in a controlled and intentional way. 
+> 
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Undefined Behavior**:
+> Modifying a 'const' object after using 'const_cast' leads to undefined behavior.
+>
+> - **Dangerous**:
+> Misusing 'const_cast' can easily lead to bugs and unstable code. 
+
+
+
+
+
+
+> ### <font color="#a442f5">reinterpret_cast</font>
+> It is used for low-level casts that can reinterpret the bits of a variable in a different way, typically used for converting between unrelated pointer types or casting a pointer to an integer type.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>int num = 42;
+>int* p = &num;
+>long addr = reinterpret_cast<long>(p);
+>```
+>
+> **When To Use**
+> 
+> - When you need to perform bitwise conversions between types, such as between pointers and integers or between unrelated pointer types.
+>
+> **When Not to Use**
+>
+> - When safety and portability are important, as 'reinterpret_cast' is prone to producing non-portable, unsafe code.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Flexibility**:
+> It allows for conversions that are otherwise not possible with other casts. 
+>
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Unsafe**:
+> There are no checks or guarantees and the cast might produce undefined behavior if misused.
+>
+> - **Portability Issues**:
+> The results of 'reinterpret_cast' may not be portable across different platforms or compilers.
+
+
+
+
+
+> ### <font color="#a442f5">C-Style Cast(Type Casting)</font>
+> C++ also supports the old C-style cast, which is less safe because it combines the functionality of 'static_cast', 'const_cast' and 'reinterpret_cast' without distinguishing between them. It is considered best practice to avoid C-style casts in C++.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> int num = 43;
+> double d = (double)num;
+>```
+>
+> **<font color="#ff0000">Warning !</font>**
+> 
+> - It is better to avoid C-style casts in C++.
+
+
+
+
+
+### <font color="#ffc900">ERROR & EXCEPTION HANDLING</font>
+
+> ### <font color="#a442f5">. . . </font>
+> Is a crucial for writing robust and reliable code. The language provides several mechanism to handle errors, ranging from simple return codes to more complex exception handling via the 'try', 'catch' and 'throw' keywords.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>#include <iostream>
+>#include <stdexcept>
+>
+>void divide(int a, int b)
+>{
+>   if (b == 0)
+>   {
+>      throw std::invalid_argument("Division by zero");
+>   }
+>   std::cout << "Result: " << a / b << std::endl;
+>}
+>
+>int main()
+>{
+>   try
+>   {
+>      divide(10, 0);
+>   } catch(const std::invalid_argument& error)
+>   {
+>      std::cerr << "Caught exception: " << error.what() << std::endl;
+>   }
+>
+>   return 0;
+>}
+>```
+>
+> **When To Use**
+> 
+> - **Error Handling**:
+> Use exceptions to handle error conditions that your code cannot resolve on its own, especially when those errors are exceptional and not expected to occur under normal circumstances.
+>
+> - **Resource Management**:
+> Exceptions can be useful in resource management situations where an error may require the relase of resource (file, memory, etc.).
+>
+> **When Not to Use**
+>
+> - **Performance-Critical Code**:
+> Avoid using exceptions in performance-critical code where the overhead of throwing and catching exceptions may be too costly.
+>
+> - **Simple Error Conditions**:
+> For simple error conditions, such as returning an error code or using optional types (e.g.: 'std::optional'), exceptions may be overkill.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Separation of Concerns**:
+> Exception handling separates error-handling code from regular code, leading to cleaner and more readable code.
+>
+> - **Comprehensive Handling**:
+> Exceptions can be propagated up the call stack, allowing for centralized error handling.
+>
+> - **Automatic Cleanup**:
+> When an exception is thrown, C++ automatically unwinds the stack, calling destructors for objects, which helps manage resource like memory and file handles. 
+> 
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Performance Overhead**:
+> Throwing and catching exceptions can introduce performance ovearhead, making it less suitable for performance-sensitive code.
+>
+> - **Resource Management**:
+> If not managed properly, exceptions can lead to resource leaks, expecially in cases where dynamic memory or file handles are involces and not properly relased. 
+
+
+
+
+
+
+### <font color="#ffc900">MEMORY MANAGEMENT</font>
+
+> ### <font color="#a442f5">RAII</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+
+
+
+
+
+
+> ### <font color="#a442f5">Custom Memory Management</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation

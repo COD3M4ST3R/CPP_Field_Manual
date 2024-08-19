@@ -3305,7 +3305,6 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 
 ### <font color="#ffc900">ERROR & EXCEPTION HANDLING</font>
 
-> ### <font color="#a442f5">. . . </font>
 > Is a crucial for writing robust and reliable code. The language provides several mechanism to handle errors, ranging from simple return codes to more complex exception handling via the 'try', 'catch' and 'throw' keywords.
 >
 > **<font color="#428df5">Example</font>**
@@ -3380,7 +3379,166 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 
 ### <font color="#ffc900">MEMORY MANAGEMENT</font>
 
+> Memory managemenet is critical aspect of C++ programming. C++ gives programmers direct control over memory allocation and deallocation, which offers flexibility but also come with responsibilities. To manage memory safely and efficiently, C++ provides mechanisms like RAII (Resource Acquisition Is Itinialization) and allows for custom memory management strategies.
+>
 > ### <font color="#a442f5">RAII</font>
+> RAII is a programming idiom used in C++ to manage resouces such as memory, file handsles and network connections. They key idea behind it is to tie the lifecycle of a resource to the lifetime of an object. When an object is created, it acquires the resource (e.g.: allocates memory, opens a file, establishes connection with database, etc.) and when the object is destroyed, it relases the resource (e.g: deallocates memory, closes the file, disconnects the database connection, etc.).
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>#include <iostream>
+>#include <fstream>
+>
+>class FileHandler
+>{
+>   private:
+>      std::ofstream file;
+>
+>   public:
+>      FileHandler(const std::string& filename)
+>      {
+>         file.open(filename);
+>         if(!file.is_open())
+>         {
+>            throw std::runtime_error("Failed to open the file");
+>         }
+>      }
+>
+>      ~FileHandler()
+>      {
+>         if(file.is_open())
+>         {
+>            file.close();
+>         }
+>      }
+>
+>      void write(const std::string& payload)
+>      {
+>         file << payload;
+>      }
+>}
+>
+>int main()
+>{
+>   try
+>   {
+>      FileHandler fileHandler("example.txt");
+>      fileHandler.write("Hello, RAII");
+>   } catch(const std::exception& error)
+>   {
+>      std::cerr << error.what() << std::endl;
+>   }
+>   
+>   return 0;
+>}
+>```
+>
+> **When To Use**
+> 
+> - Use RAII when managing resources that require explicit acquisition and relase, such as dynamic memory, file handles, sockets and mutexes.
+>
+> - Use RAII to ensure that resources are automatically relased when they are no longer needed, preventing leaks.
+>
+> **When Not to Use**
+>
+> - Avoid using RAII for resources that do not require explicit management or where automatic management could lead to performance overhead.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Automatic Resource Management**:
+> Ensures resource are relased properly, preventing leaks
+>
+> - **Exception Safety**:
+> RAII provides string exception safety, as resources are released when exceptions are thrown.
+>
+> - **Clear Ownership**:
+> The obejct that manages the resource clearly owns it, making the code easier to understand and maintain. 
+> 
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Ovearhead** 
+
+
+
+
+
+
+> ### <font color="#a442f5">Custom Memory Management</font>
+> Custom memory management refers to the practise of overriding the default memory allocation and deallocation mechanism in C++. This can be done for performance reasons, to handle specific alignment requirements, or to track memory usage.
+>
+> Custom memory management often involves overriding 'operator new' and 'operator delete' or implementing custom allocators that control how and where memory is allocated.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>#include <iostream>
+>#include <cstdlib>
+>
+>class CustomAllocator
+>{
+>   public:
+>      static void* operator new(std::size_t size)
+>      {
+>         std::cout << "Custom new for size: " << size << std::endl;
+>         void* ptr = std::malloc(size);
+>         if(!ptr) throw std::bad_alloc();
+>         
+>         return ptr;
+>      }
+>
+>      static void operator delete(void* ptr) noexcept
+>      {
+>         std::cout << "Custom delete" << std::endl;
+>         std::free(ptr);
+>      }
+>};
+>
+>int main()
+>{
+>   CustomAllocator* obj = new CustomAllocator();
+>   delete obj;
+>   
+>   return 0;
+>}
+>```
+>
+> **When To Use**
+> 
+> - Use custom memory management when the default allocator does not meet the performance or alignment needs of your application.
+>
+> - Use custom memory management for applications requiring precise control over memory usage, such as real-time systems or embedded systems.
+>
+> **When Not to Use**
+>
+> - Do not use custom memory management if it adds unnecessary complexity without significant performance benefits.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Performance**
+>
+> - **Control**
+>
+> - **Tracking** 
+> 
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Complexity**
+>
+> - **Portability**
+>
+> - **Debugging Difficulty** 
+
+
+
+
+
+
+### <font color="#ffc900">MULTITHREADING</font>
+> Multithreading in C++ allows programs to perform multiple tasks simultaneously, leveraging modern multi-core processors to improve performance and responsiveness. C++ provides several standard library components to manage threads and synchronize access to shared resources, such as std::thread, std::mutex, and std::atomic.
+> ### <font color="#a442f5">. . . </font>
 > ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
 >
 > **<font color="#428df5">Example</font>**
@@ -3411,7 +3569,39 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 
 
 
-> ### <font color="#a442f5">Custom Memory Management</font>
+> ### <font color="#a442f5">. . . </font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+
+
+
+
+
+
+
+> ### <font color="#a442f5">. . . </font>
 > ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
 >
 > **<font color="#428df5">Example</font>**

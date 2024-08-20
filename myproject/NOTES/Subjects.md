@@ -12,9 +12,9 @@
 
 
 
-### <font color="#ffc900">KEYWORDS</font>
-
-> ### <font color="#a442f5">. . . </font>
+### <font color="#ffc900">MAIN</font>
+> ### <font color="#a442f5">SUB</font>
+> ### <font color="#ff009e">ELEMENT</font>
 > ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
 >
 > **<font color="#428df5">Example</font>**
@@ -51,102 +51,240 @@
 
 # CPP
 
-### KEYWORDS
-- Trivial variables(string_view, float, double, fixed, short int etc.)
-- inline
-- static
-- constexpr
-- typename
-- using
-- templates
-- auto
+1. Basic Concepts
 
-### STL(STANDARD TEMPLATE LIBRARY)
-- Containers
-   - Sequence Containers
-   - Associative Containers
-   - Unordered Containers
-- Iterators
-- Algorithms
-- Function Objects (Functors)
-- Allocators (Custom)
-- Utilities
+   - Keywords & Core Syntax
+      - auto
+      - inline
+      - static
+      - constexpr
+      - typename
+      - using
+      - extern, volatile, mutable (New)
 
-### SLF(STANDARD LIBRARY FEATURES)
-- Initializer List
-- Streams
-- Date and Time
+   - Data Types
+      - Trivial types (e.g., int, float, double, short int)
+      - Compound types (std::pair, std::tuple) (New)
+      - Standard library types (std::string, std::string_view)
+      - Modern types (std::optional, std::variant, std::any) (New)
 
-### SPACESHIP COMPARISION
+   <br>
+   <br>
 
-### FUNCTION OVERLOADING
+2. Object-Oriented Programming (OOP)
 
-### LAMBDA EXPRESSIONS
-
-### STACK VS HEAP
-
-### FUNDAMENTALS OF OBJECT-ORIENTED PROGRAMMING IN C++
-- Constructors & Destructors
-- Polymorphism
-- Encapsulation
-- Inheritance
-- Interface with Abstract & Virtual
-
-### STRUCT, ENUM CLASS
-
-### TEMPLATES
-
-### PASSING VALUE
-- By Value 
-- By Reference
-- By Raw Pointers
-- By Smart Pointers
+   - Fundamentals
+      - Encapsulation
+      - Inheritance
+      - Polymorphism
+      - Abstraction (Abstract Classes & Interfaces) (New)
     
-### REFERENCE WRAPPERS
+    - Advanced OOP
+      - Virtual destructors (New)
+      - Pure virtual functions (New)
+      - Copy and Move Semantics
+      - RAII (Resource Acquisition Is Initialization)
+   
+   - Class Features
+      - Constructors & Destructors
+      - Member functions (const and non-const)
+      - Overloading (Function & Operator)
+      - Struct vs. Class
 
-### CALLBACK & STD::FUNCTION
+   <br>
+   <br>
 
-### FUNCTION COMPOSITION
+3. Templates & Generic Programming
 
-### COMMAND PATTERN
+   - Basic Templates
+      - Function Templates
+      - Class Templates
+   
+   - Advanced Templates
+      - Template Specialization
+      - Variadic Templates
+      - Template Metaprogramming (TMP) (New)
+      - Concepts and requires clauses (C++20) (New)
+   
+   - Type Traits
+      - std::is_same, std::is_integral, std::enable_if
 
-### DEPENDENCY INJECTION
+   <br>
+   <br>
 
-### CASTS
-- Static Cast
-- Dynamic Cast
-- Const Cast
-- Reinterpret Cast
-- C-Style Cast(Type Casting)
+4. Standard Library (STL)
 
-### ERROR / EXCEPTION HANDLING
+   - Containers
+      - Sequence Containers (std::vector, std::list, std::deque)
+      - Associative Containers (std::set, std::map)
+      - Unordered Containers (std::unordered_set, std::unordered_map)
+   
+   - Iterators
+      - Input/Output, Forward, Bidirectional, Random Access (New)
+   
+   - Algorithms
+      - Sorting, Searching, Modifying (std::sort, std::find, std::transform)
+   
+   - Utilities
+      - std::pair, std::tuple, std::optional, std::variant
+   
+   - Function Objects
+      - Functors, Lambdas, std::function
 
-### MEMORY MANAGEMENT
-- RAII
-- Custom Memory Management
+   <br>
+   <br>
 
-### MULTITHREADING
-- std::thread
-- std::mutex
-- std::atomic
+5. Modern C++ Features
 
-### CONCURRENCY
-- std::async
-- std::future
-- std::promise
+   - Lambdas
+      - Capture Lists, Return Types, and Uses
+      
+   - Function Composition
 
-### DESIGN PATTERNS
-- Creational Patterns
-- Structural Patterns
-- Behavioral Patterns
+   - std::function & Callbacks
+      - Callbacks, Event Handling
+      - Command Pattern (if applicable)
 
-### PERFORMANCE OPTIMIZING
-- Move Semantics
-- Copy Elision
-- Inlining
+   - Ranges (C++20) (New)
+      - std::ranges, Views, Actions (New)
+      
+   - Modules (C++20) (New)
+      - Basics of Modular Programming in C++ (New)
+      
+   - Coroutines (C++20) (New)
+      -  Async Programming, Generators (New)
+      
+   - Spaceship Operator (C++20)
+      - Three-way comparison (<=>)
 
-### CONCEPTS
-- PIMPL (Pointer to IMPLementation)
+   <br>
+   <br>
+
+6. Memory Management
+
+- Automatic vs. Dynamic Memory (New)
+   - Stack vs. Heap
+   - Smart Pointers (std::unique_ptr, std::shared_ptr, std::weak_ptr)
+   - Manual Memory Management (New/Delete) (New)
+   
+- Advanced Memory Techniques
+   - Custom Allocators (New)
+   - Memory Pools (New)
+   - Garbage Collection Concepts (Beyond C++) (New)
+
+   <br>
+   <br>
+
+7. Advanced C++ Features
+
+   - Error Handling
+      - Exceptions (try, catch, throw)
+      - Custom Exception Classes (New)
+      - std::expected (C++23 and beyond) (New)
+   
+   - Type Casting
+      - Static, Dynamic, Reinterpret, Const Cast
+      - C-Style Cast vs. Modern C++ Casts
+   
+   - Metaprogramming
+      - SFINAE (Substitution Failure Is Not An Error) (New)
+      - constexpr if, Fold Expressions (New)
+   
+   - PIMPL Idiom
+      -  Pointer to Implementation Pattern
+
+   <br>
+   <br>
+
+8. Concurrency & Multithreading
+
+   - Basics
+      - std::thread, std::mutex, std::lock_guard
+      - std::atomic, Memory Model
+   
+   - Synchronization
+      - Condition Variables (std::condition_variable) (New)
+      - Barriers, Latches (C++20) (New)
+   
+   - High-Level Concurrency
+      - std::async, std::future, std::promise
+   
+   - Coroutines (Again)
+      - Awaiting, Resumable Functions (New)
+
+   <br>
+   <br>
+
+9. Performance Optimization
+
+   - Move Semantics
+      - Move Constructors, Move Assignment
+    
+   - Copy Elision
+    
+   - Inlining
+    
+   - Profile-Guided Optimization (PGO) (New)
+    
+   - Compiler Optimizations
+      - Link Time Optimization (LTO) (New)
+      - Understanding Compiler Flags (New)
+
+   <br>
+   <br>
+
+10. Design Patterns in C++
+
+   - Creational Patterns
+      - Singleton, Factory, Builder
+      
+   - Structural Patterns
+      - Adapter, Composite, Proxy
+      
+   - Behavioral Patterns
+      - Observer, Command, Strategy
+
+   <br>
+   <br>
+
+11. Standard Library Extensions & Miscellaneous
+
+   - Filesystem (std::filesystem) (New)
+   
+   - Regular Expressions (std::regex) (New)
+   
+   - Networking Library (Boost.Asio, potential C++ extensions) (New)
+   
+   - Date and Time (<chrono>)
+
+   - Unicode and Text Processing (New)
+   
+   - Modern C++ Best Practices
+      - C++ Core Guidelines (New)
+    
+   - Tooling and Ecosystem
+      - Linters, Static Analyzers, Testing Frameworks (New)
+    
+   - External Libraries
+      - Boost, Eigen, Qt (New)
+
+   <br>
+   <br>
+
+12. Additional Topics to Consider (Advanced Level)
+
+   - Reflection (Future C++ Standards) (New)
+   
+   - Interfacing with C and Other Languages (New)
+   
+   - Cross-Platform Development Considerations (New)
+   
+   - Compiler and Linker Fundamentals (New)
+
+   <br>
+   <br>
+
+### ADD C++23
 
 <hr>
 
@@ -154,58 +292,62 @@
 
 
 
-### <font color="#ffc900">KEYWORDS</font>
-> ### <font color="#a442f5">Trivial Variables</font>
-> **int**: A signed integer type typically representing 32 bits on most systems.
+### <font color="#ffc900">1. Basic Concepts</font>
+> ### <font color="#a442f5">Keywords & Core Syntax</font>
+> ### <font color="#ff009e">auto</font>
+> Is a type inference feature introduces in C++11. It allows the compiler to automatically deduce the type of a variable based on its initializer, reducing the need for explicit type declaratations. This feature enhances code readability and maintainability by reducing verbosity and enabling more concise code.
 >
-> **short int**: A signed integer type with a smaller range than 'int'. Typically 16 bits.
+> **<font color="#428df5">Example</font>**
 >
-> **long int**: A signed integer type typically representing at least 32 bits.
+>```cpp
+>// Type Inference
+>auto val = 42;    
+>   
+>// Conciseness
+>auto it = myVector.begin()
 >
-> **long long int**: A signed integer type with an even larger range, at least 64 bits.
+>// Template Programming
+>template<typename T, typename U>
+>auto add(T val1, U val2)
+>{
+>   return (val1 + val2);
+>}
+>```
 >
-> **unsigned ...**: Unsigned versions of the corresponding signed integer types.
+> **When To Use**
+> 
+> - **Type Clarity**:
+When the type of a variable is evident from its initializer, using 'auto' can enhance code clarity by reducing redundant type informations.
 >
-> **float**: 
-   A single-precision floating point type typically representing 32 bits.
+> - **Complex Types**:
+When dealing with complex or nested types, 'auto' can simplify variables declarations and make code more readable.
 >
-> **double**: A double-precision floating point type typically representing 64 bits.
+> - **Template Programming**:
+In template code, 'auto' can simplify the syntax and improve code maintainability.
 >
-> **long double**: A larger floating point type, typically with greater precision than 'double'.
+> **When Not to Use**
 >
-> **int8_t**: Signed integer type with fixed sizeof 8 bits.
+> - **Loss of Clarity**:
+Avoid using it when the type of a variable is not immediately obvious from its initiallizer, as it may reduce code clarity.
 >
-> **int16_t**: Signed integer type with fixed sizeof 16 bits.
+> - **Interface Clarity**:
+When defining function signatures or public interfaces, using explicit type declarations can improve readability and understanding.
 >
-> **int32_t**: Signed integer type with fixed sizeof 32 bits.
+> **<font color="#b3f542">Advantages</font>**
 >
-> **int64_t**: Signed integer type with fixed sizeof 64 bits.
+> - **Maintainability**: Helps prevent type mismatches and makes code easier to maintain and refactor.
 >
-> **uint8_t**: Unsigned integer type with fixed sizeof 8 bits.
+> **<font color="#f56942">Disadvantages</font>**
 >
-> **uint16_t**: Unsigned integer type with fixed sizeof 16 bits.
+> - **Debugging**: When debugging, explicit type declarations can provide more information about variable types than 'auto'.
 >
-> **uint32_t**: Unsigned integer type with fixed sizeof 32 bits.
 >
-> **uint64_t**: Unsigned integer type with fixed sizeof 64 bits.
 >
-> **bool**: true or false.
+><hr>
 >
-> **char**: A character type representing a single byte.
 >
-> **wchar_t**: A wide character type typically used for Unicode characters.
 >
-> **void**: Represents the absence of type, commonly used as the return type of functions with no return value or as a placeholder for generic pointers.
->
-> **std::string**: Dynamic, owning string class that provides many functions for manipulating strings. It owns the memory for the characters in the string and can grow or shrink as needed.
->
-> **std::string_view**: Non-owning view of sequence of characters. It provides lightweight way to reference a string or part of a string without copying it. It does not manage the lifetime of the string data it refers to.
-
-
-
-
-
-> ### <font color="#a442f5">inline</font>
+> ### <font color="#ff009e">inline</font>
 > Suggest to compiler that the code of a function should be expanded in place where it is called, rather than being invoked through the usual function call mechanism. This can potentially reduce the overhead of function call and improve performance for small, frequently called functions. However, it is merely a request, and the compiler is free to ignore it. Use it when the function is simple, and frequently called.
 >
 > **When To Use**
@@ -239,15 +381,17 @@
 > - **Code Changes**: When an inline function is modified, all translation units that use it need to be recomplied. This can increase compilation times, expecially in large projects.
 >
 > - **Debugging Complexity**: Debugging inline functions can sometimes be more challenging, as the function call may not appear in the call stack in a straightforward way.
-
-
-
-
-
-> ### <font color="#a442f5">static</font>
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">static</font>
 > Has several distinct usages and meanings.
 >
-> ### Static Variable Inside Functions
+> **Static Variable Inside Functions**
 >
 > A static variable inside a function retains its value between function calls.
 >
@@ -285,7 +429,7 @@
 >
 > <hr>
 >
-> ### Static Variable in Classes
+> **Static Variable in Classes**
 >
 > A static member variable in a class is shared by all instances of class.
 >
@@ -323,7 +467,7 @@
 >
 ><hr>
 >
-> ### Static Member Functions
+> **Static Member Functions**
 >
 > A static member function in a class can be called without an instance of the class.
 >
@@ -360,7 +504,7 @@
 >
 > <hr>
 > 
-> ### Static Variables at Global / Namespace Scope
+> **Static Variables at Global / Namespace Scope**
 >
 > A static variable at global or namespace scope has internal linkage, meaning it is limited to the file in which it is declared.
 >
@@ -386,7 +530,7 @@
 >
 ><hr>
 >
-> ### Static Local Classes
+> **Static Local Classes**
 >
 > A static local class is a class defined inside a function and has a static variable scope.
 >
@@ -419,12 +563,14 @@
 > **<font color="#f56942">Disadvantages</font>**
 >
 > - **Limited Scope**: Limited to the function scope, reducing reusability.
-
-
-
-
-
-> ### <font color="#a442f5">constexpr</font>
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">constexpr</font>
 > Indicate that the value of a variable or the return value of a function can be evaluated at compile-time. This can lead to performance improvements by enabling constant expressions to be computed at compile time, reducing runtime overhead.
 >
 > **<font color="#428df5">Example</font>**
@@ -475,12 +621,14 @@
 > - **Complexity**: Writing constexpr functions requires ensuring that all expressions within the function can be evaluated at compile-time, which can sometimes lead to more complex code.
 >
 > - **Compilation Time**: Evaluating complex expressions at compile-time can increase the compilation time.
-
-
-
-
-
-> ### <font color="#a442f5">typename</font>
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">typename</font>
 > Used in template programming to specify that a dependent name(a name dependent on a template parameter) is a type. It resolves ambiguity, allowing the compiler to correctly interpret the name as a type rather than something else, like a member or a variable.
 >
 > In templates, the compiler may not know if a dependent name refers to a type or non-type member. The 'typename' keyword clarifies this by explicitly stating that the name is a type. Without 'typename', the compiler might misinterpret the name, resulting in errors.
@@ -488,16 +636,18 @@
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> template <typename T>
-> class Example{
->    typename T::value_type val;
->    public:
->       Example(typename T::value_type v) : val(v){}
-> };
+>template <typename T>
+>class Example
+>{
+>   typename T::value_type val;
+>   public:
+>      Example(typename T::value_type v) : val(v){}
+>};
 >
-> struct Container{
->    using value_type = int;
-> }
+>struct Container
+>{
+>   using value_type = int;
+>}
 >```
 > 
 > **When To Use**
@@ -534,33 +684,37 @@ Helps the compiler correctly parse complex template constructs, ensuring that th
 >
 > - **Verbosity**: 
 Can make the code more verbose as 'typename' needs to be added explicitly in several places.
-
-
-
-
-
-> ### <font color="#a442f5">using</font>
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">using</font>
 > Serves multiple purposes. It can be used to create type aliases, bring names from a namespace into the current scope and more. Introduced in C++11, 'using' often offers a clearer and more powerful alternative to 'typedef'.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // Type Aliases
-> using ulong = unsigned long;
-> usint IntPtr = int*;
-> using FunctionPointer = void (*)(int, double);
+>// Type Aliases
+>using ulong = unsigned long;
+>usint IntPtr = int*;
+>using FunctionPointer = void (*)(int, double);
 >
-> // Template Aliases
-> template <typename T>
-> using Vec = std::vector<T>;
-> Vec<int> myVec;
+>// Template Aliases
+>template <typename T>
+>using Vec = std::vector<T>;
+>Vec<int> myVec;
 >
-> // Namespace Aliases
-> namespace MyNamespace{
->    class MyClass {};
-> }
-> using MN = MyNamespace;
-> MN::MyClass obj;
+>// Namespace Aliases
+>namespace MyNamespace
+>{
+>   class MyClass {};
+>}
+>
+>using MN = MyNamespace;
+>MN::MyClass obj;
 >```
 >
 > **When To Use**
@@ -590,6 +744,2809 @@ Supports alias templates, enabling more flexible and reusable code.
 > **<font color="#f56942">Disadvantages</font>**
 >
 > - **Compatibility**: Not available in pre-C++11 code.
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">extern</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">volatile</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">mutable</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#a442f5">Data Types</font>
+> ### Trival Types
+>
+>
+>
+> **int**: A signed integer type typically representing 32 bits on most systems.
+>
+> **short int**: A signed integer type with a smaller range than 'int'. Typically 16 bits.
+>
+> **long int**: A signed integer type typically representing at least 32 bits.
+>
+> **long long int**: A signed integer type with an even larger range, at least 64 bits.
+>
+> **unsigned ...**: Unsigned versions of the corresponding signed integer types.
+>
+> **float**: 
+   A single-precision floating point type typically representing 32 bits.
+>
+> **double**: A double-precision floating point type typically representing 64 bits.
+>
+> **long double**: A larger floating point type, typically with greater precision than 'double'.
+>
+> **int8_t**: Signed integer type with fixed sizeof 8 bits.
+>
+> **int16_t**: Signed integer type with fixed sizeof 16 bits.
+>
+> **int32_t**: Signed integer type with fixed sizeof 32 bits.
+>
+> **int64_t**: Signed integer type with fixed sizeof 64 bits.
+>
+> **uint8_t**: Unsigned integer type with fixed sizeof 8 bits.
+>
+> **uint16_t**: Unsigned integer type with fixed sizeof 16 bits.
+>
+> **uint32_t**: Unsigned integer type with fixed sizeof 32 bits.
+>
+> **uint64_t**: Unsigned integer type with fixed sizeof 64 bits.
+>
+> **bool**: true or false.
+>
+> **char**: A character type representing a single byte.
+>
+> **wchar_t**: A wide character type typically used for Unicode characters.
+>
+> **void**: Represents the absence of type, commonly used as the return type of functions with no return value or as a placeholder for generic pointers.
+>
+> **std::string**: Dynamic, owning string class that provides many functions for manipulating strings. It owns the memory for the characters in the string and can grow or shrink as needed.
+>
+> **std::string_view**: Non-owning view of sequence of characters. It provides lightweight way to reference a string or part of a string without copying it. It does not manage the lifetime of the string data it refers to.
+>
+>
+>
+><hr>
+>
+>
+>
+> ### Standard Library
+> **std::string**:
+>
+> **std::string_view**:
+>
+>
+>
+><hr>
+>
+>
+>
+> ### Compound Types
+> **std::pair**:
+>
+> **std::tuple**:
+>
+>
+>
+><hr>
+>
+>
+>
+> ### Modern Types
+> **std::optional**:
+>
+> **std::variant**:
+>
+> **std::any**:
+>
+>
+>
+><hr>
+
+
+
+
+
+### <font color="#ffc900">2.Object-Oriented Programming(OOP)</font>
+> ### <font color="#a442f5">Fundamentals</font>
+> ### <font color="#ff009e">Encapsulation</font>
+> Encapsulation is one of the four fundamental concepts in object-oriented programming (OOP), alongside polymorphism, inheritance, and abstraction. It refers to the bundling of data (attributes) and methods (functions) that operate on the data into a single unit, or class. Encapsulation also involves restricting direct access to some of an object's components, which is a means of preventing unintended interference and misuse of the data.
+>
+> **Data Hiding**
+>
+> Encapsulation allows the internal representation of an object to be hidden from the outside. Only the object's own methods can directly manipulate its fields.
+>
+> **Access Modifiers**
+>
+> **Public**:
+> Members declared public can be accessed from outside the class.
+>
+> **Private**:
+> Members declared private can only be accessed from within the class.
+>
+> **Protected**:
+> Members declared protected can be accessed within the class and by derived classes.
+>
+> **Getters & Setters**
+>
+> Encapsulation often uses getter and setter methods to control access to the private fields. Getters retrieve the value of a private member, while setters modify the value of a private member.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>class Person
+>{
+>   private:
+>      std::string name;
+>      short int age;
+>   
+>   public:
+>      Person(
+>         const std::string& p_name, 
+>         short int p_age
+>      ):
+>         name(p_name),
+>         age(p_age)
+>      {}
+>
+>      void set_name(const std::string& p_name) 
+>      {
+>         name = p_name;
+>      }
+>
+>      void set_age(const short int p_age) 
+>      {
+>         age = p_age;
+>      }
+>
+>      const std::string get_name() const
+>      {
+>         return name;
+>      }
+>
+>      const short int get_age() const
+>      {
+>         return age;
+>      }
+>};
+>```
+>
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Data Integrity** 
+> 
+> - **Modularity**
+>
+> - **Security**
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Overhead**
+>
+> - **Complexity**
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff09e">Inheritance</font>
+> Inheritance is a fundamental concept in object-oriented programming that allows a class(called a derived class or subclass) to inherit attributes and methods from another class(called a base class or superclass). This mechanism promotes code reuse, improves organization and facilities the creation of hierarchical relationships between classes.
+>
+> **Access Specifiers**
+>
+> **Public Inheritance**:
+> Public and protected members of the base class remain public and protected in the derived class, respectively.
+>
+> **Protected Inheritance**:
+> Public and protected members of the base class become protected in the derived class.
+>
+> **Private Inheritance**:
+> Public and protected members of the base class become private in the derived class.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>class Animal
+>{
+>   public:
+>      void eat()
+>      {
+>         std::cout << "Animal is eating . . ." << std::endl;
+>      }
+>};
+>
+>class Dog : public Animal
+>{
+>   public:
+>      void bark()
+>      {
+>         std::cout << "Animal is barking . . ." << std::endl;
+>      }
+>};
+>
+>int main
+>{
+>   Dog myDog;
+>   myDog.eat(); // Inherited from class Animal.
+>   myDog.bark(); // Defined in class Dog.
+>   
+>   return 0;
+>}
+>```
+>
+> **When To Use**
+> 
+> - **Code Reuse**
+>
+> - **Hierarchical Relationships**:
+> Use inheritance to represent hierarchical relationships where a derived class is a specialized version of the base class.
+>
+> **When Not to Use**
+>
+> - **Unrelated Classes**:
+> Avoid using inheritance for classes that do not share a logical relationship, as it can lead to a confusing and inappropriate hierarchy.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Data Integrity**
+>
+> - **Modularity**
+>
+> - **Security** 
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Overhead**
+>
+> - **Complexity**
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff09e">Polymorphism</font>
+> Fundamental concept in object-oriented programming that allow objects of different classes to be treated as objects of a common superclass. It enables a single interface to be used for entities of different types, providing flexibility and extensibility in software desing.
+>
+> **Compile-Time Polymorphism (Static Binding):**
+> Achieved through function overloading and templates.The compiler determines which function to call based on the function signature at compile-time.
+>
+> **Run-Time Polymorphism (Dynamic Binding)**:
+> Achieved through inheritance and virtual functions. The decision on which function to call is made at run-time, based on the type of object pointed to by the base class pointer or reference. In C++, virtual functions enable run-time polymorphism. They are declared in the base class using the 'virtual' keyword and overridden in derived classes to provide specific implementations.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>class Shape
+>{
+>   // Virtual Function
+>   virtual void draw() const
+>   {
+>      std::cout << "Drawing a shape . . ." << std::endl;
+>   }
+>};
+>
+>class Circle : public Shape
+>{
+>   public:
+>      // Override the virtual function
+>      void draw() const override
+>      {
+>         std::cout << "Drawing a Circle . . ." << std::endl;
+>      }
+>};
+>```
+>
+> **When To Use**
+> 
+> - **Code Reuse**:
+> Use polymorphism to reuse code by treating objects of different derived classes through a common interface(base class).
+>
+>  - **Flexibility**:
+> Use polymorphism to write a generic algorithms that can operate on different types of objects without knowing their exact types at compile-time.
+>
+> **When Not to Use**
+>
+> - **Performance Considerations**:
+> Avoid excessive use of virtual functions in performance-critical code due to the overhead of dynamic dispatch.
+>
+> - **Over-Abstraction**:
+> Avoid unnecessary inheritance hierarchies or virtual functions that do not add value to the design.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Flexibility & Extensibility**:
+> Enables the addition of new classes and behaviors without modifying existing code.
+>
+> - **Code Reuse** 
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Runtime Overhead**:
+> Dynamic dispatch(virtual functions) introduces a slight runtime overhead compared to static function calls.
+>
+> - **Complexity** 
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">Abstraction (Abstract Classes & Interfaces)</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**:
+ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+>
+><hr>
+
+
+
+> ### <font color="#a442f5">Advanced OOP</font>
+> ### <font color="#ff009e">Virtual Destructors</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">Pure Virtual Functions</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">Copy & Move Semantics</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">RAII(Resource Acquisition Is Initialization)</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+
+
+
+> ### <font color="#a442f5">Class Features</font>
+> ### <font color="#ff009e">COnstructors & Destructors</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">Member Functions(const & non-const)</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">Overloading(Function & Operator)</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">Struct vs Class</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+
+
+
+### <font color="#ffc900">3. Templates & Generic Programming</font>
+> ### <font color="#a442f5">Basic Templates</font>
+> ### <font color="#ff009e">Function Templates</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">Class Templates</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+
+
+
+> ### <font color="#a442f5">Advanced Templates</font>
+> ### <font color="#ff009e">Template Specialization</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">Variadic Templates</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">Template Metaprogramming(TMP)</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">Concepts & 'require' Clauses</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+ 
+
+
+> ### <font color="#a442f5">Type Traits</font>
+> ### <font color="#ff009e">std::is_same, std::is_integral, std::enable_if</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+
+
+
+### <font color="#ffc900">Standard Library(STL)</font>
+> ### <font color="#a442f5">Containers</font>
+> ### <font color="#ff009e">Sequence Containers</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">Associative Containers</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">Unordered Containers</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+
+
+
+> ### <font color="#a442f5">Iterators</font>
+> ### <font color="#ff009e">Input/Output, Forward, Bidirectional, Random Access</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+
+
+
+
+> ### <font color="#a442f5">Algorithms</font>
+> ### <font color="#ff009e">Sorting, Searching, Modifying</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+
+
+
+> ### <font color="#a442f5">Utilities</font>
+> ### <font color="#ff009e">std::pair, std::tuple, std::optional, std::variant</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+
+
+
+
+> ### <font color="#a442f5">Function Objects</font>
+> ### <font color="#ff009e">Functors, Lambdas, std::function</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+
+
+
+
+
+### <font color="#ffc900">Modern C++ Features</font>
+> ### <font color="#a442f5">Lambdas</font>
+> ### <font color="#ff009e">Capture Lists, Return Types & Uses</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+
+
+
+> ### <font color="#a442f5">Function Composition</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+
+
+> ### <font color="#a442f5">std::function & Callbacks</font>
+> ### <font color="#ff009e">Callbacks, Event Handling</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">Command Pattern</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+
+
+
+
+> ### <font color="#a442f5">Ranges</font>
+> ### <font color="#ff009e">std::ranges, Views, Actions</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+
+
+> ### <font color="#a442f5">Modules</font>
+> ### <font color="#ff009e">Basics or Modular Programming in C++</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+
+
+
+> ### <font color="#a442f5">Coroutines</font>
+> ### <font color="#ff009e">Async Programming, Generators</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+
+
+> ### <font color="#a442f5">Spaceship Operator</font>
+> ### <font color="#ff009e">Three-way Comparision</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+
+
+
+
+
+### <font color="#ffc900">Memory Management</font>
+> ### <font color="#a442f5">Automatic vs Dynamic Memory</font>
+> ### <font color="#ff009e">Stack vs Heap</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">Smart Pointers</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">Manual Memory</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+
+
+
+
+> ### <font color="#a442f5">Advanced Memory Techniques</font>
+> ### <font color="#ff009e">Custom Allocators</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">Memory Pools</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">Garbage Collection Concepts</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+
+
+
+
+### <font color="#ffc900">Advanced C++ Features</font>
+> ### <font color="#a442f5">Error Handling</font>
+> ### <font color="#ff009e">Exceptions</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">Custom Exception Classes</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">std::expected</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+
+
+
+
+> ### <font color="#a442f5">Type Casting</font>
+> ### <font color="#ff009e">Static, Dynamic, Reinterpret & Const Cast</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">C-Style Cast vs Modern C++ Casts</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+
+
+
+
+
+> ### <font color="#a442f5">Metaprogramming</font>
+> ### <font color="#ff009e">SFINAE(Substitution Failure Is Not An Error)</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">constexpr if, Fold Expressions</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+
+
+> ### <font color="#a442f5">PIMPL Idiom</font>
+> ### <font color="#ff009e">Pointer to Implementation Idiom</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+
+
+
+
+### <font color="#ffc900">Concurrency & Multithreading</font>
+> ### <font color="#a442f5">Basics</font>
+> ### <font color="#ff009e">std::thread, std::mutex, std::lock_guard</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">std::atomic, Memory Model</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+
+
+
+> ### <font color="#a442f5">Synchronization</font>
+> ### <font color="#ff009e">Condition Variables</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">Barriers, Latches</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+
+
+
+> ### <font color="#a442f5">High-Level Concurrency</font>
+> ### <font color="#ff009e">std::async, std::future, std::promise</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+
+
+
+
+> ### <font color="#a442f5">Coroutines</font>
+> ### <font color="#ff009e">Awaiting, Resumable Functions</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+
+
+
+
+
+### <font color="#ffc900">Performance Optimization</font>
+> ### <font color="#a442f5">Move Semantics</font>
+> ### <font color="#ff009e">Move Constructors, Move Assignment</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+
+
+
+> ### <font color="#a442f5">Copy Elision</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+
+
+
+> ### <font color="#a442f5">Inlining</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+
+
+
+> ### <font color="#a442f5">Profile-Guided Optimization(PGO)</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+
+
+
+> ### <font color="#a442f5">Compiler Optimizations</font>
+> ### <font color="#ff009e">Link Time Optimization(LTO)</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">Understanding Compiler Flags</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+
+
+
+
+### <font color="#ffc900">Design Patters in C++</font>
+> ### <font color="#a442f5">Creational Patterns</font>
+> ### <font color="#ff009e">Singleton, Factory, Builder</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+
+
+> ### <font color="#a442f5">Structural Patterns</font>
+> ### <font color="#ff009e">Adapter, Composite, Proxy</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+
+
+
+> ### <font color="#a442f5">Behavioral Patterns</font>
+> ### <font color="#ff009e">Observer, Command, Strategy</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+
+
+
+### <font color="#ffc900">Standard Library Extensions & Miscellaneous</font>
+> ### <font color="#a442f5">Filesystem(std::filesystem)</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+
+
+> ### <font color="#a442f5">Regular Expressions(std::regex)</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+
+
+
+> ### <font color="#a442f5">Networking Library(Boost.Asio, potential C** extensions)</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+
+
+
+
+> ### <font color="#a442f5">Date & Time(<chrono>)</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+
+
+
+> ### <font color="#a442f5">Unicode & Text Processing</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+
+
+
+> ### <font color="#a442f5">Modern C++ Best Practices</font>
+> ### <font color="#ff009e">C++ Core Guidelines</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+
+
+
+> ### <font color="#a442f5">Tooling & Ecosystem</font>
+> ### <font color="#ff009e">Linters, Static Analyzers, Testing Frameworks</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+
+
+
+> ### <font color="#a442f5">External Libraries</font>
+> ### <font color="#ff009e">Boost, Eigen, QT</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+
+
+
+
+### <font color="#ffc900">Additional Topics to Consider(Advanced Level)</font>
+> ### <font color="#a442f5">Reflection</font>
+
+
+
+> ### <font color="#a442f5">Interfacing with C & Other Languages</font>
+
+
+
+> ### <font color="#a442f5">Cross-Platform Development Considerations</font>
+
+
+
+> ### <font color="#a442f5">Compiler & Linker Fundamentals</font>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -675,51 +3632,7 @@ Templates can significantly increase compilation time, especially for larger pro
 
 
 
-> ### <font color="#a442f5">auto</font>
-> Is a type inference feature introduces in C++11. It allows the compiler to automatically deduce the type of a variable based on its initializer, reducing the need for explicit type declaratations. This feature enhances code readability and maintainability by reducing verbosity and enabling more concise code.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> // Type Inference
-> auto val = 42;    
->    
-> // Conciseness
-> auto it = myVector.begin()
->
-> // Template Programming
-> template<typename T, typename U>
-> auto add(T val1, U val2){
->    return (val1 + val2);
-> }
->```
->
-> **When To Use**
-> 
-> - **Type Clarity**:
-When the type of a variable is evident from its initializer, using 'auto' can enhance code clarity by reducing redundant type informations.
->
-> - **Complex Types**:
-When dealing with complex or nested types, 'auto' can simplify variables declarations and make code more readable.
->
-> - **Template Programming**:
-In template code, 'auto' can simplify the syntax and improve code maintainability.
->
-> **When Not to Use**
->
-> - **Loss of Clarity**:
-Avoid using it when the type of a variable is not immediately obvious from its initiallizer, as it may reduce code clarity.
->
-> - **Interface Clarity**:
-When defining function signatures or public interfaces, using explicit type declarations can improve readability and understanding.
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - **Maintainability**: Helps prevent type mismatches and makes code easier to maintain and refactor.
->
-> **<font color="#f56942">Disadvantages</font>**
->
-> - **Debugging**: When debugging, explicit type declarations can provide more information about variable types than 'auto'.
+
 
 
 
@@ -1828,146 +4741,12 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 
 
 
-> ### <font color="#a442f5">Polymorphism</font>
-> Fundamental concept in object-oriented programming that allow objects of different classes to be treated as objects of a common superclass. It enables a single interface to be used for entities of different types, providing flexibility and extensibility in software desing.
->
-> ### Compile-Time Polymorphism (Static Binding):
-> Achieved through function overloading and templates.The compiler determines which function to call based on the function signature at compile-time.
->
-> ### Run-Time Polymorphism (Dynamic Binding):
-> Achieved through inheritance and virtual functions. The decision on which function to call is made at run-time, based on the type of object pointed to by the base class pointer or reference. In C++, virtual functions enable run-time polymorphism. They are declared in the base class using the 'virtual' keyword and overridden in derived classes to provide specific implementations.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
->class Shape
->{
->   // Virtual Function
->   virtual void draw() const
->   {
->      std::cout << "Drawing a shape . . ." << std::endl;
->   }
->};
->
->class Circle : public Shape
->{
->   public:
->      // Override the virtual function
->      void draw() const override
->      {
->         std::cout << "Drawing a Circle . . ." << std::endl;
->      }
->};
->```
->
-> **When To Use**
-> 
-> - **Code Reuse**:
-> Use polymorphism to reuse code by treating objects of different derived classes through a common interface(base class).
->
->  - **Flexibility**:
-> Use polymorphism to write a generic algorithms that can operate on different types of objects without knowing their exact types at compile-time.
->
-> **When Not to Use**
->
-> - **Performance Considerations**:
-> Avoid excessive use of virtual functions in performance-critical code due to the overhead of dynamic dispatch.
->
-> - **Over-Abstraction**:
-> Avoid unnecessary inheritance hierarchies or virtual functions that do not add value to the design.
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - **Flexibility & Extensibility**:
-> Enables the addition of new classes and behaviors without modifying existing code.
->
-> - **Code Reuse** 
->
-> **<font color="#f56942">Disadvantages</font>**
->
-> - **Runtime Overhead**:
-> Dynamic dispatch(virtual functions) introduces a slight runtime overhead compared to static function calls.
->
-> - **Complexity** 
 
 
 
 
 
 
-> ### <font color="#a442f5">Encapsulation</font>
-> Encapsulation is one of the four fundamental concepts in object-oriented programming (OOP), alongside polymorphism, inheritance, and abstraction. It refers to the bundling of data (attributes) and methods (functions) that operate on the data into a single unit, or class. Encapsulation also involves restricting direct access to some of an object's components, which is a means of preventing unintended interference and misuse of the data.
->
-> ### Data Hiding
-> Encapsulation allows the internal representation of an object to be hidden from the outside. Only the object's own methods can directly manipulate its fields.
->
-> ### Access Modifiers
-> **Public**:
-> Members declared public can be accessed from outside the class.
->
-> **Private**:
-> Members declared private can only be accessed from within the class.
->
-> **Protected**:
-> Members declared protected can be accessed within the class and by derived classes.
->
-> ### Getters & Setters
-> Encapsulation often uses getter and setter methods to control access to the private fields. Getters retrieve the value of a private member, while setters modify the value of a private member.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
->class Person
->{
->   private:
->      std::string name;
->      short int age;
->   
->   public:
->      Person(
->         const std::string& p_name, 
->         short int p_age
->      ):
->         name(p_name),
->         age(p_age)
->      {}
->
->      void set_name(const std::string& p_name) 
->      {
->         name = p_name;
->      }
->
->      void set_age(const short int p_age) 
->      {
->         age = p_age;
->      }
->
->      const std::string get_name() const
->      {
->         return name;
->      }
->
->      const short int get_age() const
->      {
->         return age;
->      }
->};
->```
->
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - **Data Integrity** 
-> 
-> - **Modularity**
->
-> - **Security**
->
-> **<font color="#f56942">Disadvantages</font>**
->
-> - **Overhead**
->
-> - **Complexity**
 
 
 
@@ -2048,105 +4827,6 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 
 
 > ### <font color="#a442f5">Interface with Abstract & Virtual</font>
-> An abstract class is a class that cannot be instantiated on its own and is designed to be subclassed. Abstract classes are used to define interfaces or base classes that provide common functionality to derived classes while enforcing a specific design contract.
->
-> ### Abstract Classes
-> These are classes that contain at least one pure virtual function. A pure virtual function is a virtual function that is declared by assigning 0 in its declaration.
->
-> ### Pure Virtual Functions
-> These functions do not have a body in the base class and must be overridden in any derived class. They enforce that certain functions must be implemented in any concrete(non-abstract) subclass.
->
-> **<font color="#428df5">Syntax</font>**
->```cpp
->class AbstractBase
->{
->   public:
->      virtual void pureVirtualFunction() = 0;
->};
->
->class Derived : public AbstractBase
->{
->   public:
->      void pureVirtualFunction() override
->      {
->         // Implementation of the pure virtual function.
->      }
->};
->```
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
->class Shape
->{
->   public:
->      // Pure virtual function providing interface framework
->      virtual void draw() = 0; // Pure virtual function.
->      virtual ~Shape() {} // Virtual destructor.
->};
->
->class Circle : public Shape
->{
->   public:
->      void draw() override
->      {
->         std::cout << "Drawing Circle . . ." << std::endl;
->      }
->};
->
->class Rectangle : public Shape
->{
->   public:
->      void draw() override
->      {
->         std::cout << "Drawing Rectangle . . ." << std::endl;
->      }
->};
->
->int main()
->{
->   Shape* shape1 = new Circle();
->   Shape* shape2 = new Rectangle();
->
->   shape1 -> draw(); // Drawing Circle . . .
->   shape2 -> draw(); // Drawing Rectangle . . .
->
->   delete shape1;
->   delete shape2;
->
->   return 0;
->}
->```
->
-> **When To Use**
-> 
-> - **Interface Definition**:
-> Use abstract classes to define a common interface for a group of related classes, ensuring that they provide specific functionality.
->
-> - **Code Reuse**:
-> Abstract classes can contain common code that can be reused by multiple derived classes, reducing redundancy.
->
-> **When Not to Use**
->
-> - **Instantiation**:
-> Do not use it if you need to create instances of the class directly. Abstract classes cannot be instantiated.
->
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - **Design Flexibility**: 
-> Enforces a design contract, ensuring derived classes implement specific methods.
->
-> - **Code Organization**:
-> Encourages organized and modular code, making it easier to manage and extend.
->
-> - **Reusability**:
-> Common functionality can be implemented in the abstract class and shared across derived classes.
->
-> **<font color="#f56942">Disadvantages</font>**
->
-> - **Overhead**: 
-> Virtual functions calls have slight overhead compared to non-virtual calls.
 
 
 
@@ -3538,91 +6218,282 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 
 ### <font color="#ffc900">MULTITHREADING</font>
 > Multithreading in C++ allows programs to perform multiple tasks simultaneously, leveraging modern multi-core processors to improve performance and responsiveness. C++ provides several standard library components to manage threads and synchronize access to shared resources, such as std::thread, std::mutex, and std::atomic.
-> ### <font color="#a442f5">. . . </font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> ### <font color="#a442f5">std::thread</font>
+> It is the basic building block for creating and managing threads in C++. It represents an independent thread of execution and allows you to run a function or callable object concurrently with other threads.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>#include <iostream>
+>#include <thread>
+>
+>void printMessage(const std::string& message)
+>{
+>   std::cout << message << std::endl;
+>}
+>
+>int main()
+>{
+>   std::thread t1(printMessage, "Thread 1");
+>   std::thread t2(printMessage, "Thread 2");
+>
+>   t1.join(); // Wait for t1 to finish.
+>   t2.join(); // Wait for t2 to finish.
+>   
+>   return 0;
+>}
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - When you need to perform tasks concurrently, expecially in CPU-bound operations that can benefit from parallel execution.
+>
+> - When you want to run a function or callable object independently of the main program flow.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - Avoid using 'std::thread' when tasks are I/O-bound, as this may not lead to significant performance improvements.
+>
+> - Do not use 'std::thread' for trivial tasks where the overhead of the thread management outweighs the benefits.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Concurrency** 
+> 
+> - **Control**
+>
+> - **Simpilicty**
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Overhead**
+>
+> - **Complexity**
+>
+> - **Potential for Bugs** 
 
 
 
 
 
-
-> ### <font color="#a442f5">. . . </font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> ### <font color="#a442f5">std::mutex</font>
+> It is a synchronization primitive used to protect shared resources from being accessed simultaneously by multiple threads. It ensures that only one thread can access the resource at a time, preventing race conditions.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>#include <iostream>
+>#include <thread>
+>#include <mutex>
+>
+>std::muxet mtx;
+>
+>void printSafeMessage(const std::string& message)
+>{
+>   std::lock_guard<std::mutex> lock(mtx); // Lock the mutex.
+>   std::cout << message << std::endl; // Mutex is automatically released when lock goes out of scope.
+>}
+>
+>int main()
+>{
+>   std::thread t1(printSafeMessage, "Thread 1");
+>   std::thread t2(printSafeMessage, "Thread 2");
+>
+>   t1.join();
+>   t2.join();
+>
+>   return 0;
+>}
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - When multiple threads need to access and modify shared resources concurrently.
+>
+> - Use it to prevent race conditions where the outcome of operations depends on the order of thread execution.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - If you can design you program to avoid shared state or if you can use higher-level synchronization primitives like 'std::atomic'.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Protection**:
+> Provides threads-safe access to shared resources, preventing race conditions.
+>
+> - **Flexibility**
+>
+> - **Automatic Management**:
+> Can be easily managed using RAII, with classes like 'std::lock_guard' or 'std::unique_lock'. 
+>
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Performance**:
+> Locking and unlocking a mutex introduces overhead and can lead to contention, reducing performance.
+>
+> - **Deadlocks**:
+> Incorrect use of mutexes can lead to deadlocks, where two or more threads are stuck waiting for each other to release locks. 
 
 
 
 
 
 
-
-> ### <font color="#a442f5">. . . </font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> ### <font color="#a442f5">std::atomic</font>
+> Provides a way to perform operations on variables automatically, meaning the operations are completed as a single, indivisible step. This is essential for lock-free programming, where you want to avoid the overhead of mutexes but still need to ensure data consistency.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>#include <iostream>
+>#include <thread>
+>#include <atomic>
+>
+>std::atomic<int> counter(0);
+>
+>void incrementCounter()
+>{
+>   for(int i = 0; i < 1000 ; ++i)
+>   {
+>      ++counter;
+>   }
+>}
+>
+>int main()
+>{
+>   std::thread t1(incrementCounter);
+>   std::thread t1(incrementCounter);
+>
+>   t1.join();
+>   t2.join();
+>
+>   std::cout << "Final counter value: " << counter.load() << std::endl;
+>
+>   return 0;
+>}
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - When you need to perform simple operations on shared data without the overhead of mutexes.
+>
+> - Use it for performance-critical code where minimal synchronization overhead is required-
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - Avoid for complex data structures where multiple variables need to be synchronized together.
+>
+> - Do not use it when the atomic operations provided are insufficient for you synchronization needs and a mutex woulf be safer or more appropriate. 
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Low Overhead**
+>
+> - **Simplicity**
+>
+> - **Lock-Free Programming** 
+> 
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Limited Scope**:
+> It is not suitable for all synchronization tasks, particularly when complex operations need to be performed atomically.
+>
+> - **Complexity**
+>
+> - **Portability** 
+
+
+
+
+
+
+### <font color="#ffc900">CONCURRENCY</font>
+
+> In modern C++, handling tasks concurrently is often crucial for optimizing performance and responsiveness. The Standard Library provides tools like std::async, std::future, and std::promise that help manage asynchronous operations, allowing tasks to be executed concurrently without the need for manual thread management.
+>
+> - **std::async:**
+> Launches a function asynchronously, potentially in a separate thread and returns as 'std::future' object representing the eventual result of the function.
+>
+> - **std::future**:
+> An object that holds the result of an asynchronous operation, allowing you to retrieve the result once it becomes available. It provides synchronization between the calling thread and the asnychronous task.
+>
+> - **std::promise**:
+> A mechanism to set a value or exception that 'std::future' object will eventually hold. It decouples the producer(who sets the value) from the consumer (who retrieves the value via the future).
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>#include <iostream>
+>#include <future>
+>#include <thread>
+>
+>// Function to computer square using std::async
+>int computerSquareAsync(int x)
+>{
+>   std::this_thread::sleep_for(std::chrono::seconds(2)); // Simulates a time-consuming operation.
+>
+>   return x * x;
+>} 
+>
+>// Function to compute square using std::promise and std::future
+>int computeSquareWithPromise(std::promise<int>&& promiseObj, int x)
+>{
+>   promiseObj.set_value(x * x); // Set the result for the associated future.
+>}
+>
+>int main()
+>{
+>   // Using std::async
+>   std::future<int> futureResultAsync = std::async(std::launch::async, computeSquareAsync, 10);
+>
+>   // Using std::promise and std::future
+>   std::promise<int> promiseObj;
+>   std::future<int> futureResultPromise = promiseObj.get_future();
+>   std::thread t(computeSquareWithPromise, std::move(promiseObj), 5);
+>
+>   // Do other work in the main thread
+>   std::cout << "Doing other work in main thread..." << std::endl;
+>
+>   // Retrieve results
+>   int resultAsync = futureResultAsync.get(); // Blocks until the result is ready.
+>   int resultPromise = futureResultAsync.get(); // Blocks until the promise is fulfilled.
+>
+>   // Print results
+>   std::cout << "Result from std::async: " << resultAsync << std::endl;
+>   std::cout << "Result from std::promise and std::future: " << resultPromise << std::endl;
+>
+>   // Join the thread
+>   t.join();
+>
+>   return 0;
+>}
+>```
+>
+> **When To Use**
+> 
+> - Use 'std::async' when you want to offload a task to run concurrently without managing threads manually. It is perfect for scenarios where you need the result eventually but do not want to block the main thread.
+>
+> - Use 'std::promise' and 'std::future' combination when you need fine-grained control over the production and consumption of a result. It is useful in more complex concurrent workflows where tasks are not immediately tied to a function call but might depend on other factors.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Concurrency**:
+> All three tools enable concurrent execution of tasks, which can significantly improve program efficiency and responsiveness.
+>
+> - **Ease of Use**:
+> 'std::async' simplifies the creation of asynchronous tasks, while 'std::promise' and 'std::future' provide a powerful mechanism for decoupling task execution and result retrieval.
+>
+> - **Exception Handling**:
+> If an asynchronous task throws an exception, it is captured by the 'std::future' and can be handled later when 'get()' is called. 
+> 
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Overhead**
+>
+> - **Blocking**:
+> If you call 'get()' on a 'std::future', it will block the current thread until the result is available, which could cause issues if not managed carefully. 
+
+

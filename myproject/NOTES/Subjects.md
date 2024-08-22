@@ -752,30 +752,71 @@ Supports alias templates, enabling more flexible and reusable code.
 >
 >
 > ### <font color="#ff009e">extern</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> It is used to declare a variable or function that is defined in another translation unit or file. It serves as a way to share variables and functions between different files, allowing for modular program design. The 'extern' keyword is particularly important in large-scale programs where code is split across multiple source files.
+>
+> **Global Variables**:
+> When you declare a global variable as 'extern', you are telling the compiler that this variable is defined in another file. This allows you to use the variable without defining it again in each file.
+>
+> **Functions**:
+> By default, functions have external linkage, meaning they can be accessed from other files without the need for an 'extern' keyword. Homever, 'extern' can still be used for explicitly for clarity.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>//----------
+>// File1.cpp
+>int globalVar = 42; // Definition of globalVar
+>
+>void display()
+>{
+>   std::cout << "Global variable value: " << globalVar << std::endl;
+>}
+>
+>//----------
+>// File2.cpp
+>extern int globalVar; // Declaration of globalVar
+>void display(); // Decleration of the function display()
+>//extern void display();
+>
+>int main()
+>{
+>   globalVar = 100; // Modify the variable from another file
+>   display(); // Call the function from another file.
+>
+>   return 0;
+>}
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - **Global Variable Across Multiple Files**:
+> When you have global variables that need to be shared across multiple files, 'extern' is necessary. This ensures that all files use the same instance of the variable.
+>
+> - **Forward Declarations**:
+> Use 'extern' to declare functions or variables that are defined elsewhere, allowing the compiler to recognize them during compilation.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - **Inside a Single File**:
+> There is no need to use it if your program is contained within single source file. 'extern' is only necessary when dealing with multiple translation units.
+>
+> - **Avoid Overuse of Global Variables**:
+> Using it can encourage reliance on global variables, which can lead to code that's harder to maintain and debug. Prefer passing variables explicitly between functions and classes.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Modular Code**
+>
+> - **Shared Resources** 
+> 
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Global State Management** 
+>
+> - **Name Conflicts**
+>
+> - **Limited Type Safety**
 >
 >
 >
@@ -784,31 +825,81 @@ Supports alias templates, enabling more flexible and reusable code.
 >
 >
 > ### <font color="#ff009e">volatile</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> It is used to inform the compiler that a variable's value may change unexpectedly, outisde the program's regular flow of control. This is particulary relevant in systems programmings, where hardware devices, signal handlers or concurrent processes might modify a variable directly, bypassing the program's normal execution flow.
+>
+> **Preventing Optimization**:
+> Compilers often optimize code by assuming that variables do not change unless they are explicitly modified by the code. For instance, if a variable is not modified in a piece of code, the compiler might optimize by catching its value in a register or by eliminating repeated access. Declaring a variable as 'volatile' tells the compiler not to optimize accesses to this variable, ensuring that every read or write operation accesses the actual memory location, rather than a cached value.
+>
+> **Use Cases**:
+>
+> - **Memory-mapped hardware registers**:
+> Variables representing hardware registers might change independently of the program's control flow.
+>
+> - **Multithreading**:
+> In some cases, variables shared between threads might be marked as 'volatile' (though 'volatile' alone is not sufficient for thread safety).
+>
+> - **Signal handlers**:
+> Variables modified by an asynchronous signal handler should be declared as 'volatile' to ensure the program checks their value every time.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>volatile bool stopFlag = false;
+>
+>void monitor()
+>{
+>   while(!stopFlag)
+>   {
+>      // Do some work
+>   }
+>   // Stop the loop when stopFlag changes
+>}
+>
+>int main()
+>{
+>   // Run monitor in a separate thread or signal handler
+>   stopFlag = true; // This could be set by another thread or an interrupt.
+>
+>   return 0;
+>}
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - **Interacting with Hardware**:
+> When dealing with hardware registers or other memory-mapped IO that might change independently of the CPU's control.
+>
+> - **Concurrent Programming**:
+> In specific cases where variables may be modified by other threads, 'volatile' ensures that the variable is always read from memory. However, for most multithreading scenarios, atomic operations or mutexes are more appropriate.
+>
+> - **Signal Handling**:
+> When variables are modified by signal handlers or other asynchronous interrupts.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - **Thread Synchronization**:
+> 'volatile' is not substitute for proper thread synchronization mechanisms like mutexes, locks or atomic operations. It does not prevent race-condition.
+>
+> - **General Optimization**:
+> Do not use it to prevent optimization for non-volatile scenarios. Overusing 'volatile' can lead to inefficient code.
+>
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Correctness in Hardware Interfacing**:
+> Ensures that critical variables reflecting hardware state or signal flags are always accessed directly, preventing subtle bugs. 
+>
+> - **Predictable Behavior**:
+> Prevents the compiler from making optimizations that could result in incorrect behavior when dealing with variables that might change unexpectedly.
+> 
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Performance Impact**:
+> Using it can prevent certain optimizations, leading to slower code, especially in tight loops or performance-critical sections.
 >
+> - **Not Sufficient for Thread Safety**: 
+> While 'volatile' ensures that a variable is read from memory each time, it does not guarantee atomicity or memory ordering, which are crucial for safe multithreading programming.
 >
 >
 ><hr>
@@ -816,30 +907,72 @@ Supports alias templates, enabling more flexible and reusable code.
 >
 >
 > ### <font color="#ff009e">mutable</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> It is used to allow specific member of a class to be modified even when  the object is considered 'const'. This is particulary useful in situations where a certain member needs to maintain some state that can change, even though the rest of the object is treated as immutable.
+>
+> **Use Cases**:
+> Common scenarios include caching mechanisms, reference counters or lazy initialization, where certain internal states need to change without affecting the logical 'const' nature of the object
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>class Logger
+>{
+>   private:
+>      mutable int logCount = 0; // logCount can be modified even in const objects.
+>
+>   public:
+>      void log(const std::string& message) const
+>      {
+>         ++logCount; // Allowed because logCount is mutable
+>         std::cout << message << std::endl;
+>      }
+>
+>      int get_logCount() const
+>      {
+>         return logCount;
+>      }
+>};
+>
+>int main()
+>{
+>   const Logger logger;
+>   logger.log("First message");
+>   logger.log("Second message");
+>
+>   std::cout << "Log count: " << logger.getLogCount() << std::endl;
+>
+>   return 0;
+>}
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - **Stateful Operations on 'const' Objects**:
+> Use it when you need to maintain or update internal state(like caches, counters or flags) in an object that is otherwise intended to be immutable.
+>
+> - **Thread-safe Laziness**:
+> In cases where a value or resource should only be initialized when it is first needed, 'mutable' can allow such initialization in 'const' method.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - **Overusing in Const-correct Design**:
+> Overusing it can undermine the benefits of const-correctness by allowing modifications where immutability is expected. This can lead to code that's harder to understand and maintain.
+>
+> - **Breaking Thread Safety**:
+> If you are using it in a multithreaded context, be careful as it could lead to data races if not handled correctly.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Flexibility in Const Objects**
+>
+> - **Useful in Caching** 
+> 
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Potential for Misuse**
+>
+> - **Const-correctness Confusion**
 >
 >
 >

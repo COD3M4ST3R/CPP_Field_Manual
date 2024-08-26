@@ -71,7 +71,24 @@
    <br>
    <br>
 
-2. Object-Oriented Programming (OOP)
+2. Passing Values
+
+   - By Value
+   - By Reference
+   - Raw Pointers
+   - Smart Pointers
+   - Reference Wrappers
+
+   <br>
+   <br>
+
+3. Object-Oriented Programming (OOP)
+
+   - Class Features
+      - Constructors & Destructors
+      - Member functions (const and non-const)
+      - Overloading (Function & Operator)
+      - Struct vs. Class
 
    - Fundamentals
       - Encapsulation
@@ -82,19 +99,12 @@
     - Advanced OOP
       - Virtual destructors (New)
       - Pure virtual functions (New)
-      - Copy and Move Semantics
       - RAII (Resource Acquisition Is Initialization)
-   
-   - Class Features
-      - Constructors & Destructors
-      - Member functions (const and non-const)
-      - Overloading (Function & Operator)
-      - Struct vs. Class
 
    <br>
    <br>
 
-3. Templates & Generic Programming
+4. Templates & Generic Programming
 
    - Basic Templates
       - Function Templates
@@ -112,7 +122,7 @@
    <br>
    <br>
 
-4. Standard Library (STL)
+5. Standard Library (STL)
 
    - Containers
       - Sequence Containers (std::vector, std::list, std::deque)
@@ -134,7 +144,7 @@
    <br>
    <br>
 
-5. Modern C++ Features
+6. Modern C++ Features
 
    - Lambdas
       - Capture Lists, Return Types, and Uses
@@ -160,7 +170,7 @@
    <br>
    <br>
 
-6. Memory Management
+7. Memory Management
 
 - Automatic vs. Dynamic Memory (New)
    - Stack vs. Heap
@@ -175,7 +185,10 @@
    <br>
    <br>
 
-7. Advanced C++ Features
+8. Advanced C++ Features
+
+   - Move Semantics
+      - Move Constructors, Move Assignment
 
    - Error Handling
       - Exceptions (try, catch, throw)
@@ -196,7 +209,7 @@
    <br>
    <br>
 
-8. Concurrency & Multithreading
+9. Concurrency & Multithreading
 
    - Basics
       - std::thread, std::mutex, std::lock_guard
@@ -215,10 +228,7 @@
    <br>
    <br>
 
-9. Performance Optimization
-
-   - Move Semantics
-      - Move Constructors, Move Assignment
+10. Performance Optimization
     
    - Copy Elision
     
@@ -233,7 +243,7 @@
    <br>
    <br>
 
-10. Design Patterns in C++
+11. Design Patterns in C++
 
    - Creational Patterns
       - Singleton, Factory, Builder
@@ -247,7 +257,7 @@
    <br>
    <br>
 
-11. Standard Library Extensions & Miscellaneous
+12. Standard Library Extensions & Miscellaneous
 
    - Filesystem (std::filesystem) (New)
    
@@ -271,7 +281,7 @@
    <br>
    <br>
 
-12. Additional Topics to Consider (Advanced Level)
+13. Additional Topics to Consider (Advanced Level)
 
    - Reflection (Future C++ Standards) (New)
    
@@ -1073,7 +1083,468 @@ Supports alias templates, enabling more flexible and reusable code.
 
 
 
-### <font color="#ffc900">2.Object-Oriented Programming(OOP)</font>
+### <font color="#ffc900">2.Passing Values</font>
+> ### <font color="#a442f5">By Value</font>
+> When you pass a variable by value, a copy of the variable is made. The function works with this copy, so any changes made to the variable inside the function do not affect the original variable.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>void modifyValue(int x)
+>{
+>   x = 10; // This change does not affect the original variable.
+>}
+>
+>int main()
+>{
+>   int a = 5;
+>   modifyValue(a);
+>
+>   return 0;
+>}
+>```
+>
+> **When To Use**
+> 
+> - When you do not need to modify the original value.
+>
+> - When the object being passed is small and cheap to copy, such as fundamental data types(int, char, etc...)
+>
+> **When Not to Use**
+>
+> - For large objects like vectors or strings, where copying is expensive in terms of performance.
+>
+> - When you need to modify the original value.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - Simple and safe, no need to worry about ownership or lifetime issues.
+>
+> - No risk of unintended side effects since the function works with a copy. 
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - Can be inefficient for large objects due to the overhead of copying.
+>
+> - Does not allow the function to modify the original value.
+>
+>
+>
+> <hr>
+>
+>
+>
+> ### <font color="#a442f5">By Reference</font>
+> When you pass a variable by reference, you pass the variable itself, not a copy. Any changes made to the variable inside the function will affect the original variable.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>void modifyValue(int& x)
+>{
+>   x = 10; // This change affects the original value
+>}
+>
+>int main()
+>{
+>   int a = 5;
+>   modifyValue(a);
+>
+>   return 0;
+>}
+>```
+>
+> **When To Use**
+> 
+> - When you need to modify the original variable.
+>
+> - When passing large objects, to avoid the overhead of copying.
+>
+> **When Not to Use**
+>
+> - When you want to ensure the original variable remains unchanged.
+>
+> - When dealing with simple, small data types where copying is inexpensive.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - No copying overhead, making it efficient for large objects.
+>
+> - Allows the function to modify the original variable. 
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - Potential for unintended side effects if the original variable is modified.
+>
+> - Requires careful management to avoid issues like dangling references.
+>
+>
+>
+> <hr>
+>
+>
+> ### <font color="#a442f5">By Raw Pointers</font>
+> Is similiar to passing by reference, but you pass the address of the variable explicitly. The function works with the pointer to the variable, which allows modification of the original value.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>void modifyValue(int* x)
+>{
+>   *x = 10; // This change affects the original variable.
+>}
+>
+>int main()
+>{
+>   int a = 5;
+>   modifyValue(&a);
+>
+>   return 0;
+>}
+>```
+>
+> **When To Use**
+> 
+> - When you need to pass a variable that may be null.
+>
+> - When dealing with arrays or dynamically allocated memory.
+>
+> **When Not to Use**
+>
+> - When you can use references or smart pointers instead.
+>
+> - When ownership and lifetime management are important.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - Flexibility in passing null pointers and dynamic memory.
+>
+> - Can modify the original variable. 
+> 
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - Requires explicit memory management, increasing the risk of memory leaks and dangling pointers.
+>
+> - Pointers can be null, so you must check for null pointers to avoid crashes.
+>
+>
+>
+> <hr>
+>
+>
+>
+> ### <font color="#a442f5">By Smart Pointers</font>
+> Smart pointers are a feature in C++ that manage the lifetime of dynamically allocated objects, helping to prevent memory leaks and dangling pointers by automatically deallocating memory when it is no longer needed. The Standard Library provides several types of smart pointers, each designed for different use cases.
+>
+> ### <font color="#ff009e">std::unique_ptr</font>
+> A smart pointer that owns and manages another object through a pointer and disposes of that object when the 'std::unique_ptr' goes out of scope. Unique ownership, non-copyable, movable.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> std::unique_ptr<int> ptr1(new int(10));
+> // std::unique_ptr<int> ptr2 = ptr1; // Error: cannot copy
+> std::unique_ptr<int> ptr2 = std::move(ptr1);
+>```
+>
+> **When To Use**
+> 
+> - When you need exclusive ownership of a resource.
+> - For managing the lifetime of resources that are not shared.
+> - For implementing RAII (Resource Acquisition Is Initialization) patters.
+>
+> **When Not to Use**
+>
+> - When you need shared ownership or the ability to copy the smart pointer.
+> - When passing ownership to function that do not accept 'std::unique_ptr'.
+>
+> <hr>
+>
+> ### <font color="#ff009e">std::shared_ptr</font>
+> A smart pointer that retains shared ownership of an object through a pointer. Multiple 'std::shared_ptr' instances can manage the same object. Shared ownership, reference counting.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> std::shared_ptr<int> ptr1 = std::make_shared<int>(20);
+> std::shared_ptr<int> ptr2 = ptr2; // Okay: shared ownership.
+>```
+>
+> **When To Use**
+> - When multiple parts of your program need to share ownership of a resource.
+> - When object need to be shared across multiple scopes or threads.
+>
+> **When Not to Use**
+> - When exclusive ownership is sufficient or required.
+> - In performace-critical code where reference counting overhead is unacceptable.
+>
+> <hr>
+>
+> ### <font color="#ff009e">std::weak_ptr</font>
+> A smart pointer that holds a non-owning (weak) reference to an object that is managed by 'std::shared_ptr'. It is used to break circular references. Non-owning, does not affect reference count.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> std::shared_ptr<int> sp = std::make_shared<int>(30);
+> std::weak_ptr<int> wp = sp; // wp does not affect reference count.
+> if(auto sp2 = wp.lock()) // Check if the object still exist. 
+> { 
+>     // use sp2. 
+> } else{
+>     // sp2 has been destroyed.
+> }
+>```
+>
+> **When To Use**
+> - When you need to reference an object managed by 'std::shared_ptr' without affecting its lifetime.
+> - For breaking circular references between 'std::shared_ptr' instances.
+>
+> **When Not to Use**
+> - As a primary owning reference, since it does not manage the object's lifetime.
+> - When you do not need to break cycles between 'std::shared_ptr' instances.
+>
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Automatic Memory Management**: 
+> Smart pointers automatically manage the lifetime of dynamically allocated objects, reducing the risk of memory leaks.
+>
+> - **Exception Safety**:
+> They ensure that resources are properly relased even in the presence of exceptions.
+>
+> - **Clear Ownership Semantics**:
+> Different types of smart pointers provide clear semantics for ownership and resource management.
+>
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Overhead**: 'std::shared_ptr' has some overhead due to reference counting and atomic operations, which can impact performance.
+>
+> - **Complexity**:
+> Using smart pointers can add complexity, especially when dealing with circular dependencies and weak references.
+>
+> - **Incorrect Usage**:
+> Misuse of smart pointers(e.g., creating cycles with 'std::shared_ptr') can still lead to resource management issues.
+>
+>
+>
+> <hr>
+>
+>
+>
+> ### <font color="#a442f5">By Reference Wrapper</font>
+> Allows you to store references in contexts where only objects are usually allowed, such as in containers like 'std::vector' or 'std::list'. The most common tool for this is 'std::reference_wrapper', which is part of Standard Library.
+>
+> 'std::reference_wrapper' wraps a reference is an object that can be copied and assigned like a regular object. This is useful because references themselves cannot be stored in containers, but 'std::reference_wrapper' can, allowing indirect reference storage.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> #include <functional>
+> #include <vector>
+>
+>int main()
+>{
+>   int a = 10;
+>   int b = 20;
+>   int c = 30;
+>
+>   // Create a vector of reference wrappers
+>   std::vector<std::vector_wrapper<int>> vec = { a, b, c };
+>
+>   // Modify the original variables through the reference wrapper
+>   for( int& element : vec )
+>   {
+>      element.get() += 5; // Use .get() to access the reference
+>   }
+>
+>   return 0;
+>}
+>```
+>
+> **When To Use**
+> 
+> - **Storing References in Containers**:
+> When you need to store references in containers, which normally store copies of objects.
+>
+> - **Passing References to Callbacks**:
+> It's useful when you need to pass references to functions or callbacks that expect objects.
+>
+> - **Avoiding Copy Overheads**:
+> When you want to avoid the overhead of copying large objects and instad work with their references.
+>
+> **When Not to Use**
+>
+> - **When Ownership is Important**:
+> If the ownership of the object matters, consider using smart pointer instead, as 'std::reference_wrapper' does not manage the object's lifetime.
+>
+> - **For Simple Reference Passing**:
+> If you do not need to store or pass the reference in a container or function expecting objects, a normal reference will suffice.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Efficiency**:
+> Allow passing and storing references without the overhead of copying.
+>
+> - **Container Compatibility**:
+> Enables references to be stored in standard containers that normally do not allow reference types.
+>
+> - **Integration**:
+> Works seamlessly with standard algorithms and other STL components.
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **No Ownership**:
+> 'std::reference_wrapper' does not manage the object's lifetime, which can lead to dangling references if the original object is destroyed.
+>
+> - **Additional Access Step**:
+> You need to use '.get()' to access the underlying reference, which adds a small overhead and complexity.
+>
+> - **Potential for Dangling References**:
+> If the object being references is destroyed while the reference wrapper is still in use, it leads to undefined behavior.
+
+
+
+
+
+
+
+
+
+
+
+
+### <font color="#ffc900">3.Object-Oriented Programming(OOP)</font>
+> ### <font color="#a442f5">Class Features</font>
+> ### <font color="#ff009e">Constructors & Destructors</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">Member Functions(const & non-const)</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">Overloading(Function & Operator)</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">Struct vs Class</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+
+
+
 > ### <font color="#a442f5">Fundamentals</font>
 > ### <font color="#ff009e">Encapsulation</font>
 > Encapsulation is one of the four fundamental concepts in object-oriented programming (OOP), alongside polymorphism, inheritance, and abstraction. It refers to the bundling of data (attributes) and methods (functions) that operate on the data into a single unit, or class. Encapsulation also involves restricting direct access to some of an object's components, which is a means of preventing unintended interference and misuse of the data.
@@ -1249,21 +1720,32 @@ Supports alias templates, enabling more flexible and reusable code.
 >```cpp
 >class Shape
 >{
->   // Virtual Function
->   virtual void draw() const
->   {
->      std::cout << "Drawing a shape . . ." << std::endl;
->   }
+>  public:
+>     virtual ~Shape() // Virtual destructor
+>     {
+>        std::cout << "Destroying a shape . . ." << std::endl;
+>     }
+>
+>     // Virtual Function
+>     virtual void draw() const
+>     {
+>        std::cout << "Drawing a shape . . ." << std::endl;
+>     }
 >};
 >
 >class Circle : public Shape
 >{
->   public:
->      // Override the virtual function
->      void draw() const override
->      {
->         std::cout << "Drawing a Circle . . ." << std::endl;
->      }
+>  public:
+>     ~Circle() override // Override destructor (optional but good practice)
+>     {
+>        std::cout << "Destroying a Circle . . ." << std::endl;
+>     }
+>
+>     // Override the virtual function
+>     void draw() const override
+>     {
+>        std::cout << "Drawing a Circle . . ." << std::endl;
+>     }
 >};
 >```
 >
@@ -1304,31 +1786,122 @@ Supports alias templates, enabling more flexible and reusable code.
 >
 >
 > ### <font color="#ff009e">Abstraction (Abstract Classes & Interfaces)</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> Core concept of object-oriented programming that focuses on exposing only the necessary parts of an object and hiding the implementation details. This is achived using abstract classes and interfaces, which provide a way to define methods that must be implemented by derived classes but do not provide the implementation themselves.
+>
+> Abstract classes and interfaces provide a way to create a template or blueprint for other classes. They allow you to define a set of methods that must be implemented, ensuring consistency across different classes that implement the same interface.
+>
+> **Abstract Classes**:
+> Can not be instantiated directly and is intented to be a base class. It contains at least one pure virtual function, which is a function declared with the '=0' syntax. Derived classes are required to provide implementations for these pure virtual functions.
+>
+> **Interfaces**:
+> Although C++ does not have a separate keyword for interfaces as in some other languages (like Java), interfaces can be implemented using abstract classes that contain only pure virtual function. An interface defines a contract that derived classes must fulfill.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>#include <iostream>
+>#include <string>
+>
+>// Abstract class with pure virtual functions (interface)
+>class Animal
+>{
+>   public:
+>      // Pure virtual function, making this class abstract
+>      virtual void makeSound() const = 0;
+>      virtual std::string getType() const = 0;
+>
+>      virtual ~Animal() = default; // Virtual destructor for proper cleanup
+>};
+>
+>// Derived class implementing the interface
+>class Dog : public Animal
+>{
+>   public:
+>      void makeSound() const override
+>      {
+>         std::cout << "Woof!" << std::endl;
+>      }
+>
+>      std::string getType() : const override
+>      {
+>         return "Dog";
+>      }
+>};
+>
+>// Derived class implementing the interface
+>class Cat : public Animal
+>{
+>   public:
+>      void makeSound() const override
+>      {
+>         std::cout << "Meow!" << std::endl;
+>      }
+>
+>      std::string getType() const override
+>      {
+>         return "Cat";
+>      }
+>};
+>
+>int main()
+>{
+>   Animal* myDog = new Dog();
+>   Animal* myCat = new Cat();
+>
+>   myDog -> makeSound(); // Woof!
+>   myCat -> makeSound(); // Meow!
+>
+>   delete myDog; // Be sure it's not Mr. Wick's dog!
+>   delete myCat;
+>
+>   return 0;
+>}
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - **Define a Common Interface**: 
+> Use abstract classes to define a common interface for a group of related classes, ensuring they implement specific methods.
+>
+> - **Prevent Instantiation of Base Class**: 
+> Use abstract classes when you want to prevent the base class from being instantiated directly, ensuring that only derived classes provide concrete implementations.
+>
+> - **Enforce a Contract**: 
+> When you want to enforce a certain contract or behavior in derived classes, using abstract classes ensures that derived classes implement the necessary functionality.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - **Concrete Classes**: 
+> Do not use abstract classes if you need a class to be instantiated directly, as abstract classes cannot be instantiated.
+>
+> - **Simple Inheritance**: 
+> If the base class does not need to enforce any specific methods or behavior, a regular class inheritance might be more appropriate.
+>
+> - **Overhead**: 
+> If adding an abstract class or interface adds unnecessary complexity without providing a clear benefit, it may be better to avoid them.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Encapsulation of Behavior**: 
+> Abstract classes allow you to encapsulate behavior that is common across multiple derived classes, promoting code reuse and consistency.
+>
+> - **Modular Design**: 
+> They support modular design by providing a clear separation between interface and implementation, making the code easier to maintain and extend.
+>
+> - **Polymorphism**: 
+> Abstract classes facilitate polymorphism, allowing you to write code that can work with objects of different classes through a common interface. 
+> 
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**:
-ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Cannot Instantiate**: 
+> Abstract classes cannot be instantiated directly, which can be a limitation if you need to create objects of that type.
+>
+> - **Increased Complexity**: 
+> Using abstract classes can lead to increased complexity in the code, especially if the hierarchy of classes becomes deep or too broad.
+>
+> - **Overhead in Maintenance**: 
+> When many classes inherit from an abstract class, changes to the base class can impact a large number of derived classes, increasing maintenance effort.
 >
 >
 >
@@ -1339,30 +1912,93 @@ ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp
 
 > ### <font color="#a442f5">Advanced OOP</font>
 > ### <font color="#ff009e">Virtual Destructors</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> A virtual destructor is a destructor that can be overridden in a derived class. It is declared with the 'virtual' keyword, just like virtual functions. Virtual destructors are crucial in object-oriented programming when dealing with inheritance, especially when polymorphism is involved. They ensure that the correct destructor is called when an object is deleted through a base class pointer.
+>
+> **Polymorphic Base Classes**:
+> When a class has virtual functions, it is typically meant to be used polymorphically(i.e: through base class pointers or references). If a derived object is deleted through a base class pointer, a non-virtual destructor will only call the base class's destructor, potentially leading to resource leaks or undefined behavior.
+>
+> **Virtual Destructor Mechanism**:
+> Declaring a destructor as virtual in the base class ensures that the derived class's destructor is called when an object is deleted through a base class pointer. This is essential for proper cleanup of derived class resources.
+>
+> **Inheritance Hierarchies**:
+> In complex inheritance hierarchies, virtual destructors ensure that all destructors in the chain are called in the correct order, from the derived class to the base class.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>#include <iostream>
+>
+>class Base
+>{
+>   public:
+>      Base()
+>      {
+>         std::cout << "Base constructor." << std::endl;
+>      }
+>
+>      virtual ~Base()
+>      {
+>         std::cout << "Virtual base destructor" << std::endl;
+>      }
+>};
+>
+>class Derived : public Base
+>{
+>   public:
+>      Derived()
+>      {
+>         std::cout << "Derived constructor." << std::endl;
+>      }
+>
+>      ~Derived()
+>      {
+>         std::cout << "Derived destructor." << std::endl;
+>      }
+>};
+>
+>int main()
+>{
+>   Base* obj = new Derived(); // Base pointer to Derived object.
+>   delete obj; // Correctly calls Derived's destructor.
+>
+>   return 0;
+>}
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - **Polymorphism**: 
+> Whenever a class is intended to be used polymorphically (i.e., when you have virtual functions or plan to use base pointers/references to point to derived objects), you should use a virtual destructor.
+>
+> - **Base Classes**: 
+> For any class that serves as a base class in a hierarchy and can potentially be deleted through a base class pointer, a virtual destructor is necessary to ensure proper cleanup.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - **Non-Polymorphic Classes**: 
+> If a class is not intended to be used polymorphically (it doesn’t have virtual functions or is not a base class), there’s no need to declare a virtual destructor. Doing so would add unnecessary overhead.
+>
+> - **Performance-critical Classes**: 
+> Virtual destructors introduce a slight runtime overhead due to the vtable lookup. For classes that do not need to support polymorphic deletion, avoiding virtual destructors can improve performance.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Correct Resource Management**: 
+> Ensures that derived class resources are properly released, preventing resource leaks and undefined behavior.
+>
+> - **Safe Polymorphic Deletion**: 
+> Provides safety when deleting derived objects through base class pointers, maintaining proper order of destructor calls.
+>
+> - **Consistent Behavior**: 
+> Promotes consistent and predictable behavior in object-oriented designs, especially when working with complex inheritance hierarchies.
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Overhead**: 
+> Virtual destructors add a small overhead due to the vtable mechanism. This is usually negligible but can be a consideration in performance-critical applications.
+>
+> - **Unnecessary in Non-polymorphic Scenarios**: 
+> Using virtual destructors in classes that are not intended for polymorphic use cases adds unnecessary complexity and can be misleading to other developers.
 >
 >
 >
@@ -1371,62 +2007,105 @@ ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp
 >
 >
 > ### <font color="#ff009e">Pure Virtual Functions</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> They are used to create abstract classes. They are declared in base class using the '= 0' syntax and are intended to be overridden by derived class. A class that contains at least one pure virtual function is considered an abstract class and cannot be instantiated directly.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>#include <iostream>
+>
+>// Abstract class with a pure virtual function
+>class Shape
+>{
+>   public:
+>      virtual void draw() const = 0; // Pure virtual function
+>      virtual ~Shape() = default; // Base virtual destructor
+>};
+>
+>class Circle : public Shape
+>{
+>   public:
+>      void draw() const override // Implementing pure virtual function
+>      {
+>         std::cout << "Drawing a circle..." << std::endl;
+>      }
+>
+>      ~Circle() override
+>      {
+>         // Derived destructor
+>      }
+>};
+>
+>class Square : public Shape
+>{
+>   public:
+>      void draw() const override // Implementing pure virtual function
+>      {
+>         std::cout << "Drawing a square..." << std::endl;
+>      }
+>
+>      ~Square() override
+>      {
+>         // Derived destructor
+>      }
+>};
+>
+>
+>int main()
+>{
+>   Shape* circle = new Circle(); // Pointer to base class pointing to derived class.
+>   Shape* square = new Square();
+>
+>   circle -> draw(); // Calls Circle's implementation
+>   square -> draw(); // Class Square's implementation
+>   
+>   delete circle;
+>   delete square;
+>
+>   return 0;
+>}
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - **Interface Design**: 
+> Use pure virtual functions when you want to define an interface or a contract that all derived classes must adhere to. This enforces a common set of functions that must be implemented, making it easier to work with different types that share the same interface.
+>
+> - **Base Classes for Inheritance**: 
+> When creating a base class that provides common functionality and serves as a foundation for other classes, use pure virtual functions to enforce that derived classes implement certain behaviors.
+>
+> - **Polymorphic Behavior**: 
+> Pure virtual functions are essential when you need polymorphism, allowing objects of different derived types to be treated uniformly through a common base class interface.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - **Concrete Classes**: 
+> If the base class is intended to be instantiated directly or to provide complete implementations, pure virtual functions are not appropriate.
+>
+> - **Simple Inheritance**: 
+> In cases where you don't need polymorphic behavior or a strict interface, and simple inheritance is sufficient, pure virtual functions might add unnecessary complexity.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Enforces Interface**: 
+> Pure virtual functions enforce that derived classes provide specific implementations, making the code more robust and modular.
 >
-> **<font color="#f56942">Disadvantages</font>**
->
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
->
->
->
-><hr>
->
->
->
-> ### <font color="#ff009e">Copy & Move Semantics</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> // code goes here...
->```
->
-> **When To Use**
+> - **Facilitates Polymorphism**: 
+> They are essential for polymorphic behavior, allowing the same interface to be used for different types of objects, which is a core concept in object-oriented design.
 > 
-> - ExplanationExplanationExplanation.
->
-> **When Not to Use**
->
-> - ExplanationExplanationExplanation
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Promotes Code Reusability**: 
+> Using pure virtual functions allows developers to write more reusable and extendable code, as the base class provides a common interface for different derived types.
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Cannot Instantiate Abstract Classes**: 
+> Classes with pure virtual functions cannot be instantiated directly, which may be limiting if you want to create instances of base classes.
+>
+> - **Potential for Misuse**: 
+> Overuse or inappropriate use of pure virtual functions can lead to overly complex and hard-to-maintain inheritance hierarchies.
+>
+> - **Requires Derived Class Implementation**: 
+> Every derived class must implement the pure virtual functions, which can sometimes lead to redundant code if many derived classes share similar functionality.
 >
 >
 >
@@ -1435,167 +2114,91 @@ ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp
 >
 >
 > ### <font color="#ff009e">RAII(Resource Acquisition Is Initialization)</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> RAII is a programming idiom used in C++ to manage resouces such as memory, file handsles and network connections. They key idea behind it is to tie the lifecycle of a resource to the lifetime of an object. When an object is created, it acquires the resource (e.g.: allocates memory, opens a file, establishes connection with database, etc.) and when the object is destroyed, it relases the resource (e.g: deallocates memory, closes the file, disconnects the database connection, etc.).
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>#include <iostream>
+>#include <fstream>
+>
+>class FileHandler
+>{
+>   private:
+>      std::ofstream file;
+>
+>   public:
+>      FileHandler(const std::string& filename)
+>      {
+>         file.open(filename);
+>         if(!file.is_open())
+>         {
+>            throw std::runtime_error("Failed to open the file");
+>         }
+>      }
+>
+>      ~FileHandler()
+>      {
+>         if(file.is_open())
+>         {
+>            file.close();
+>         }
+>      }
+>
+>      void write(const std::string& payload)
+>      {
+>         file << payload;
+>      }
+>}
+>
+>int main()
+>{
+>   try
+>   {
+>      FileHandler fileHandler("example.txt");
+>      fileHandler.write("Hello, RAII");
+>   } catch(const std::exception& error)
+>   {
+>      std::cerr << error.what() << std::endl;
+>   }
+>   
+>   return 0;
+>}
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - Use RAII when managing resources that require explicit acquisition and relase, such as dynamic memory, file handles, sockets and mutexes.
+>
+> - Use RAII to ensure that resources are automatically relased when they are no longer needed, preventing leaks.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - Avoid using RAII for resources that do not require explicit management or where automatic management could lead to performance overhead.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Automatic Resource Management**:
+> Ensures resource are relased properly, preventing leaks
 >
-> **<font color="#f56942">Disadvantages</font>**
+> - **Exception Safety**:
+> RAII provides string exception safety, as resources are released when exceptions are thrown.
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
->
->
->
-><hr>
-
-
-
-> ### <font color="#a442f5">Class Features</font>
-> ### <font color="#ff009e">COnstructors & Destructors</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> // code goes here...
->```
->
-> **When To Use**
+> - **Clear Ownership**:
+> The obejct that manages the resource clearly owns it, making the code easier to understand and maintain. 
 > 
-> - ExplanationExplanationExplanation.
->
-> **When Not to Use**
->
-> - ExplanationExplanationExplanation
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
->
->
->
-><hr>
->
->
->
-> ### <font color="#ff009e">Member Functions(const & non-const)</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> // code goes here...
->```
->
-> **When To Use**
-> 
-> - ExplanationExplanationExplanation.
->
-> **When Not to Use**
->
-> - ExplanationExplanationExplanation
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
->
-> **<font color="#f56942">Disadvantages</font>**
->
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
->
->
->
-><hr>
->
->
->
-> ### <font color="#ff009e">Overloading(Function & Operator)</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> // code goes here...
->```
->
-> **When To Use**
-> 
-> - ExplanationExplanationExplanation.
->
-> **When Not to Use**
->
-> - ExplanationExplanationExplanation
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
->
-> **<font color="#f56942">Disadvantages</font>**
->
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
->
->
->
-><hr>
->
->
->
-> ### <font color="#ff009e">Struct vs Class</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> // code goes here...
->```
->
-> **When To Use**
-> 
-> - ExplanationExplanationExplanation.
->
-> **When Not to Use**
->
-> - ExplanationExplanationExplanation
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
->
-> **<font color="#f56942">Disadvantages</font>**
->
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
->
->
->
-><hr>
+> - **Ovearhead** 
 
 
 
-### <font color="#ffc900">3. Templates & Generic Programming</font>
+
+
+
+
+### <font color="#ffc900">4. Templates & Generic Programming</font>
 > ### <font color="#a442f5">Basic Templates</font>
 > ### <font color="#ff009e">Function Templates</font>
 > ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
@@ -5168,321 +5771,7 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 
 
 ### <font color="#ffc900">PASSING VALUES</font>
-> ### <font color="#a442f5">By Value</font>
-> When you pass a variable by value, a copy of the variable is made. The function works with this copy, so any changes made to the variable inside the function do not affect the original variable.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
->void modifyValue(int x)
->{
->   x = 10; // This change does not affect the original variable.
->}
->
->int main()
->{
->   int a = 5;
->   modifyValue(a);
->
->   return 0;
->}
->```
->
-> **When To Use**
-> 
-> - When you do not need to modify the original value.
->
-> - When the object being passed is small and cheap to copy, such as fundamental data types(int, char, etc...)
->
-> **When Not to Use**
->
-> - For large objects like vectors or strings, where copying is expensive in terms of performance.
->
-> - When you need to modify the original value.
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - Simple and safe, no need to worry about ownership or lifetime issues.
->
-> - No risk of unintended side effects since the function works with a copy. 
->
-> **<font color="#f56942">Disadvantages</font>**
->
-> - Can be inefficient for large objects due to the overhead of copying.
->
-> - Does not allow the function to modify the original value.
 
-
-
-
-
-> ### <font color="#a442f5">Passing by Reference</font>
-> When you pass a variable by reference, you pass the variable itself, not a copy. Any changes made to the variable inside the function will affect the original variable.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
->void modifyValue(int& x)
->{
->   x = 10; // This change affects the original value
->}
->
->int main()
->{
->   int a = 5;
->   modifyValue(a);
->
->   return 0;
->}
->```
->
-> **When To Use**
-> 
-> - When you need to modify the original variable.
->
-> - When passing large objects, to avoid the overhead of copying.
->
-> **When Not to Use**
->
-> - When you want to ensure the original variable remains unchanged.
->
-> - When dealing with simple, small data types where copying is inexpensive.
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - No copying overhead, making it efficient for large objects.
->
-> - Allows the function to modify the original variable. 
->
-> **<font color="#f56942">Disadvantages</font>**
->
-> - Potential for unintended side effects if the original variable is modified.
->
-> - Requires careful management to avoid issues like dangling references.
-
-
-
-
-
-> ### <font color="#a442f5">Raw Pointer</font>
-> Is similiar to passing by reference, but you pass the address of the variable explicitly. The function works with the pointer to the variable, which allows modification of the original value.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
->void modifyValue(int* x)
->{
->   *x = 10; // This change affects the original variable.
->}
->
->int main()
->{
->   int a = 5;
->   modifyValue(&a);
->
->   return 0;
->}
->```
->
-> **When To Use**
-> 
-> - When you need to pass a variable that may be null.
->
-> - When dealing with arrays or dynamically allocated memory.
->
-> **When Not to Use**
->
-> - When you can use references or smart pointers instead.
->
-> - When ownership and lifetime management are important.
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - Flexibility in passing null pointers and dynamic memory.
->
-> - Can modify the original variable. 
-> 
-> **<font color="#f56942">Disadvantages</font>**
->
-> - Requires explicit memory management, increasing the risk of memory leaks and dangling pointers.
->
-> - Pointers can be null, so you must check for null pointers to avoid crashes.
-
-
-
-
-
-
-
-> ### <font color="#a442f5">Smart Pointers</font>
-> Smart pointers are a feature in C++ that manage the lifetime of dynamically allocated objects, helping to prevent memory leaks and dangling pointers by automatically deallocating memory when it is no longer needed. The Standard Library provides several types of smart pointers, each designed for different use cases.
->
-> ### std::unique_ptr
-> A smart pointer that owns and manages another object through a pointer and disposes of that object when the 'std::unique_ptr' goes out of scope. Unique ownership, non-copyable, movable.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> std::unique_ptr<int> ptr1(new int(10));
-> // std::unique_ptr<int> ptr2 = ptr1; // Error: cannot copy
-> std::unique_ptr<int> ptr2 = std::move(ptr1);
->```
->
-> **When To Use**
-> 
-> - When you need exclusive ownership of a resource.
-> - For managing the lifetime of resources that are not shared.
-> - For implementing RAII (Resource Acquisition Is Initialization) patters.
->
-> **When Not to Use**
->
-> - When you need shared ownership or the ability to copy the smart pointer.
-> - When passing ownership to function that do not accept 'std::unique_ptr'.
->
-> <hr>
->
-> ### std::shared_ptr
-> A smart pointer that retains shared ownership of an object through a pointer. Multiple 'std::shared_ptr' instances can manage the same object. Shared ownership, reference counting.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> std::shared_ptr<int> ptr1 = std::make_shared<int>(20);
-> std::shared_ptr<int> ptr2 = ptr2; // Okay: shared ownership.
->```
->
-> **When To Use**
-> - When multiple parts of your program need to share ownership of a resource.
-> - When object need to be shared across multiple scopes or threads.
->
-> **When Not to Use**
-> - When exclusive ownership is sufficient or required.
-> - In performace-critical code where reference counting overhead is unacceptable.
->
-> <hr>
->
-> ### std::weak_ptr
-> A smart pointer that holds a non-owning (weak) reference to an object that is managed by 'std::shared_ptr'. It is used to break circular references. Non-owning, does not affect reference count.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> std::shared_ptr<int> sp = std::make_shared<int>(30);
-> std::weak_ptr<int> wp = sp; // wp does not affect reference count.
-> if(auto sp2 = wp.lock()) // Check if the object still exist. 
-> { 
->     // use sp2. 
-> } else{
->     // sp2 has been destroyed.
-> }
->```
->
-> **When To Use**
-> - When you need to reference an object managed by 'std::shared_ptr' without affecting its lifetime.
-> - For breaking circular references between 'std::shared_ptr' instances.
->
-> **When Not to Use**
-> - As a primary owning reference, since it does not manage the object's lifetime.
-> - When you do not need to break cycles between 'std::shared_ptr' instances.
->
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - **Automatic Memory Management**: 
-> Smart pointers automatically manage the lifetime of dynamically allocated objects, reducing the risk of memory leaks.
->
-> - **Exception Safety**:
-> They ensure that resources are properly relased even in the presence of exceptions.
->
-> - **Clear Ownership Semantics**:
-> Different types of smart pointers provide clear semantics for ownership and resource management.
->
->
-> **<font color="#f56942">Disadvantages</font>**
->
-> - **Overhead**: 'std::shared_ptr' has some overhead due to reference counting and atomic operations, which can impact performance.
->
-> - **Complexity**:
-> Using smart pointers can add complexity, especially when dealing with circular dependencies and weak references.
->
-> - **Incorrect Usage**:
-> Misuse of smart pointers(e.g., creating cycles with 'std::shared_ptr') can still lead to resource management issues.
-
-
-
-
-
-
-### <font color="#ffc900">REFERENCE WRAPPERS</font>
-> Allows you to store references in contexts where only objects are usually allowed, such as in containers like 'std::vector' or 'std::list'. The most common tool for this is 'std::reference_wrapper', which is part of Standard Library.
->
-> 'std::reference_wrapper' wraps a reference is an object that can be copied and assigned like a regular object. This is useful because references themselves cannot be stored in containers, but 'std::reference_wrapper' can, allowing indirect reference storage.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> #include <functional>
-> #include <vector>
->
->int main()
->{
->   int a = 10;
->   int b = 20;
->   int c = 30;
->
->   // Create a vector of reference wrappers
->   std::vector<std::vector_wrapper<int>> vec = { a, b, c };
->
->   // Modify the original variables through the reference wrapper
->   for( int& element : vec )
->   {
->      element.get() += 5; // Use .get() to access the reference
->   }
->
->   return 0;
->}
->```
->
-> **When To Use**
-> 
-> - **Storing References in Containers**:
-> When you need to store references in containers, which normally store copies of objects.
->
-> - **Passing References to Callbacks**:
-> It's useful when you need to pass references to functions or callbacks that expect objects.
->
-> - **Avoiding Copy Overheads**:
-> When you want to avoid the overhead of copying large objects and instad work with their references.
->
-> **When Not to Use**
->
-> - **When Ownership is Important**:
-> If the ownership of the object matters, consider using smart pointer instead, as 'std::reference_wrapper' does not manage the object's lifetime.
->
-> - **For Simple Reference Passing**:
-> If you do not need to store or pass the reference in a container or function expecting objects, a normal reference will suffice.
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - **Efficiency**:
-> Allow passing and storing references without the overhead of copying.
->
-> - **Container Compatibility**:
-> Enables references to be stored in standard containers that normally do not allow reference types.
->
-> - **Integration**:
-> Works seamlessly with standard algorithms and other STL components.
->
-> **<font color="#f56942">Disadvantages</font>**
->
-> - **No Ownership**:
-> 'std::reference_wrapper' does not manage the object's lifetime, which can lead to dangling references if the original object is destroyed.
->
-> - **Additional Access Step**:
-> You need to use '.get()' to access the underlying reference, which adds a small overhead and complexity.
->
-> - **Potential for Dangling References**:
-> If the object being references is destroyed while the reference wrapper is still in use, it leads to undefined behavior.
 
 
 

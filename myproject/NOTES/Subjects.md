@@ -2201,30 +2201,53 @@ Supports alias templates, enabling more flexible and reusable code.
 ### <font color="#ffc900">4. Templates & Generic Programming</font>
 > ### <font color="#a442f5">Basic Templates</font>
 > ### <font color="#ff009e">Function Templates</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> Feature that allows the creation of generic functions that can operate on different data types without rewriting the same function multiple times for each type. They enable a function to accept parameters of any type, which is particulary useful for implementing common operations like sorting, searching or handling various data structures (e.g.: arrays, linked lists) where the type of data might vary.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>template <typename T>
+>T functionName(T parameter_1, T parameter_2)
+>{
+>   // Function implementation
+>}
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - **Generic Operations**: Use function templates when you need to perform the same operation on different data types (e.g., finding maximum, minimum, sorting).
+>
+> - **Code Reusability**: Function templates help write reusable and maintainable code by eliminating the need to duplicate function definitions for each type.
+>
+> - **Type Safety**: Function templates provide type safety because the compiler automatically ensures that the types used with the template are compatible with the operations performed in the function.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - **Type-Specific Logic**: If the function has logic that is inherently specific to certain types, it might not be suitable for a function template.
+>
+> - **Complex Type Deduction**: In scenarios where type deduction becomes too complex or ambiguous, using function templates might lead to confusing code and difficult-to-debug errors.
+>
+> - **Overhead for Simple Cases**: For simple, one-off cases, writing a specific function might be more straightforward and clear than using templates.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Code Reusability**: Function templates allow writing generic functions that work with any data type, reducing code duplication.
+>
+> - **Type Safety**: The compiler checks that the types passed to the function are valid and compatible with the operations performed inside the function.
+>
+> - **Flexibility**: Function templates can handle any data type, making them highly flexible and adaptable to different use cases.
+>
+> - **Maintainability**: Using function templates helps maintain consistency in code, making it easier to maintain and extend in the future.
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Compile-Time Overhead**: Function templates increase the compilation time because the compiler generates separate functions for each unique type that is used.
+>
+> - **Code Bloat**: If many different types are used with a function template, it can lead to code bloat, as the compiler generates a separate version of the function for each type.
+>
+> - **Error Complexity**: Template-related error messages can be difficult to understand, especially for beginners, because they often involve complex type deductions.
+>
+> - **Limited Specialization**: In some cases, it may be necessary to specialize templates for certain types to handle specific behaviors, which can add complexity to the code.
 >
 >
 >
@@ -2233,30 +2256,65 @@ Supports alias templates, enabling more flexible and reusable code.
 >
 >
 > ### <font color="#ff009e">Class Templates</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> Allows you to create a blueprint for a class that can handle different data types without rewriting the class for each specific type. They provide a way to define classes that operate on generic types, making them flexible and reusable. This is particulary useful for implementing data structures like linked lists, stack, queues and others where the type of elements might vary.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>template <typename T>
+>class ClassName
+>{
+>   public:
+>      T memberVariable;
+>
+>      ClassName(T value) : memberVariable(value) {}
+>
+>      T getValue() const
+>      {
+>         return memberVariable;
+>      }
+>
+>      void setValue(T value)
+>      {
+>         memberVariable = value;
+>      }
+>};
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - **Generic Data Structures**: Use class templates when implementing generic data structures like stacks, queues, linked lists, and trees that should work with various data types.
+>
+> - **Code Reusability**: Class templates help write reusable and maintainable code by avoiding duplication. You can use the same class template for different types without rewriting the class for each type.
+>
+> **Type Safety**: Class templates provide type safety as the compiler checks that the types used with the template are compatible with the operations performed within the class.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - **Type-Specific Behavior**: If a class requires behavior specific to certain types (e.g., specialized methods for specific data types), using a class template may complicate implementation.
+>
+> - **Overhead for Simple Classes**: For simple, one-off cases, writing a specific class might be clearer and easier to understand than using a template.
+>
+> - **Complex Specialization**: If extensive specialization of class template functions is needed for different types, it might be better to use inheritance or other design patterns.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Code Reusability**: Class templates allow you to write generic classes that can be used with any data type, reducing code duplication and improving maintainability.
+>
+> - **Type Safety**: The compiler ensures that the types used with the class template are valid and compatible with the class's operations.
+>
+> - **Flexibility**: Class templates can handle any data type, making them adaptable to a wide range of use cases.
+>
+> - **Compile-Time Type Checking**: Errors related to type mismatches are caught at compile time, reducing the risk of runtime errors.
 >
 > **<font color="#f56942">Disadvantages</font>**
+> - **Compile-Time Overhead**: Class templates increase compilation time since the compiler generates a separate version of the class for each unique type used.
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> **Code Bloat**: If many different types are used with a class template, it can lead to code bloat due to multiple instantiations.
+>
+> - **Complex Error Messages**: Template-related error messages can be difficult to understand, especially for beginners, due to complex type deductions and template instantiation errors.
+>
+> - **Limited Debugging Support**: Debugging template code can be more challenging compared to non-template code because of the abstraction and complexity involved.
 >
 >
 >
@@ -2266,30 +2324,70 @@ Supports alias templates, enabling more flexible and reusable code.
 
 > ### <font color="#a442f5">Advanced Templates</font>
 > ### <font color="#ff009e">Template Specialization</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> Allows you to define a specific implementation of a template for a particular data type. While templates provide a way to write generic code, template specialization provides a way to handle specific cases that require a different implementation from the general template. There are two main types of template specialization.
+>
+> - **Full Specialization**:
+> This is where you provide a completely specialized implementation for a specific type.
+>
+> - **Partial Specialization**:
+> This allows specialization for a subset of template parameters (typically used for class templates, not function templates).
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>// Full Specialization Syntax
+>template <> // Indication that this is a specialization.
+>class ClassName<Type>
+>{
+>   // Specialized implementation for Type.
+>};
+>
+>// Partial Specialization
+>// Generic Implementation
+>template <typename T, typename U>
+>class ClassName
+>{
+>   // Generic implementation.
+>}
+>
+>template<typename T>
+>class ClassName<T, int>
+>{
+>   // Special implementation when the second type is int
+>};
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - **Specialized Behavior**: When you need different behavior for specific types, like handling std::string differently from other data types.
+>
+> - **Performance Optimization**: Specialization allows you to write optimized code for certain types while maintaining generic functionality for others.
+>
+> - **Type-Specific Logic**: Use when certain types require distinct logic that the general template cannot accommodate efficiently.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - **Overuse of Specialization**: Avoid specializing templates for too many types as it can lead to code bloat and increased complexity.
+>
+> - **Maintainability**: Too many specializations can make the codebase hard to understand and maintain.
+>
+> - **Simple Cases**: If the specialized behavior is minor and does not significantly impact performance or logic, it might not be necessary.
 >
 > **<font color="#b3f542">Advantages</font>**
+> 
+> - **Flexibility**: Allows you to tailor the behavior of a template to suit specific types or conditions without affecting the general template.
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Type Safety**: Provides type-safe customization of templates, ensuring that only appropriate types receive specialized behavior.
+>
+> - **Performance**: Enables optimization for specific types, leading to potentially better performance.
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Complexity**: Increases code complexity, making it harder to read and understand, especially for those unfamiliar with template specialization.
+>
+> - **Code Bloat**: Specializing templates for many types can lead to code bloat, as each specialized version adds to the code size.
+> 
+> - **Maintenance Difficulty**: More specialized cases can make the codebase challenging to maintain and extend, particularly if future changes affect multiple specializations.
 >
 >
 >
@@ -2298,12 +2396,92 @@ Supports alias templates, enabling more flexible and reusable code.
 >
 >
 > ### <font color="#ff009e">Variadic Templates</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> Allows you to accept an arbitrary number of arguments. They were introduced in C++11 to provide a more elegant and type-safe way to handle functions and classes that work with a variable number of parameters. Variadic templates can be used with both function templates and class templates.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>template <typename... Args>
+>void functionName(Args... args)
+>{
+>   // Function implementation
+>}
+>```
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>#include <iostream>
+> 
+>// Base case: empty function to end recursion
+>void print()
+>{
+>   std::cout << "End of argument list." << std::endl;
+>}
+>
+>// Variadic template function
+>template <typename T, typename... Args>
+>{
+>   void print(const T& first, const Args&... rest)
+>   {
+>      std::cout << first << std::endl; // Print the first argument.
+>      print(rest...); // Recursively call with the remaining arguments.
+>   }
+>}
+>
+>int main()
+>{
+>   print(1, 2, 3, 5, 7.2, 12.59, "Hello World!", "E"); // Calls the variadic template.
+>
+>   return 0;
+>}
+>```
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>#include <iostream>
+>#include <string>
+>
+>// Base case for tuple
+>template<typename... Args>
+>class Tuple;
+>
+>// Specialization for when there are no more types.
+>template<>
+>class Tuple<> {};
+>
+>// Recursive definition for Tuple
+>template<typename Head, typename... Tail>
+>class Tuple<Head, Tail...>
+>{
+>   public:
+>      Head head;
+>      Tuple<Tail...> tail;
+>
+>      Tuple(const Head& h, const Tail&... t) : head(h), tail(t...) {}
+>
+>      void print() const
+>      {
+>         std::cout << head << " ";
+>         tail.print();
+>      }
+>};
+>
+>// Specialization of print() for empty tuple to end recursion
+>template<>
+>void Tuple<>::print() const
+>{
+>   std::cout << std::endl;
+>}
+>
+>int main()
+>{
+>   Tuple<int, double, std::string> myTuple(1, 2.4, "Hello World");
+>   myTuple.print();
+>
+>   return 0;
+>}
 >```
 >
 > **When To Use**

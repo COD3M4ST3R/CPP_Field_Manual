@@ -121,24 +121,22 @@
    <br>
    <br>
 
-5. Standard Library (STL)
+5. [Standard Library (STL)](#standard-librarystl)
 
-   - Containers
-      - Sequence Containers (std::vector, std::list, std::deque)
-      - Associative Containers (std::set, std::map)
-      - Unordered Containers (std::unordered_set, std::unordered_map)
+   - [Containers](#containers)
+      - [Sequence Containers (std::vector, std::list, std::deque)](#sequence-containers)
+      - [Associative Containers (std::set, std::map)](#associative-containers)
+      - [Unordered Containers (std::unordered_set, std::unordered_map)](#unordered-containers)
    
-   - Iterators
-      - Input/Output, Forward, Bidirectional, Random Access (New)
+   - [Iterators](#iterators)
+      - [Input/Output, Forward, Bidirectional, Random Access (New)](#inputoutput-forward-bidirectional-random-access)
    
-   - Algorithms
-      - Sorting, Searching, Modifying (std::sort, std::find, std::transform)
+   - [Algorithms](#algorithms)
+      - [Sorting, Searching, Modifying](#sorting-searching-modifying)
+      - [Utilities](#utilities)
    
-   - Utilities
-      - std::pair, std::tuple, std::optional, std::variant
-   
-   - Function Objects
-      - Functors, Lambdas, std::function
+   - [Function Objects](#function-objects)
+      - [Functors, Lambdas, std::function](#functors-lambdas-stdfunction)
 
    <br>
    <br>
@@ -2767,128 +2765,268 @@ Supports alias templates, enabling more flexible and reusable code.
 
 ### <font color="#ffc900">Standard Library(STL)</font>
 > ### <font color="#a442f5">Containers</font>
+>
+>C++ containers are fundamental components of the Standard Template Library (STL) that provide a way to store and manage collections of objects. They are divided into three main categories: sequence containers, associative containers, and unordered containers. Each type of container has different characteristics and is suited for different tasks.
+>
 > ### <font color="#ff009e">Sequence Containers</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> Sequence containers maintain elements in a linear sequence and provide various ways to access and manipulate this sequence.
+>
+> **std::vector**
+>
+> A std::vector is a dynamic array that can grow and shrink in size. It provides random access to elements and is efficient for appending elements at the end.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+> std::vector<int> vec = {1, 2, 3, 4, 5};
 >```
 >
 > **When To Use**
-> 
-> - ExplanationExplanationExplanation.
->
-> **When Not to Use**
->
-> - ExplanationExplanationExplanation
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
->
-> **<font color="#f56942">Disadvantages</font>**
->
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - Ideal for situations where you need fast access by index and the size of the array might change.
 >
 >
+> **std::deque**
 >
-><hr>
+> A std::deque (double-ended queue) allows insertion and deletion at both the front and the back. It is similar to a std::vector but provides more flexibility with insertion and deletion operations.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> std::deque<int> deq = {1, 2, 3, 4, 5};
+>```
+>
+> **When To Use**
+> - When you need efficient insertion and deletion from both ends of sequence.
 >
 >
+> **std::list**
+>
+> A std::list is a doubly-linked list that allows efficient insertion and deletion of elements anywhere in the sequence. Unlike std::vector and std::deque, it does not provide random access.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> std::list<int> lst = {1, 2, 3, 4, 5};
+>```
+>
+> **When To Use**
+> - Best for scenarios where frequent insertions and deletions occur in the middle of the sequence.
+>
+>
+> <hr>
 >
 > ### <font color="#ff009e">Associative Containers</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> Associative containers store elements in a sorted order, allowing for efficient retrieval using keys. They automatically handle the organization and sorting of elements:
+>
+> **std::set**
+>
+> A std::set is an associative container that stores unique elements in a sorted order. It automatically handles duplicate entries by ignoring them.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+> std::set<int> lst = {1, 2, 3, 4, 5};
 >```
 >
 > **When To Use**
+> - When you need a collection of unique items that you want to access in sorted order.
+>
+>
+> **std::map**
+>
+> A std::map is an associative container that stores elements in key-value pairs. The keys are sorted, and each key is unique.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> std::map<int, std::string> m = {{1, "one"}, {2, "two"}, {3, "three"}};
+> m[4] = "four";
 > 
-> - ExplanationExplanationExplanation.
+> for(const auto& pair : m)
+> {
+>      pair.first;
+>      pair.second;
+> }
+>```
 >
-> **When Not to Use**
+> **When To Use**
+> - When you need a collection of unique items that you want to access in sorted order.
 >
-> - ExplanationExplanationExplanation
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
->
-> **<font color="#f56942">Disadvantages</font>**
->
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
->
->
->
-><hr>
->
->
+> <hr>
 >
 > ### <font color="#ff009e">Unordered Containers</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> Unordered containers store elements in an unordered manner, typically using hash tables. They provide fast average time complexity for retrieval, insertion and deletion.
+>
+> **std::unordered_set**
+>
+> Stores unique elements in an unordered manner, allowing for fast retrieval.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+> std::unordered_set<int> us = {3, 1, 4, 1, 5, 9};> 
 >```
 >
 > **When To Use**
+> - Ideal for when you need a collection of unique items and do not care about the order but need fast access.
+>
+>
+> **std::unordered_map**
+>
+> Stores key-value pairs in an unordered manner, allowing for fast retrieval.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> std::unordered_map<int, std::string> m = {{1, "one"}, {2, "two"}, {3, "three"}};
+> m[4] = "four";
 > 
-> - ExplanationExplanationExplanation.
+> for(const auto& pair : m)
+> {
+>      pair.first;
+>      pair.second;
+> }   
+>```
 >
-> **When Not to Use**
->
-> - ExplanationExplanationExplanation
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
->
-> **<font color="#f56942">Disadvantages</font>**
->
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
->
->
->
-><hr>
+> **When To Use**
+> - Best for maintaining a collection of key-value pairs where order is not important, but fast access by key is needed.
+
 
 
 
 > ### <font color="#a442f5">Iterators</font>
 > ### <font color="#ff009e">Input/Output, Forward, Bidirectional, Random Access</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> Iterators are an abstraction for pointers that allow traversal of data structures, especially in the Standard Template Library (STL). These iterators come in various categories based on the operations they support and the level of access they provide to the elements in container. The five main categories are:
+>
+> - **Input Iterator**:
+> Provides read-only access to elements in a sequence. They are unidirectional, meaning you can only move forward in the sequence.
+>
+>     - Can read the data pointed to.
+>     - Can be incremented to point to the next element.
+>     - Supports single-pass algorithms (you cannot re-read elements once passed).
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>#include <iostream>
+>#include <iterator>
+>#include <vector>
+>
+>int main()
+>{
+>   std::vector<int> vec = {1, 2, 3, 4};
+>   std::vector<int>::iterator it = vec.begin();
+>
+>   while(it != vec.end())
+>   {
+>      std::cout << *it << " ";
+>      ++it; // Move to the next element.
+>   }
+>}
 >```
 >
-> **When To Use**
-> 
-> - ExplanationExplanationExplanation.
 >
-> **When Not to Use**
+> - **Output Iterator**:
+> Provides write-only access to elements in a sequence. Like input iterators, they are also unidirectional but can only write values.
 >
-> - ExplanationExplanationExplanation
+>     - Can write data to the pointer-to element.
+>     - Can be incremented to point to the next element.
+>     - Typically used with output streams or algorithms that modify containers.
 >
-> **<font color="#b3f542">Advantages</font>**
+> **<font color="#428df5">Example</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>```cpp
+>#include <iostream>
+>#include <vector>
+>#include <algorithm>
 >
-> **<font color="#f56942">Disadvantages</font>**
+>int main()
+>{
+>   std::vector<int> vec = {1, 2, 3, 4};
+>   std::ostream_iterator<int> out_it(std::cout, " ");
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>   std::copy(vec.begin(), vec.end(), out_it); // Writing to the output stream.
+>}
+>```
+>
+>
+> - **Forward Iterator**:
+> Provides both read and write access and can move forward in the sequence, but not backward. They support multiple passes over the sequence.
+>
+>     - Can read and write data.
+>     - Supports equality and inequality comparisions (**==**, **!=**).
+>     - Can be incremented (**++**).
+>     - Supports multiple passes over the container.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>#include <iostream>
+>#include <forward_list>
+>
+>int main()
+>{
+>   std::forward_list<int> flist = {1, 2, 3, 4};
+>
+>   for(auto itr = flist.begin(); itr != flist:end(); ++itr)
+>   {
+>      std::cout << *itr << " "; // Read access.
+>   }
+>}
+>```
+>
+>
+> - **Bidirectional Iterator**:
+> Extends forward iterators by also allowing backward traversal. This means you can move both forward and backwards in the container.
+>
+>     - Can be incremented (**++**) and decremented (**--**).
+>     - Supports reading and writing.
+>     - Useful for containers like **std::list** or **std::set**
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>#include <iostream>
+>#include <list>
+>
+>int main()
+>{
+>   std::list<int> mylist = {1, 2, 3, 4};
+>
+>   for(auto itr = mylist.rbegin(); itr != mylist.rend(); ++itr) // rbegin: r(everse)begin, rend: r(everse)end
+>   {
+>      std::cout << *itr << " "; // Accessing elements in reverse order.
+>   }
+>}
+>```
+>
+>
+> - **Random Access Iterator**:
+> Most powerful type, allowing direct access to any element in constant time. They support a wide range of operations, including pointer arithmetic.
+>
+>     - Can access elements at any position (**itr + n, itr - n**).
+>     - Can compare positions (**<, >, <=, >=**).
+>     - Supports all bidirectional iterator operations.
+>     - Used by containers like **std::vector** and **std::deque**.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>#include <iostream>
+>#include <vector>
+>
+>int main()
+>{
+>   std::vector<int> vec = {10, 20, 30, 40, 50};
+>   std::cout << "Element at index 2: " << vec[2] << std::endl;
+>
+>   // Random access iterator example
+>   auto itr = vec.begin();
+>   std::advance(itr, 3); // Jump to 4th element.
+>   std::cout << "Advanced to: " << *itr << std::endl;
+>}
+>```
+>
 >
 >
 >
@@ -2899,73 +3037,349 @@ Supports alias templates, enabling more flexible and reusable code.
 
 > ### <font color="#a442f5">Algorithms</font>
 > ### <font color="#ff009e">Sorting, Searching, Modifying</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> The Standard Template Library (STL) in C++ includes a comprehensive set of algorithms that work on containers via iterators. These algorithms provide a wide range of functionalities, from searching and sorting to modifying and inspecting elements. Here’s an overview of some key STL algorithms.
+>
+> ### Non-Modifying Algorithms
+>
+> These algorithms do not alter the contents of the container.
+>
+> **std::for_each**
+> 
+> Applies a function to each element in a range. 
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+> std::for_each(vec.begin(), vec.end(), [](int &n) {n += 2;})
 >```
 >
-> **When To Use**
+> **std::find**
 > 
-> - ExplanationExplanationExplanation.
->
-> **When Not to Use**
->
-> - ExplanationExplanationExplanation
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
->
-> **<font color="#f56942">Disadvantages</font>**
->
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
->
->
->
-><hr>
->
->
->
-
-
-
-> ### <font color="#a442f5">Utilities</font>
-> ### <font color="#ff009e">std::pair, std::tuple, std::optional, std::variant</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> Searches for the first occurence of a value in a range. 
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+> auto it = std::find(vec.begin(), vec.end(), 3)
 >```
 >
-> **When To Use**
+> **std::find_if**
+>
+> Searches for the first element satisfying a predicate. 
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> auto it = std::find_if(vec.begin(), vec.end(), [](int n){return n % 2 == 0;});
+>```
+>
+> **std::count**
 > 
-> - ExplanationExplanationExplanation.
+> Counts the number of elements equal to a value. 
 >
-> **When Not to Use**
+> **<font color="#428df5">Example</font>**
 >
-> - ExplanationExplanationExplanation
+>```cpp
+> int count = std::count(vec.begin(), vec.end(), 3);
+>```
 >
-> **<font color="#b3f542">Advantages</font>**
+> **std::count_if**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> Counts elements satisfying a predicate.
 >
-> **<font color="#f56942">Disadvantages</font>**
+> **<font color="#428df5">Example</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>```cpp
+> int count = std::count_if(vec.begin(), vec.end(), [](int n){return n % 2 == 0;});
+>```
 >
+> **std::accumulate**
 >
+> Computes the sum of a range of elements.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> int sum = std::accumulate(vec.begin(), vec.end(), 0);
+>```
+>
+> <hr>
+>
+> ### Modifying Algorithms
+>
+> These algorithms change the contents of the container.
+>
+> **std::copy**
+>
+> Copies elements from one range to another.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> std::vector<int> vec2(vec.size());
+> std::copy(vec.begin(), vec.end(), vec2.begin());
+>```
+>
+> **std::transform**
+>
+> Applies a function to a range of elements and stores the result in another range.
+>
+> **<font color="#428df5">Example</font>**
+>
+> ```cpp
+> std::transform(vec.begin(), vec.end(), vec2.begin(), [](int n) {return n *  2;});
+>```
+>
+> **std::replace**
+>
+> Replaces all occurences of a value in a range with another value.
+>
+> **<font color="#428df5">Example</font>**
+>
+> ```cpp
+> std::replace(vec.begin(), vec.end(), 3, 7);
+> ```
+>
+> **std::remove**
+>
+> Removes all occurences of a value in a range.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> vec.erase(std::remove(vec.begin(), vec.end(), 3), vec.end());
+>```
+>
+> **std::fill**
+>
+> Fills a range with a specified value.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> std::fill(vec.begin(), vec.end(), 0);
+>```
 >
 ><hr>
 >
+> ### Sorting Algorithms
+> These algorithms sort elements in a container
+>
+> **std::sort**
+>
+> Sorts elements in a range.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> std::sort(vec.begin(), vec.end());
+>```
+>
+> **std::partial_sort**
+>
+> Sorts the first N elements of a range.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> std::partial_sort(vec.begin(), vec.begin() + 3, vec.end());
+>```
+>
+> **std::stable_sort**
+>
+> Sorts elements in a range while maintaining the relative order of equivalent elements.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> std::stable_sort(vec.begin(), vec.end());
+>```
+>
+><hr>
+>
+> ### Searching Algorithms
+>
+> **std::binary_search**
+>
+> Checks if a value exists in a sorted range.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> bool found = std::binary_search(vec.begin(), vec.end(), 3);
+>```
+>
+> **std::lower_bound**
+>
+> Finds the first position where a value could be inserted without violating order.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> auto it = std::lower_bound(vec.begin(), vec.end(), 3);
+>```
+>
+> **std::upper_bound**
+>
+> Finds the last position where a value could be inserted without violating order.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> auto it = std::upper_bound(vec.begin(), vec.end(), 3);
+>```
+>
+> <hr>
+>
+> ### Set Algorithms
+> These algorithms operate on sorted ranges to perform set operations.
+>
+> **std::union**
+>
+> Computes the union of two sets.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> std::vector<int> result;
+> std::set_union(set1.begin(), set1.end(), set2.begin(), set2.end(), std::back_inserter(result));
+>```
+>
+> **std::set_intersection**
+>
+> Computes the intersection of two sets.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> std::vector<int> result;
+> std::set_intersection(set1.begin(), set1.end(), set2.begin(), set2.end(), std::back_inserter(result));
+>```
+>
+> **std::set_difference**
+>
+> Computes the difference between two sets.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> std::vector<int> result;
+> std::set_difference(set1.begin(), set1.end(), set2.begin(), set2.end(), std::back_inserter(result));
+>```
+
+
+
+
+> ### <font color="#ff009e">Utilities</font>
+> 
+> The Standard Template Library (STL) includes a variety of utility components that assist with common programming tasks, enhancing the functionality and convenience of C++ development. These utilities provide basic services like pair management, tuple handling, and type traits. They help with tasks such as element swapping, moving objects, and type manipulations, making the STL more powerful and flexible.
+>
+> **std::pair**
+>
+> A simple container to store two heterogeneous objects as a single unit. It is often used to return two values from a function or to store key-value pairs.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> std::pair<int, std::string> p = {1, "example"};
+> 
+>```
+>
+> **std::tuple**
+>
+> Similar to std::pair, but can hold any number of elements of different types. Useful for returning multiple values from functions and for making heterogeneous collections.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> std::tuple<int, std::string, double> t = {1, "example", 3.14};
+>```
+>
+> **std::move**
+>
+> Enables efficient transfer of resources from one object to another, using move semantics to avoid deep copying. Essential for performance optimization, especially in resource-intensive applications.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> std::string source = "hello";
+> std::string target = std::move(source); // source is now empty.
+>```
+>
+> **std::swap**
+>
+> Exchanges the values of two objects. This utility function is essential for many algorithms, such as sorting.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> int a = 1, b = 2;
+> std::swap(a, b);
+>```
+>
+> **std::forward**
+>
+> Perfect forwarding utility that preserves the value category (lvalue or rvalue) of the arguments passed to a function. Often used in template programming to implement forwarding functions.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> template <typename T>
+> void wrapper(T&& arg)
+> {
+>     function(std::forward<T>(arg));
+> }
+>```
+>
+> **std::tie**
+>
+> Unpacks tuples into individual variables. Often used in conjunction with functions that return std::tuple.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> int a, b;
+> std::tie(a, b) = std::make_tuple(1, 2);
+>```
 >
 >
+> **std::any**
+>
+> A type-safe container for single values of any type. It can hold values of anyx type and provides type erasure.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> std::any a = 42;
+> a = std::string("hello");
+>```
+>
+> **std::optional**
+>
+> A container that may or may not hold a value, providing a way to represent optional or nullable values without using pointers.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> std::optional<int> maybeValue;
+> maybeValue = 42;
+> if (maybeValue)
+> {
+>     std::cout << "Value is " << *maybeValue << std::endl;  
+> }
+>```
+>
+> **std::variant**
+>
+> A type-safe union that can hold a value of one of several types, providing a way to work with union-like structures safely.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> std::variant<int, std::string> v = "hello";
+> v = 42;
+>```
 
 
 
@@ -4708,363 +5122,9 @@ Templates can significantly increase compilation time, especially for larger pro
 
 
 
-
-
-
-### <font color="#ffc900">STL (Standard Template Library)</font>
-> ### <font color="#a442f5">Containers</font>
 >
->C++ containers are fundamental components of the Standard Template Library (STL) that provide a way to store and manage collections of objects. They are divided into three main categories: sequence containers, associative containers, and unordered containers. Each type of container has different characteristics and is suited for different tasks.
 >
-> ### Sequence Containers
-> Sequence containers maintain elements in a linear sequence and provide various ways to access and manipulate this sequence.
 >
-> ### std::vector
->
-> A std::vector is a dynamic array that can grow and shrink in size. It provides random access to elements and is efficient for appending elements at the end.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> std::vector<int> vec = {1, 2, 3, 4, 5};
->```
->
-> **When To Use**
-> - Ideal for situations where you need fast access by index and the size of the array might change.
->
->
-> ### std::deque
->
-> A std::deque (double-ended queue) allows insertion and deletion at both the front and the back. It is similar to a std::vector but provides more flexibility with insertion and deletion operations.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> std::deque<int> deq = {1, 2, 3, 4, 5};
->```
->
-> **When To Use**
-> - When you need efficient insertion and deletion from both ends of sequence.
->
->
-> ### std::list
->
-> A std::list is a doubly-linked list that allows efficient insertion and deletion of elements anywhere in the sequence. Unlike std::vector and std::deque, it does not provide random access.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> std::list<int> lst = {1, 2, 3, 4, 5};
->```
->
-> **When To Use**
-> - Best for scenarios where frequent insertions and deletions occur in the middle of the sequence.
->
->
-> ### std::list
->
-> A std::list is a doubly-linked list that allows efficient insertion and deletion of elements anywhere in the sequence. Unlike std::vector and std::deque, it does not provide random access.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> std::list<int> lst = {1, 2, 3, 4, 5};
->```
->
-> <hr>
->
-> ### Associative Containers
-> Associative containers store elements in a sorted order, allowing for efficient retrieval using keys. They automatically handle the organization and sorting of elements:
->
-> ### std::set
->
-> A std::set is an associative container that stores unique elements in a sorted order. It automatically handles duplicate entries by ignoring them.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> std::set<int> lst = {1, 2, 3, 4, 5};
->```
->
-> **When To Use**
-> - When you need a collection of unique items that you want to access in sorted order.
->
->
-> ### std::map
->
-> A std::map is an associative container that stores elements in key-value pairs. The keys are sorted, and each key is unique.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> std::map<int, std::string> m = {{1, "one"}, {2, "two"}, {3, "three"}};
-> m[4] = "four";
-> 
-> for(const auto& pair : m)
-> {
->      pair.first;
->      pair.second;
-> }
->```
->
-> **When To Use**
-> - When you need a collection of unique items that you want to access in sorted order.
->
-> <hr>
->
-> ### Unordered Containers
-> Unordered containers store elements in an unordered manner, typically using hash tables. They provide fast average time complexity for retrieval, insertion and deletion.
->
-> ### std::unordered_set
->
-> Stores unique elements in an unordered manner, allowing for fast retrieval.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> std::unordered_set<int> us = {3, 1, 4, 1, 5, 9};> 
->```
->
-> **When To Use**
-> - Ideal for when you need a collection of unique items and do not care about the order but need fast access.
->
->
-> ### std::unordered_map
->
-> Stores key-value pairs in an unordered manner, allowing for fast retrieval.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> std::unordered_map<int, std::string> m = {{1, "one"}, {2, "two"}, {3, "three"}};
-> m[4] = "four";
-> 
-> for(const auto& pair : m)
-> {
->      pair.first;
->      pair.second;
-> }   
->```
->
-> **When To Use**
-> - Best for maintaining a collection of key-value pairs where order is not important, but fast access by key is needed.
-
-
-
->
->
->
-> ### <font color="#a442f5">Algorithms</font>
->
-> The Standard Template Library (STL) in C++ includes a comprehensive set of algorithms that work on containers via iterators. These algorithms provide a wide range of functionalities, from searching and sorting to modifying and inspecting elements. Here’s an overview of some key STL algorithms.
->
-> ### Non-Modifying Algorithms
->
-> These algorithms do not alter the contents of the container.
->
-> ### std::for_each 
-> Applies a function to each element in a range. 
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> std::for_each(vec.begin(), vec.end(), [](int &n) {n += 2;})
->```
->
-> ### std::find 
-> Searches for the first occurence of a value in a range. 
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> auto it = std::find(vec.begin(), vec.end(), 3)
->```
->
-> ### std::find_if
-> Searches for the first element satisfying a predicate. 
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> auto it = std::find_if(vec.begin(), vec.end(), [](int n){return n % 2 == 0;});
->```
->
-> ### std::count 
-> Counts the number of elements equal to a value. 
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> int count = std::count(vec.begin(), vec.end(), 3);
->```
->
-> ### std::count_if
-> Counts elements satisfying a predicate.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> int count = std::count_if(vec.begin(), vec.end(), [](int n){return n % 2 == 0;});
->```
->
-> ### std::accumulate
-> Computes the sum of a range of elements.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> int sum = std::accumulate(vec.begin(), vec.end(), 0);
->```
->
-> <hr>
->
-> ### Modifying Algorithms
->
-> These algorithms change the contents of the container.
->
-> ### std::copy
-> Copies elements from one range to another.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> std::vector<int> vec2(vec.size());
-> std::copy(vec.begin(), vec.end(), vec2.begin());
->```
->
-> ### std::transform
-> Applies a function to a range of elements and stores the result in another range.
->
-> **<font color="#428df5">Example</font>**
->
-> ```cpp
-> std::transform(vec.begin(), vec.end(), vec2.begin(), [](int n) {return n *  2;});
->```
->
-> ### std::replace
-> Replaces all occurences of a value in a range with another value.
->
-> **<font color="#428df5">Example</font>**
->
-> ```cpp
-> std::replace(vec.begin(), vec.end(), 3, 7);
-> ```
->
-> ### std::remove
-> Removes all occurences of a value in a range.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> vec.erase(std::remove(vec.begin(), vec.end(), 3), vec.end());
->```
->
-> ### std::fill
-> Fills a range with a specified value.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> std::fill(vec.begin(), vec.end(), 0);
->```
->
-><hr>
->
-> ### Sorting Algorithms
-> These algorithms sort elements in a container
->
-> ### std::sort
-> Sorts elements in a range.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> std::sort(vec.begin(), vec.end());
->```
->
-> ### std::partial_sort
-> Sorts the first N elements of a range.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> std::partial_sort(vec.begin(), vec.begin() + 3, vec.end());
->```
->
-> ### std::stable_sort
-> Sorts elements in a range while maintaining the relative order of equivalent elements.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> std::stable_sort(vec.begin(), vec.end());
->```
->
-><hr>
->
-> ### Searching Algorithms
->
-> ### std::binary_search
-> Checks if a value exists in a sorted range.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> bool found = std::binary_search(vec.begin(), vec.end(), 3);
->```
->
-> ### std::lower_bound
-> Finds the first position where a value could be inserted without violating order.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> auto it = std::lower_bound(vec.begin(), vec.end(), 3);
->```
->
-> ### std::upper_bound
-> Finds the last position where a value could be inserted without violating order.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> auto it = std::upper_bound(vec.begin(), vec.end(), 3);
->```
->
-> <hr>
->
-> ### Set Algorithms
-> These algorithms operate on sorted ranges to perform set operations.
->
-> ### std::union
-> Computes the union of two sets.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> std::vector<int> result;
-> std::set_union(set1.begin(), set1.end(), set2.begin(), set2.end(), std::back_inserter(result));
->```
->
-> ### std::set_intersection
-> Computes the intersection of two sets.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> std::vector<int> result;
-> std::set_intersection(set1.begin(), set1.end(), set2.begin(), set2.end(), std::back_inserter(result));
->```
->
-> ### std::set_difference
-> Computes the difference between two sets.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> std::vector<int> result;
-> std::set_difference(set1.begin(), set1.end(), set2.begin(), set2.end(), std::back_inserter(result));
->```
 
 >
 >
@@ -5227,133 +5287,6 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 
 
 
-
-> ### <font color="#a442f5">Utilities</font>
-> 
-> The Standard Template Library (STL) includes a variety of utility components that assist with common programming tasks, enhancing the functionality and convenience of C++ development. These utilities provide basic services like pair management, tuple handling, and type traits. They help with tasks such as element swapping, moving objects, and type manipulations, making the STL more powerful and flexible.
->
-> ### std::pair
-> A simple container to store two heterogeneous objects as a single unit. It is often used to return two values from a function or to store key-value pairs.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> std::pair<int, std::string> p = {1, "example"};
-> 
->```
->
-> ### std::tuple
-> Similar to std::pair, but can hold any number of elements of different types. Useful for returning multiple values from functions and for making heterogeneous collections.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> std::tuple<int, std::string, double> t = {1, "example", 3.14};
->```
->
-> ### std::move
-> Enables efficient transfer of resources from one object to another, using move semantics to avoid deep copying. Essential for performance optimization, especially in resource-intensive applications.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> std::string source = "hello";
-> std::string target = std::move(source); // source is now empty.
->```
->
-> ### std::swap
-> Exchanges the values of two objects. This utility function is essential for many algorithms, such as sorting.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> int a = 1, b = 2;
-> std::swap(a, b);
->```
->
-> ### std::forward
-> Perfect forwarding utility that preserves the value category (lvalue or rvalue) of the arguments passed to a function. Often used in template programming to implement forwarding functions.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> template <typename T>
-> void wrapper(T&& arg)
-> {
->     function(std::forward<T>(arg));
-> }
->```
->
-> ### std::tie
-> Unpacks tuples into individual variables. Often used in conjunction with functions that return std::tuple.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> int a, b;
-> std::tie(a, b) = std::make_tuple(1, 2);
->```
->
-> ### Type Traits
-> Compile-time utilities for querying and manipulating types. They are useful in template metaprogramming.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> template <typename T>
-> void checkType()
-> {
->     if (std::is_integral<T>::value)
->     {
->        std::cout << "T is an integral type." << std::endl;
->     }
-> }
->```
->
-> ### std::reference_wrapper
-> Wraps a reference in an object that can be copied, useful for storing references in containers.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> int x = 10;
-> std::vector<std::reference_wrapper<int>> v = {x};
-> v[0] = 20; // x is now 20.
->```
->
-> ### std::any
-> A type-safe container for single values of any type. It can hold values of anyx type and provides type erasure.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> std::any a = 42;
-> a = std::string("hello");
->```
->
-> ### std::optional
-> A container that may or may not hold a value, providing a way to represent optional or nullable values without using pointers.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> std::optional<int> maybeValue;
-> maybeValue = 42;
-> if (maybeValue)
-> {
->     std::cout << "Value is " << *maybeValue << std::endl;  
-> }
->```
->
-> ### std::variant
-> A type-safe union that can hold a value of one of several types, providing a way to work with union-like structures safely.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> std::variant<int, std::string> v = "hello";
-> v = 42;
->```
 
 
 

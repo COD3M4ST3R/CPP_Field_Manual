@@ -51,74 +51,73 @@
 
 # CPP
 
-1. Basic Concepts
+1. [Basic Concepts](#1-basic-concepts)
 
-   - Keywords & Core Syntax
-      - auto
-      - inline
-      - static
-      - constexpr
-      - typename
-      - using
-      - extern, volatile, mutable (New)
+   - [Keywords & Core Syntax](#keywords--core-syntax)
+      - [auto](#auto)
+      - [inline](#inline)
+      - [static](#static)
+      - [constexpr](#constexpr)
+      - [typename](#typename)
+      - [using](#using)
+      - [extern](#extern)
+      - [volatile](#volatile)
+      - [mutable](#mutable)
 
-   - Data Types
-      - Trivial types (e.g., int, float, double, short int)
-      - Compound types (std::pair, std::tuple) (New)
-      - Standard library types (std::string, std::string_view)
-      - Modern types (std::optional, std::variant, std::any) (New)
-
-   <br>
-   <br>
-
-2. Passing Values
-
-   - By Value
-   - By Reference
-   - Raw Pointers
-   - Smart Pointers
-   - Reference Wrappers
+   - [Data Types](#data-types)
+      - [Trivial types (e.g., int, float, double, short int)](#trival-types)
+      - [Compound types (std::pair, std::tuple) (New)](#compound-types)
+      - [Standard library types (std::string, std::string_view)](#standard-library)
+      - [Modern types (std::optional, std::variant, std::any) (New)](#modern-types)
 
    <br>
    <br>
 
-3. Object-Oriented Programming (OOP)
+2. [Passing Values](#2-passing-values)
 
-   - Class Features
-      - Constructors & Destructors
-      - Member functions (const and non-const)
-      - Overloading (Function & Operator)
-      - Struct vs. Class
+   - [By Value](#by-value)
+   - [By Reference](#by-reference)
+   - [Raw Pointers](#by-raw-pointers)
+   - [Smart Pointers](#smart-pointers)
+   - [Reference Wrappers](#by-reference-wrapper)
 
-   - Fundamentals
-      - Encapsulation
-      - Inheritance
-      - Polymorphism
-      - Abstraction (Abstract Classes & Interfaces) (New)
+   <br>
+   <br>
+
+3. [Object-Oriented Programming (OOP)](#3-object-oriented-programmingoop)
+
+   - [Class Features](#class-features)
+      - [Constructors & Destructors](#constructors--destructors)
+      - [Member functions (const and non-const)](#member-functionsconst--non-const)
+      - [Overloading (Function & Operator)](#overloadingfunction--operator)
+      - [Struct vs. Class](#struct-vs-class)
+
+   - [Fundamentals](#fundamentals)
+      - [Encapsulation](#encapsulation)
+      - [Inheritance](#inheritance)
+      - [Polymorphism](#polymorphism)
+      - [Abstraction (Abstract Classes & Interfaces) (New)](#abstraction-abstract-classes--interfaces)
     
-    - Advanced OOP
-      - Virtual destructors (New)
-      - Pure virtual functions (New)
-      - RAII (Resource Acquisition Is Initialization)
+    - [Advanced OOP](#advanced-oop)
+      - [Virtual destructors (New)](#virtual-destructors)
+      - [Pure virtual functions (New)](#pure-virtual-functions)
+      - [RAII (Resource Acquisition Is Initialization)](#raiiresource-acquisition-is-initialization)
 
    <br>
    <br>
 
-4. Templates & Generic Programming
+4. [Templates & Generic Programming](#4-templates--generic-programming)
 
-   - Basic Templates
-      - Function Templates
-      - Class Templates
+   - [Basic Templates](#basic-templates)
+      - [Function Templates](#function-templates)
+      - [Class Templates](#class-templates)
    
-   - Advanced Templates
-      - Template Specialization
-      - Variadic Templates
-      - Template Metaprogramming (TMP) (New)
-      - Concepts and requires clauses (C++20) (New)
+   - [Advanced Templates](#advanced-templates)
+      - [Template Specialization](#template-specialization)
+      - [Variadic Templates](#variadic-templates)
+      - [Template Metaprogramming (TMP) (New)](#template-metaprogrammingtmp)
+      - [Concepts and requires clauses (C++20) (New)](#concepts--require-clauses)
    
-   - Type Traits
-      - std::is_same, std::is_integral, std::enable_if
-
    <br>
    <br>
 
@@ -1046,7 +1045,7 @@ Supports alias templates, enabling more flexible and reusable code.
 >
 >
 >
-> ### Standard Library
+> ### Standard Library Types
 > **std::string**:
 >
 > **std::string_view**:
@@ -1083,7 +1082,7 @@ Supports alias templates, enabling more flexible and reusable code.
 
 
 
-### <font color="#ffc900">2.Passing Values</font>
+### <font color="#ffc900">2. Passing Values</font>
 > ### <font color="#a442f5">By Value</font>
 > When you pass a variable by value, a copy of the variable is made. The function works with this copy, so any changes made to the variable inside the function do not affect the original variable.
 >
@@ -1415,7 +1414,7 @@ Supports alias templates, enabling more flexible and reusable code.
 
 
 
-### <font color="#ffc900">3.Object-Oriented Programming(OOP)</font>
+### <font color="#ffc900">3. Object-Oriented Programming(OOP)</font>
 > ### <font color="#a442f5">Class Features</font>
 > ### <font color="#ff009e">Constructors & Destructors</font>
 > ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
@@ -2486,20 +2485,41 @@ Supports alias templates, enabling more flexible and reusable code.
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - **Generic Functions**: When you need a function that can handle an arbitrary number of arguments, such as logging functions or functions that format strings.
+>
+> - **Wrapper Functions**: When writing wrapper functions that pass arguments to other functions, variadic templates allow you to pass through any number of arguments.
+>
+> - **Tuple and Container Types**: Useful for implementing tuples, variant types, and other container types that can hold a variable number of elements of different types.
+>
+> - **Flexible Interfaces**: When designing libraries or APIs that require flexible interfaces, variadic templates allow you to handle different numbers and types of arguments without overloading functions.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - **Complexity**: Avoid using variadic templates in situations where a fixed number of arguments are sufficient. Overuse can make code harder to understand and maintain.
+>
+> - **Readability**: When code readability is a priority, consider using alternatives such as overloads or standard containers. Variadic templates can be confusing for developers not familiar with template metaprogramming.
+>
+> - **Performance Concerns**: Variadic templates involve recursive function calls, which might lead to performance issues in time-critical applications, though modern compilers optimize this well.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Flexibility**: Provides a way to write generic functions and classes that can handle an arbitrary number of arguments of different types.
+>
+> - **Type Safety**: Unlike older C-style variadic functions (using ellipsis ...), variadic templates provide type safety, ensuring the compiler checks types at compile-time.
+>
+> - **Code Reusability**: Allows the creation of reusable, generic functions and classes, reducing code duplication.
+>
+> - **Extensibility**: Makes it easier to extend existing code with new features, as new argument types can be added without changing the function signature.
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Complex Syntax**: The syntax and concepts can be difficult to understand for developers unfamiliar with templates, making the code less readable.
+>
+> - **Debugging Challenges**: Debugging errors in variadic templates can be more challenging due to the recursive nature of template instantiation.
+>
+> - **Error Messages**: Error messages generated by variadic templates can be cryptic and hard to interpret, especially when multiple types are involved.
+>
+> - **Compilation Time**: Excessive use of variadic templates can lead to longer compilation times due to the extensive template instantiation required. 
 >
 >
 >
@@ -2508,30 +2528,118 @@ Supports alias templates, enabling more flexible and reusable code.
 >
 >
 > ### <font color="#ff009e">Template Metaprogramming(TMP)</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> Is a technique where templates are used to perform computations at compile time. TMP leverages the power of templates to create algorithms, evaluate constants or manipulate types during the compilation phase rather than at runtime. This technique can greatly optimize performance and is widely used in generic libraries like the C++ Standard Template Library (STL), Boost and others.
+>
+> TMP utilizes the compiler as a 'mini-interpreter' to generate highly efficient code through recursive template instantiation. However, TMP is known for its complexity and steep learning curve, making it challenging to write and debug.
+>
+> **Core Concepts in TMP**
+> - **Recursion**:
+> TMP uses recursion to perform iterative operations at compile time. This recursion is done through template specialization.
+>
+> - **SFINAE (Substitution Failure Is Not An Error)**:
+> TMP uses SFINAE to choose between different template overloads, allowing programmer to check conditions at compile time.
+>
+> - **Type Traits**:
+> A set of tool that allow checking and manipulating types at compile time.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>// A common example for TMP is the computation of the factorial of a number at compile time.
+>
+>#include <iostream>
+>
+>// Recursive case: N factorial
+>template <int N>
+>struct Factorial
+>{
+>   static const int value = N * Factorial<N - 1>::value;
+>};
+>
+>// Base case: 0 factorial = 1
+>template <>
+>struct Factorial<0>
+>{
+>   static const int value = 1;
+>};
+>
+>int main()
+>{
+>   std::cout << "Factorial of 5: " << Factorial<5>::value << std::endl;
+>
+>   return 0;
+>}
+>```
+>
+> Another useful application of TMP is type manipulation using type traits. For instance, you can define a type trait that checks whether a given type is a pointer.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>#include <iostream>
+>#include <type_traits>
+>
+>// Primary template: General case for non-pointer types.
+>template <typename T>
+>struct is_pointer
+>{
+>   static const bool value = false;
+>};
+>
+>// Specialization for pointer types
+>template <typename T>
+>struct is_pointer<T*>
+>{
+>   static const bool value = true;
+>};
+>
+>int main()
+>{
+>   std::cout << "Is a pointer? " << is_pointer<int>::value << std::endl;
+>   std::cout << "Is a pointer? " << is_pointer<int*>::value << std::endl;
+>
+>   return 0;
+>}
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - **Compile-time Computations**: When computations can be performed at compile time (like constant evaluation), TMP can improve runtime performance.
+>
+> - **Type Checking and Manipulation**: TMP is helpful when working with types at compile time, such as type selection, checking, and transformation (e.g., std::enable_if, std::conditional, std::is_same).
+>
+> - **Optimizing Performance**: By performing work at compile time, TMP can reduce runtime overhead, especially in performance-critical applications like game engines, numerical simulations, and scientific computing.
+>
+> - **Generic Libraries**: TMP is commonly used in template libraries such as STL and Boost to make them generic and efficient across a wide variety of types.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - **Complexity**: TMP can introduce significant complexity into code, making it hard to understand, maintain, and debug. Avoid TMP for simple problems where compile-time evaluation isn’t needed.
+>
+> - **Compilation Overhead**: TMP can lead to longer compile times due to deep recursion and heavy template instantiation. If compilation speed is crucial, avoid TMP.
+>
+> - **Readability**: TMP-generated error messages can be difficult to decipher, especially when working with complex recursive templates. Use it only when the benefits outweigh the readability cost.
+>
+> - **Overengineering**: TMP should not be used if simpler runtime mechanisms would suffice. It’s important to balance elegance with maintainability.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Runtime Efficiency**: Performing computations at compile time reduces runtime overhead, leading to more efficient code.
 >
+> - **Type Safety**: TMP allows the development of highly generic and type-safe libraries that can handle a wide variety of types with minimal runtime cost.
+>
+> - **Code Reusability**: TMP promotes generic programming, which can reduce code duplication and improve maintainability.
+>
+> - **Advanced Compile-Time Techniques**: TMP enables compile-time algorithms, optimizations, and type checking, making code more powerful and flexible.
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Complexity**: TMP requires deep knowledge of C++ templates and recursion. The learning curve is steep, and errors can be hard to diagnose.
+>
+> - **Compilation Time**: Template-heavy code can significantly slow down the compilation process, leading to longer development cycles.
+>
+> - **Readability**: TMP code can be hard to understand and maintain, especially for developers unfamiliar with template metaprogramming.
+>
+> - **Error Messages**: The error messages from template instantiations are often difficult to interpret, making debugging more challenging.
 >
 >
 >
@@ -2540,67 +2648,120 @@ Supports alias templates, enabling more flexible and reusable code.
 >
 >
 > ### <font color="#ff009e">Concepts & 'require' Clauses</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> Concepts and 'requires' clauses are powerful features introduced in C++20 to improve template programming by enforcing constraints on template arguments. They help in making template code more readable, safer and easier to debug by specifying what kind of types or values a template can accept. Concepts enable you to define semantic constraints on types, ensuring that the types used in templates conform to expected behaviors or properties.
+>
+> A 'concept' is a compile-time predicate or constraint that is evaluated againts a template argument. It checks whether a type satisfies certain requirements such as type traits, functions or operators that a template expects from its argument. This allows for more precise and expressive template code, reducing the complexity and length of error messages when templates are used incorrectly. 
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>template <typename T>
+>concept Integral = std::is_integral_v<T>; // Concept to check if T is an integral type.
+>
+>template <Integral T>
+>T add(T a, T b)
+>{
+>   return (a + b);
+>}
+>
+>int main()
+>{
+>   std::cout << add(5, 10) << std::endl;  // Works, since int is an integral type
+>   // std::cout << add(3.14, 2.71) << std::endl;  // Error: double is not an integral type
+>}
 >```
 >
-> **When To Use**
-> 
-> - ExplanationExplanationExplanation.
->
-> **When Not to Use**
->
-> - ExplanationExplanationExplanation
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
->
-> **<font color="#f56942">Disadvantages</font>**
->
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
->
->
->
-><hr>
- 
-
-
-> ### <font color="#a442f5">Type Traits</font>
-> ### <font color="#ff009e">std::is_same, std::is_integral, std::enable_if</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> A 'require' clause is used to impose additional constraints on a template function or class. It specifies a condition that must be satisfied by the template parameters in order for the template instantiation to be valid. The 'requires' keyword is used to express these constraints, either directly in the template declaration or as a trailing condition.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>#include <iostream>
+>#include <concepts>
+>
+>template <typename T>
+>requires std::is_integral_v<T>
+>T multiply(T a, T b)
+>{
+>   return (a * b);
+>}
+>
+>int main()
+>{
+>   std::cout << multiply(4, 5) << std::endl;  // Valid, int is integral
+>   // std::cout << multiply(4.2, 5.1) << std::endl;  // Invalid, double is not integral
+>}
+>```
+>
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>#include <iostream>
+>#include <type_traits>
+>#include <concepts>
+>
+> // Here, the 'Addable' concept ensures that only types supporting the '+' operator can be passed to the 'add' function.
+>template <typename T>
+>concept Addable = requires(T a, T b)
+>{
+>   a + b; // T must support addition.
+>};
+>
+>template <typename T>
+>requires Addable<T>
+>T add(T a, T b)
+>{
+>   return (a + b);
+>}
+>
+>int main()
+>{
+>   std::cout << add(10, 20) << std::endl;    // Valid
+>   // std::cout << add("Hello", "World") << std::endl;  // Error: std::string doesn't support addition
+>}
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - **Constraining Templates**: Use concepts to specify valid types for templates, reducing the need for complex SFINAE (Substitution Failure Is Not An Error) code.
+>
+> - **Improving Readability**: Use requires clauses to explicitly state constraints, making the code more readable and less error-prone.
+>
+> - **Preventing Invalid Types**: Use concepts to enforce that only valid types are passed to templates, avoiding cryptic compile-time errors.
+>
+> - **Template Debugging**: Concepts give more meaningful compile-time error messages when constraints are violated, making template debugging easier.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - **Older C++ Standards**: Concepts are a C++20 feature, so they are not available in earlier standards. In such cases, SFINAE or type traits can be used to achieve similar behavior.
+>
+> - **Simple Templates**: For very simple templates where type constraints are obvious, concepts may be overkill.
+>
+> - **Overuse of Constraints**: Over-constraining templates can lead to less flexible code, so concepts should be applied judiciously.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Improves Readability**: Concepts make template code easier to read by explicitly stating type requirements.
+>
+> - **Better Error Messages**: Instead of obscure errors, the compiler will provide meaningful messages when template constraints are violated.
+>
+> - **Increases Safety**: By enforcing constraints, concepts help catch errors early at compile-time rather than runtime.
+>
+> - **Reduces Template Complexity**: Simplifies complex SFINAE-based template metaprogramming, leading to more maintainable code.
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **C++20 Feature**: Concepts are only available from C++20 onward, so they might not be usable in all projects.
+>
+> - **Learning Curve**: Concepts and requires clauses introduce additional complexity for developers who are not familiar with advanced template programming.
+>
+> - **Overuse Can Reduce Flexibility**: Overusing concepts can sometimes make the code too restrictive, preventing valid use cases from compiling.
 >
 >
 >
 ><hr>
+
 
 
 

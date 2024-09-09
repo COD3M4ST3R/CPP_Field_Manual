@@ -73,6 +73,7 @@
    <br>
    <br>
 
+
 2. [Passing Values](#2-passing-values)
 
    - [By Value](#by-value)
@@ -83,6 +84,7 @@
 
    <br>
    <br>
+
 
 3. [Object-Oriented Programming (OOP)](#3-object-oriented-programmingoop)
 
@@ -106,6 +108,7 @@
    <br>
    <br>
 
+
 4. [Templates & Generic Programming](#4-templates--generic-programming)
 
    - [Basic Templates](#basic-templates)
@@ -120,6 +123,7 @@
    
    <br>
    <br>
+
 
 5. [Standard Library (STL)](#standard-librarystl)
 
@@ -137,6 +141,7 @@
 
    <br>
    <br>
+
 
 6. [Modern C++ Features](#modern-c-features)
 
@@ -157,15 +162,11 @@
    - [Modules (C++20) (New)](#modules)
       - [Basics of Modular Programming in C++ (New)](#basics-of-modular-programming)
       
-   - [Coroutines (C++20) (New)](#coroutines)
-      -  [Async Programming](#async-programming)
-      -  [Generators (New)](#generators)
-      
    - [Spaceship Operator (C++20)](#spaceship-operator)
-      -  [Three-way comparison (<=>)](#three-way-comparision)
 
    <br>
    <br>
+
 
 7. Memory Management
 
@@ -181,6 +182,7 @@
 
    <br>
    <br>
+
 
 8. Advanced C++ Features
 
@@ -206,6 +208,7 @@
    <br>
    <br>
 
+
 9. Concurrency & Multithreading
 
    - Basics
@@ -219,11 +222,14 @@
    - High-Level Concurrency
       - std::async, std::future, std::promise
    
-   - Coroutines (Again)
-      - Awaiting, Resumable Functions (New)
+   - Async Programming
+      - Coroutines (C++20)
+         - Awaiting, Resumable Functions (New)
+      - Generators (New)
 
    <br>
    <br>
+
 
 10. Performance Optimization
     
@@ -240,6 +246,7 @@
    <br>
    <br>
 
+
 11. Design Patterns in C++
 
    - Creational Patterns
@@ -253,6 +260,7 @@
 
    <br>
    <br>
+
 
 12. Standard Library Extensions & Miscellaneous
 
@@ -278,6 +286,7 @@
    <br>
    <br>
 
+
 13. Additional Topics to Consider (Advanced Level)
 
    - Reflection (Future C++ Standards) (New)
@@ -290,6 +299,7 @@
 
    <br>
    <br>
+
 
 ### ADD C++23
 
@@ -1415,32 +1425,95 @@ Supports alias templates, enabling more flexible and reusable code.
 ### <font color="#ffc900">3. Object-Oriented Programming(OOP)</font>
 > ### <font color="#a442f5">Class Features</font>
 > ### <font color="#ff009e">Constructors & Destructors</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> In C++, constructors and destructors are special member functions of a class that are responsible for initializing and cleaning up objects, respectively. They play a fundamental role in managing the lifecycle of objects and ensuring proper resource management. Constructors are invoked automatically when an object of the class is created. They initialize the object's data members and set up the object for use.
+>
+> **Constructors**
+>
+> - **Default Constructors**:
+> Initializes an object with default values if no explicit constructor is defined.
+>
+> - **Parameterized Constructor**:
+> Accepts parameters to initialize an object with specific values.
+>
+> - **Copy Constructor**:
+> Initializes an object as a copy of another object of the same type.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+> class Person
+> {
+>     private:
+>        std::string name;
+>        short int age;
+>
+>     public:
+>        // Default Constructor
+>        Person() : name("NaN"), age(0) {}
+>
+>        // Parameterized Constructor
+>        Person(const std::string& p_name, const short int p_age) : name(p_name), age(p_age) {}
+>
+>        // Copy Constructor
+>        Person(const Person& other) : name(other.name), age(other.age) {}
+> };
+>```
+>
+> **Destructors**
+>
+> Destructors are called automatically when an obejct goes out of scope or is explicitly deleted. They are responsible for relasing resources (e.g., memory, file handles, database connection ...) allocated by the object during its lifetime. A destructor is identified by its name preceded by a tilde '~'. It has no parameters and no return types.
+>
+> **<font color="#428df5">Example</font>**
+>```cpp
+> class Resource
+> {
+>     private:
+>        int* data;
+>  
+>     public:
+>        // Constructor
+>        Resource()
+>        {
+>           data = new int[10]; // Allocate memory.
+>        } 
+>
+>        // Destructor
+>        ~Resource()
+>        {
+>           delete[] data; // Free the allocated memory.
+>        } 
+> }
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - **Constructor**: 
+> Use constructors to initialize object state, set default values, or perform any necessary setup operations.
+>
+> - **Destructors**:
+> Use destructors to release rsources acquired by the object during its lifetime, such as memory allocated with 'new' or 'new[]', file handles or network connections. 
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - **Constructors**:
+> Avoid complex logic or heavy computations in constructors, as they should focus on object initialization.
+>
+> - **Destructors**:
+> Avoid performing operations that may throw expectations or rely on other object that may have already been destroyed, as destructors should ideally be straightforward and efficient.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Resource Management**
+>
+> - **Initialization**:
+> Allow objects to be initialized with specific values or default settings. 
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Complexity**
 >
->
+> - **Performance**:
+> Poorly designed constructors or destructors can impact program performance, especially in resurce-intensive applications.
 >
 ><hr>
 >
@@ -4198,30 +4271,74 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 
 > ### <font color="#a442f5">Modules</font>
 > ### <font color="#ff009e">Basics of Modular Programming</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> It is a software design technique that emphasizes breaking down a program into smaller, manageable and reusable pieces called **modules**. Each modules typically contains everything needed to execute one aspect of the program's funtionality. By organizing code this way, it becomes easier to manage, debug, maintain and scale.
+>
+> In C++, modular programming is primarily implemented using **functions**, **classes** and **namespaces**. Starting from C++20, the language also introduced **modules** as a first-class language feature, providing a more formal structure for modularizing code.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>#include <iostream>
+>
+>// Module 1: Function to get user input
+>int getUserInput()
+>{
+>   int value;
+>   std::cout << "Enter a number: " << std::endl;
+>   std::cin >> value;
+>
+>   return value;
+>}
+>
+>// Module 2: Function to compute the square of a number
+>int square(int x)
+>{
+>   return (x * x);
+>} 
+>
+>// Module 3: Function to display the result
+>void displayResult(int result)
+>{
+>   std::cout << "The square of the number is: " << result << std::endl;
+>}
+>
+>int main()
+>{
+>   int number = getUserInput(); // Call module 1
+>   int result = square(number); // Call module 2
+>   displayResult(result);  // Call module 3
+>
+>   return 0;
+>}
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - When developing large-scale projects that require maintainable and reusable code.
+>
+> - When collaborating with multiple developers, as it allows each developer to work on separate modules.
+>
+> - When there's a need for separation of concerns, where each module handles a specific functionality.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - For small, simple programs where the overhead of modularization might add unnecessary complexity.
+>
+> - In systems with extremely tight memory or performance constraints, as modularizing could slightly increase overhead in certain cases.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Maintainability**: Easier to maintain and update individual modules without affecting the entire system.
+>
+> - **Reusability**: Modules can be reused in different parts of the project or even in other projects.
+>
+> - **Testability**: Each module can be tested independently, making debugging easier.
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Overhead**: Organizing a program into modules might introduce some extra overhead, both in terms of structure and execution.
+>
+> - **Complexity**: Poor modularization can lead to unnecessary complexity, especially if dependencies between modules are not well-defined.
 >
 >
 >
@@ -4231,106 +4348,70 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 >
 
 
-
-> ### <font color="#a442f5">Coroutines</font>
-> ### <font color="#ff009e">Async Programming</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> // code goes here...
->```
->
-> **When To Use**
-> 
-> - ExplanationExplanationExplanation.
->
-> **When Not to Use**
->
-> - ExplanationExplanationExplanation
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
->
-> **<font color="#f56942">Disadvantages</font>**
->
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
->
->
->
-><hr>
->
->
->
-> ### <font color="#ff009e">Generators</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> // code goes here...
->```
->
-> **When To Use**
-> 
-> - ExplanationExplanationExplanation.
->
-> **When Not to Use**
->
-> - ExplanationExplanationExplanation
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
->
-> **<font color="#f56942">Disadvantages</font>**
->
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
->
->
->
-><hr>
->
->
->
 
 
 > ### <font color="#a442f5">Spaceship Operator</font>
-> ### <font color="#ff009e">Three-way Comparision</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> The spaceship operator (<=>), introduced in C++20, simplifies the implementation of comparison operators by providing a unified syntax for all three-way comparisons. It can be used for both std::weak_ordering and std::strong_ordering.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+> // Example 1
+> auto smallest = (a <=> b) ? b : a;
+>
+> // Example 2
+> auto result = (a <=> b) == 0 ? "equal" : (a <=> b) < 0 ? "less than" : "greater than";
+>
+> // Example 3
+> struct Point 
+> {
+>     int x, y:
+>
+>     auto operator<=>(const Point& other) const
+>     {
+>        if(auto cmp = x <=> other.x; cmp != 0)
+>        {
+>           return cmp;
+>        }
+>        return y <=> other.y;
+>     }   
+> };
+> 
+> Point p1 {1, 2};
+> Point p2 {2, 3};
+> if (auto cmp = (p1 <=> p2); cmp < 0) 
+> {
+>     std::cout << "p1 is less than p2" << std::endl;
+> } else if (cmp > 0) {
+>     std::cout << "p1 is greater than p2" << std::endl;
+> } else {
+>     std::cout << "p1 is equal to p2" << std::endl;
+> }
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - **Simplifying Comparisons**
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - **Complex Comparisions**
+>
+> - **Non-Comparable Data**: Do not use if the data inherently lacks a meaningful ordering.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Unified Syntax**
+>
+> - **Reduced Boilerplate**
+>
+> - **Consistency** 
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Complexity**
 >
->
->
-><hr>
->
->
+> - **Compatibility**
 >
 
 
@@ -5985,71 +6066,6 @@ Templates can significantly increase compilation time, especially for larger pro
 
 
 
-### <font color="#ffc900">Space Ship Comparision</font>
-> The spaceship operator (<=>), introduced in C++20, simplifies the implementation of comparison operators by providing a unified syntax for all three-way comparisons. It can be used for both std::weak_ordering and std::strong_ordering.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> // Example 1
-> auto smallest = (a <=> b) ? b : a;
->
-> // Example 2
-> auto result = (a <=> b) == 0 ? "equal" : (a <=> b) < 0 ? "less than" : "greater than";
->
-> // Example 3
-> struct Point 
-> {
->     int x, y:
->
->     auto operator<=>(const Point& other) const
->     {
->        if(auto cmp = x <=> other.x; cmp != 0)
->        {
->           return cmp;
->        }
->        return y <=> other.y;
->     }   
-> };
-> 
-> Point p1 {1, 2};
-> Point p2 {2, 3};
-> if (auto cmp = (p1 <=> p2); cmp < 0) 
-> {
->     std::cout << "p1 is less than p2" << std::endl;
-> } else if (cmp > 0) {
->     std::cout << "p1 is greater than p2" << std::endl;
-> } else {
->     std::cout << "p1 is equal to p2" << std::endl;
-> }
->```
->
-> **When To Use**
-> 
-> - **Simplifying Comparisons**
->
-> **When Not to Use**
->
-> - **Complex Comparisions**
->
-> - **Non-Comparable Data**: Do not use if the data inherently lacks a meaningful ordering.
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - **Unified Syntax**
->
-> - **Reduced Boilerplate**
->
-> - **Consistency** 
->
-> **<font color="#f56942">Disadvantages</font>**
->
-> - **Complexity**
->
-> - **Compatibility**
-
-
-
 
 
 ### <font color="#ffc900">Function Overloading</font>
@@ -6166,95 +6182,6 @@ Templates can significantly increase compilation time, especially for larger pro
 
 
 
-### <font color="#ffc900">Fundamentals of Object Oriented Programming in C++</font>
-> ### <font color="#a442f5">Constructors & Destructors</font>
-> In C++, constructors and destructors are special member functions of a class that are responsible for initializing and cleaning up objects, respectively. They play a fundamental role in managing the lifecycle of objects and ensuring proper resource management. Constructors are invoked automatically when an object of the class is created. They initialize the object's data members and set up the object for use.
->
-> ### Constructors
-> - **Default Constructors**:
-> Initializes an object with default values if no explicit constructor is defined.
->
-> - **Parameterized Constructor**:
-> Accepts parameters to initialize an object with specific values.
->
-> - **Copy Constructor**:
-> Initializes an object as a copy of another object of the same type.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> class Person
-> {
->     private:
->        std::string name;
->        short int age;
->
->     public:
->        // Default Constructor
->        Person() : name("NaN"), age(0) {}
->
->        // Parameterized Constructor
->        Person(const std::string& p_name, const short int p_age) : name(p_name), age(p_age) {}
->
->        // Copy Constructor
->        Person(const Person& other) : name(other.name), age(other.age) {}
-> };
->```
->
-> ### Destructors
-> Destructors are called automatically when an obejct goes out of scope or is explicitly deleted. They are responsible for relasing resources (e.g., memory, file handles, database connection ...) allocated by the object during its lifetime. A destructor is identified by its name preceded by a tilde '~'. It has no parameters and no return types.
->
-> **<font color="#428df5">Example</font>**
->```cpp
-> class Resource
-> {
->     private:
->        int* data;
->  
->     public:
->        // Constructor
->        Resource()
->        {
->           data = new int[10]; // Allocate memory.
->        } 
->
->        // Destructor
->        ~Resource()
->        {
->           delete[] data; // Free the allocated memory.
->        } 
-> }
->```
->
-> **When To Use**
-> 
-> - **Constructor**: 
-> Use constructors to initialize object state, set default values, or perform any necessary setup operations.
->
-> - **Destructors**:
-> Use destructors to release rsources acquired by the object during its lifetime, such as memory allocated with 'new' or 'new[]', file handles or network connections. 
->
-> **When Not to Use**
->
-> - **Constructors**:
-> Avoid complex logic or heavy computations in constructors, as they should focus on object initialization.
->
-> - **Destructors**:
-> Avoid performing operations that may throw expectations or rely on other object that may have already been destroyed, as destructors should ideally be straightforward and efficient.
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - **Resource Management**
->
-> - **Initialization**:
-> Allow objects to be initialized with specific values or default settings. 
->
-> **<font color="#f56942">Disadvantages</font>**
->
-> - **Complexity**
->
-> - **Performance**:
-> Poorly designed constructors or destructors can impact program performance, especially in resurce-intensive applications.
 
 
 

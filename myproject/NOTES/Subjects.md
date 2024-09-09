@@ -134,35 +134,35 @@
    - [Algorithms](#algorithms)
       - [Sorting, Searching, Modifying](#sorting-searching-modifying)
       - [Utilities](#utilities)
-   
+
+   <br>
+   <br>
+
+6. [Modern C++ Features](#modern-c-features)
+
    - [Function Objects](#function-objects)
-      - [Functors, Lambdas, std::function](#functors-lambdas-stdfunction)
-
-   <br>
-   <br>
-
-6. Modern C++ Features
-
-   - Lambdas
-      - Capture Lists, Return Types, and Uses
+      - [Functors](#functors)
+      - [Lambdas](#lambdas) 
+      - [std::function](#stdfunction)
       
-   - Function Composition
+   - [Function Composition](#function-composition)
 
-   - std::function & Callbacks
-      - Callbacks, Event Handling
-      - Command Pattern (if applicable)
+   - [Function Patterns & Event Management](#function-patterns--event-management)
+      - [Event Handling](#event-handling)
+      - [Command Pattern](#command-pattern)
 
-   - Ranges (C++20) (New)
-      - std::ranges, Views, Actions (New)
+   - [Ranges (C++20) (New)](#ranges)
+      - [std::ranges, Views, Actions (New)](#stdranges-views-actions)
       
-   - Modules (C++20) (New)
-      - Basics of Modular Programming in C++ (New)
+   - [Modules (C++20) (New)](#modules)
+      - [Basics of Modular Programming in C++ (New)](#basics-of-modular-programming)
       
-   - Coroutines (C++20) (New)
-      -  Async Programming, Generators (New)
+   - [Coroutines (C++20) (New)](#coroutines)
+      -  [Async Programming](#async-programming)
+      -  [Generators (New)](#generators)
       
-   - Spaceship Operator (C++20)
-      - Three-way comparison (<=>)
+   - [Spaceship Operator (C++20)](#spaceship-operator)
+      -  [Three-way comparison (<=>)](#three-way-comparision)
 
    <br>
    <br>
@@ -3383,72 +3383,79 @@ Supports alias templates, enabling more flexible and reusable code.
 
 
 
-
-> ### <font color="#a442f5">Function Objects</font>
-> ### <font color="#ff009e">Functors, Lambdas, std::function</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> // code goes here...
->```
->
-> **When To Use**
-> 
-> - ExplanationExplanationExplanation.
->
-> **When Not to Use**
->
-> - ExplanationExplanationExplanation
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
->
-> **<font color="#f56942">Disadvantages</font>**
->
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
->
->
->
-><hr>
->
->
->
-
-
-
-
-
 ### <font color="#ffc900">Modern C++ Features</font>
-> ### <font color="#a442f5">Lambdas</font>
-> ### <font color="#ff009e">Capture Lists, Return Types & Uses</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> ### <font color="#a442f5">Function Objects</font>
+> ### <font color="#ff009e">Functors</font>
+> Function objects, also known as functors, are objects that can be invoked or called as if they were functions.In C++, functors are primarily used as conjuction with STL algorithms to provide custom behavior for sorting, comparison, transformations and other operations on element in containers. Functors can encapsulate state and provide more flexibility than regular functions in certain scenarios.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+> class GreaterThan
+> {
+>     private:
+>        int m_threshold;
+>
+>     public:
+>        GreaterThan(int p_threshold) : m_threshold(p_threshold) {}
+>        bool operator()(int value) const 
+>        {
+>           return value > threshold;
+>        }  
+> }
+> GreaterThan gt5(5);  // Functor object with threshold 5
+> int count = std::count_if(numbers, numbers + 7, gt5);
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - **Custom Sorting and Comparision**:
+> Use functors to define custom sorting criteria pr comparisons in sorting algorithms like 'std::sort' or 'std::priority_queue'.
 >
+> - **Conditional Transformations**:
+> Use functors in algorithms like 'std::transform' to conditionally transform elements based on specific criteria.
+>
+> - **Filtering**:
+> Use functors with algorithms like 'std::remove_if' or 'std::copy_if' to filter elements based on custom conditions.
+>
+> - **Callbacks**:
+> Use functors as callback mechanisms where behavior needs to be customized at runtime, such as in event handling or callback-based APIs.
+>
+> - **Stateful Operations**:
+> Use functors when operations require maintaining state across multiple invocations, such as parsers or state machines.
+>   
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - **Simple Operations**:
+> For straightforward operations that do not require customization or state management, using regular functions or lambda functions may be simpler and more concise.
+>
+> - **Performance-Sensitive Code**:
+> In cases where performance is critical and the overhead of object creation and function call is a concern, using inline functions or function pointers might be more appropriate.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Flexibility**:
+> Functors can encapsulate complex behaviors and conditions that are not easily expressed with regular functions. This allows for more customized and flexible operations.
+>
+> - **State Management**:
+> Functors can maintain state across multiple class, which can be useful when performing operations that require context or history.
+>
+> - **Customization**: 
+> Functors allow algorithms to be customized with different behaviors without modifying the algorithm itself. This promotes code reuse and separation of concerns.
+>
+> - **Performance**: 
+Functors can be inlined by the compiler, resulting in potentially more efficient code execution compared to using function pointers.
+>
+> - **Integration with STL**: 
+> Functors seamlessly integrate with STL algorithms, which are designed to work with function objects, This makes them an integral part of STL-based programming.
+>
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Verbosity**
+>
+> - **Object-Oriented Overhead**: 
+> Functors are objects, so they incur the overhead of object-oriented programming, such as memory allocation and potential performance implications in some scenarios.
 >
 >
 >
@@ -3456,69 +3463,418 @@ Supports alias templates, enabling more flexible and reusable code.
 >
 >
 >
+> ### <font color="#ff009e">Lambdas</font>
+> Lambda expressions, introduced in C++11, provide a concise way to define anonymous functions or function objects directly in-line within the code. They are particularly useful for writing quick functions that are used only once or for passing functions as arguments to other functions.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // [capture](parameters) -> return_types { body } 
+> auto square = [](int x) -> int
+> { 
+>     return x * x;
+> };
+>
+> int val = 5;
+> int result = square(val);
+> std::cout << "Square of " << val << "is: " << result << std::endl;
+>```
+>
+> **When To Use**
+> 
+> - **Inline Functionality**: Use lambda expressions when you need a small function that is used only once and it would be inconvenient to define a separate named function.
+>
+> - **Function Objects**: Use lambdas when passing a function as an argument to another function(e.g., in algorithms like 'std::transform', 'std::sort' etc.)
+>
+> - **Conciseness**: Use lambdas to write concise and readable code, especially for operations that are straightforward and do not require a separate names function.
+>
+> **When Not to Use**
+>
+> - **Complex Logic**: Avoid lambdas for complex logic that spans multiple lines or requires extensive error handling, as lambdas are meant to be compact and focused.
+>
+> - **Reuse**: If the same functionality is needed in multiple places, consider defining a named function instead for better code organization and reuse.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Conciseness**: Allows writing functions directly where they are needed, reducing boilerplate code.
+>
+> - **Capture**: Can capture variables from the enclosing scope, providing flexibility in accessing and modifying data.
+>
+> - **Integration**: Integrates seamlessly with standard library algorithms and other functions that accept callable objects.
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Readability**: Overuse of complex lambdas can reduce code readability, especially for developers unfamiliar with lambda syntax.
+>
+> - **Debugging**: Debugging can be more challenging with anonymous functions compared to named functions.
+>
+> - **Capture Issues**: Care must be taken with capture lists to avoid unintended side effects or dangling references.
+>
+>
+><hr>
+>
+>
+>
+
 
 
 
 > ### <font color="#a442f5">Function Composition</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> Refers to the process of combining multiple functions into a single function, where the output of one becomes the input to the next. This concept is common in functional programming but can also be effectively used in C++ through the use of function objects, lambdas and 'std::function'
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>#include <iostream>
+>#include <functional>
+>
+>// Define two simple functions
+>int multiplyByTwo(int x)
+>{
+>   return (x * 2);
+>}
+>
+>int addFive(int x)
+>{
+>   return (x + 5);
+>}
+>
+>// A utility function to compose two functions
+>std::function<int(int)> compose(std::function<int>(int)> f, std::function<int(int)> g)
+>{
+>   return [f, g](int x)
+>   {
+>      return g(f(x));
+>   };
+>}
+>
+>int main()
+>{
+>   // Compose multipleByTwo and AddFive
+>   auto composedFunction = compose(multiplyByTwo, addFive);
+>
+>   // Use the composed function
+>   int result = composedFunction(4); // Equivalent to addFive(multiplyByTwo(3))
+>
+>   return 0;
+>}
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - **Complex Transformations**:
+> When you need to apply multiple transformations to data and want to encapsulate the sequence of operations in a single callable entity.
+>
+> - **Readable and Maintainable Code**:
+> Function composition can make your code more readable and maintainable by clearly expressing a sequence of operations.
+>
+> - **Reusable Code**:
+> If you have a set of reusable operations that can be combined in different ways, function composition allows you to easily create new behaviors from existing functions.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - **Performance Critical Code**:
+> Composing functions, especially using 'std::function', may introduce overhead due to additional function calls and potential heap allocations.
+>
+> - **Simple Operations**:
+> For very simple operations, composing functions might overcomplicate the code compared to just writing the operations inline.
+>
+> - **Immediate Execution**:
+> If functions are only used once and the composition does not add clarity or reusability, it is better to execute them directly without composition.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Modularity**
 >
+> - **Clarity**
+>
+> - **Flexibility** 
+> 
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Performance Overhead**
 >
+> - **Complexity**
 >
->
+> - **Debugging Difficulty** 
 ><hr>
 >
 >
 >
 
 
-> ### <font color="#a442f5">std::function & Callbacks</font>
-> ### <font color="#ff009e">Callbacks, Event Handling</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+
+
+> ### <font color="#a442f5">Function Patterns & Event Management</font>
+> ### <font color="#ff009e">Event Handling</font>
+> Event handling refers to the mechanism in which a system responds to or manages specific actions or events. Event handling can be designed using various programming techniques, including function pointers, callbacks or more modern approaches like **std::function** or **observer patterns**. C++ doesn't have built-in event handling as found in frameworks like JavaSc****, but you can create custom event-driven models.
+>
+> **Approaches to Event Handling in C++**:
+>
+> -   Function Pointers
+> -   Callbacks (std::function)
+> -   Observer Pattern
+> -   Signal & Slot Mechanisms (Qt Framework)
+>
+><br>
+>
+> **Function Pointers**
+>
+> Allow you to pass a function to another function, enabling basic event handling.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>#include <iostream>
+>
+>void onEvent()
+>{
+>   std::cout << "Event triggered!" << std::endl;
+>}
+>
+>void triggerEvent(void (*callback)())
+>{
+>   callback(); // Call the event handler function
+>}
+>
+>int main()
+>{
+>   triggerEvent(onEvent); // Pass the function to triggerEvent
+>   
+>   return 0;
+>}
+>```
+>
+>
+><hr>
+>
+>
+>
+> **Callbacks (std::function)**
+>
+> Callback functions are functions passed as arguments to other functions or methods. They are often used to customize or extend the behavior of libraries and frameworks by allowing the caller to specify a function to be called at a particular event or moment. The **std::function** type from the Standard Library is powerful tool for implementing callback functions because it can store, copy and invoke any callable target functions, lambda expressions, bind expressions or other function objects.
+>
+> **std::function** is a type-safe, general-purpose polymorphic function wrapper. It can encapsulate any callable target that is compatible with the signature specified when declaring the 'std::function' object. This includes:
+>
+> - Regular functions (free functions),
+> - Member functions,
+> - Lambda expressions,
+> - Bind expressions (created using 'std::bind'),
+> - Functors (objects of a class that overloads the 'operator()').
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>#include <iostream>
+>#include <functional>
+>
+>// A simple free function
+>void freeFunction(int value)
+>{
+>   std::cout << "Free function: " << value << std::endl;
+>}
+>
+>// A functor (function object)
+>struct Functor
+>{
+>   void operator()(int value) const
+>   {
+>      std::cout << "Functor: " << value << std::endl;
+>   }
+>}
+>
+>int main()
+>{
+>   // Using 'std::function' to wrap a free function
+>   std::function<void(int)> callback = freeFunction;
+>   callback(10);
+>
+>   // Using 'std::function' to wrap a lambda expression
+>   callback = [](int value)
+>   {
+>      std::cout << "Lambda: " << value << std::endl;
+>   };
+>   callback(20);
+>
+>   // Using 'std::function' to wrap a functor
+>   callback = Functor()
+>   callback(30);
+>
+>   return 0;
+>}
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - **Customizing Library Behavior**:
+> Use 'std::function' when you need to pass a callback function to a library or framework that requires custom behavior.
+>
+> - **Event Handling**:
+> When implementing event-driven systems, 'std::function' is ideal for storing and invoking event handlers.
+>
+> - **Deferred Execution**:
+> When you need to store a function to be executed later, such as in asynchronous operations.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - **Performance Critical Code**:
+> 'std::function' incurs some overhead due to type erasure and heap allocations. If performance is critical, prefer using template-based solutions or function pointers directly.
+>
+> - **Simple Use Cases**:
+> If you need to pass a simple function pointer, and do not require the flexibility of 'std::function', a regular function pointer might be more efficient.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Flexibility**: 
+> 'std::function' can store any callable target, providing a high level of flexibility in designing APIs.
+>
+> - **Type Safety**:
+> Ensures that the stores callable matches the specified function signature, reducing the risk of runtime errors.
+>
+> - **Ease of Use**:
+> Simplifies the process of passing and storing functions, especially in complex, callback-driven designs.
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Performance Overhead**:
+> Has some overhead compared to raw function pointers due to type erasure and potential heap allocations.
+>
+> - **Memory Usage**:
+> The underlying implementation may allocate memory dynamically, which can be a concern in low-level or performance-critical applications.
+>
+> - **Potential for Undefined Behavior**:
+> If the callabke target is a member function, care must be taken to ensure that the object outlives the 'std::function' instance or else it could lead to undefined behavior. 
+>
+>
+>
+><hr>
+>
+>
+> **Observer Pattern**
+>
+> It is used to notify multiple objects when an event occurs, making it useful for event handling in applications with multiple listeners or observers.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>#include <iostream>
+>#include <vector>
+>#include <functional>
+>
+>// Subject that generates events
+>class EventSource
+>{
+>   private:
+>      std::vector<std::function<void()>> listeners;
+>
+>   public:
+>      void addListener(std::function<void()> listener)
+>      {
+>         listeners.push_back(listener);
+>      }
+>
+>      void notify()
+>      {
+>         for(const auto& listener : listeners)
+>         {
+>            listener(); // Notify all listeners.
+>         }
+>      }
+>};
+>
+>// Observer that handles events
+>class EventListener
+>{
+>   public:
+>      void handleEvent()
+>      {
+>         std::cout << "Event handled by listener" << std::endl;
+>      }
+>};
+>
+>int main()
+>{
+>   EventSource eventSource;
+>   EventListener listener_1, listener_2;
+>
+>   // Register the Listeners
+>   eventSource.addListener([&]() { listener_1.handleEvent(); });
+>   eventSource.addListener([&]() { listener_2.handleEvent(); });
+>
+>   // Trigger the event
+>   eventSource.notify();
+>}
+>```
+>
+>
+>
+> **Signal & Slot (Qt Framework)**
+> 
+> The signal and slot mechanism is used for event handling. Signals are emitted when an event occurs and slots are functions that respond to these signals.
+>
+> **<font color="#428df5">Example</font>**
+>```cpp
+>#include <QObject>
+>#include <QCoreApplication>
+>#include <iostream>
+>
+>class MyObject : public QObject
+>{
+>   private:
+>      Q_OBJECT
+>
+>   public slots:
+>      void onEvent()
+>      {
+>         std::cout << "Qt Event handled!" << std::endl;
+>      }
+>};
+>
+>int main(int argc, char* argv[])
+>{
+>   QCoreApplication app(argc, argv);
+>   MyObject obj;
+>   QObject::connect(&app, &QCoreApplication::aboutToQuit, &obj, &MyObject::onEvent);
+>
+>   return app.exec();
+>}
+>```
+>
+>
+>
+> **When To Use**
+> 
+> - Use function pointers or std::function for simple, direct event handling when the structure is simple and performance is a priority.
+>
+> - Use observer patterns when multiple listeners need to respond to a single event, as it's more scalable.
+>
+> - Use signal and slot mechanisms in frameworks like Qt for robust, built-in event handling, especially in GUI applications.
+>
+> **When Not to Use**
+>
+> - Avoid function pointers for complex event handling, as it doesn't support lambdas or capturing state.
+>
+> - Avoid manually implementing the observer pattern in simple scenarios, as it can be overkill for small projects.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Function Pointers**: Lightweight and fast.
+>
+> - **std::function**: More flexible, supports lambdas and member functions.
+>
+> - **Observer Pattern**: Scales well to complex systems with multiple event listeners.
+>
+> - **Qt Signal/Slot**: Simplifies event handling in GUI applications.
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Function Pointers**: Limited to free functions, no state capture.
+>
+> - **std::function**: Slightly more overhead compared to raw function pointers.
+>
+> - **Observer Pattern**: Manual implementation can get complex and verbose.
+>
+> - **Qt Signal/Slot**: Requires using the Qt framework, adding complexity to smaller projects.
 >
 >
 >
@@ -3527,30 +3883,141 @@ Supports alias templates, enabling more flexible and reusable code.
 >
 >
 > ### <font color="#ff009e">Command Pattern</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> It is a behavioral design pattern used to encapsulate a request as an object, thereby allowing for parameterization of clients with queues, request and operations. This pattern helps in decoupling the sender (which sends the request) from the receiver (which handles the request). Each command is represented as a class with an **execute()** method, which allows the operations to be carried out at a later time or even stored for undo/redo functionality.
+>
+> **Key Components**:
+>
+> - **Command**: An interface or abstract class declaring the **execute()** order(66).
+>
+> - **Concrete Command**: Implements the **execute()** order by binding the receiver with a specific action.
+>
+> - **Invoker**: Triggers the command's execution.
+>
+> - **Receiver**: The object that knows how to perform the action.
+>
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>#include <iostream>
+>#include <memory>
+>
+>// Command Interface
+>class Command
+>{
+>   public:
+>      virtual ~Command() = default;
+>      virtual void execute() const = 0;
+>};
+>
+>// Receiver Class
+>class Light
+>{
+>   public:
+>      void turnOn() const
+>      {
+>         std::cout << "The light in on!" << std::endl;
+>      }
+>
+>      void turnOff() const
+>      {
+>         std::cout << "The light in off!" << std::endl;
+>      }
+>};
+>
+>// Concrete Command to turn on the light
+>class LightOnCommand: public Command
+>{
+>   private:
+>      const Light& light;
+>
+>   public:
+>      explicit LightOnCommand(const Light& 1) : light(1) {}
+>      void execute() const override
+>      {
+>         light.turnOn();
+>      }
+>}
+>
+>// Concrete Command to turn off the light
+>class LightOffCommand : public Command
+>{
+>   private:
+>      const Light& light;
+>
+>   public:
+>      explicit LightOffCommand(const Light& 1) : light(1) {}
+>      void execute() const override
+>      {
+>         light.turnOff();
+>      }
+>};
+>
+>// Invoker class
+>class RemoteControl
+>{
+>   private:
+>      std::unique_ptr<Command> command;
+>
+>   public:
+>      void setCommand(std::unique_ptr<Command> c)
+>      {
+>         command = std::move(c);
+>      }
+>
+>      void pressButton() const
+>      {
+>         if(command)
+>         {
+>            command -> execute();
+>         }
+>      }
+>};
+>
+>int main()
+>{
+>   Light light;
+>   RemoteControl remoteControl;
+>
+>   // Turn the light on
+>   remoteControl.setCommand(std::make_unique<LightOnCommand>(light));
+>   remoteControl.pressButton();
+>
+>   // Turn the light off
+>   remoteControl.setCommand(std::make_unique<LightOffCommand>(light));
+>   remoteControl.pressButton();
+>
+>   return 0;
+>}
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - **Undo/Redo functionality**: Commands can be queued and stored, allowing for undo/redo operations.
+>
+> - **Parameterizing objects**: Allows you to pass commands as parameters to different objects.
+>
+> - **Decoupling sender and receiver**: When you need to separate the sender of a request from the logic that processes it.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - **Simple operations**: If you don't need the complexity of undo/redo or queueing, the command pattern might add unnecessary overhead.
+>
+> - **Tight coupling isn't a concern**: If you don’t require decoupling between sender and receiver, simpler solutions can work.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Flexibility**: Commands are encapsulated as objects, allowing for easy addition of new commands.
+>
+> - **Decoupling**: Reduces the coupling between sender and receiver, improving flexibility.
+>
+> - **Extensibility**: New commands can be added without changing existing code.
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Complexity**: Adds extra layers of abstraction and might be overkill for simple tasks.
+>
+> - **Memory overhead**: Storing commands in a queue or stack can increase memory usage, particularly for undo/redo scenarios.
 >
 >
 >
@@ -3564,31 +4031,161 @@ Supports alias templates, enabling more flexible and reusable code.
 
 > ### <font color="#a442f5">Ranges</font>
 > ### <font color="#ff009e">std::ranges, Views, Actions</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> In C++20, the Ranges library was introduced to provide a more flexible and expressive way to work with collections (or ranges) of data. It offers several new components, including std::ranges, std::views, and std::actions. These allow for operations on containers (like vectors) in a lazy, more readable, and efficient manner.
+>
+> **std::ranges**
+>
+>std::ranges provides an alternative way to interact with collections using range-based algorithms. It unifies the operations we perform on ranges (like std::vector, std::list, etc.) and can be used to work seamlessly with containers without needing to extract iterators.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>#include <iostream>
+>#include <ranges>
+>#include <vector>
+>
+>int main()
+>{
+>   std::vector<int> numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+>
+>   // std::ranges::for_each to print each element.
+>   std::ranges::for_each(numbers, [](int n) {std::cout << n << " "; });
+>
+>   return 0;
+>}
 >```
 >
 > **When To Use**
-> 
-> - ExplanationExplanationExplanation.
+>
+> - When working with collections and you need to perform range-based algorithms (e.g., sorting, filtering, transforming).
+> - When you want cleaner and more expressive code compared to traditional STL iterator-based algorithms.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - If the project is constrained to older C++ standards or libraries that don't support C++20 features.
+> - For very simple operations where traditional STL algorithms are more intuitive and don't introduce unnecessary complexity.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Cleaner Code**: Provides a more readable way to work with containers and ranges.
+> - **Lazy Evaluation**: Allows for efficient, on-demand processing without unnecessary copying.
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Compatibility**: Older compilers may not support `std::ranges`.
+> - **Learning Curve**: Can add complexity if the team is unfamiliar with modern C++ features.
 >
+><hr>
+>
+> **Views**
+>
+> It provides a way to create non-owning, read-only views of data. These views allow for the efficient transformation and filtering of sequences without creating new containers or modifying the underlying data.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>#include <iostream>
+>#include <vector>
+>#include <ranges>
+>
+>int main() 
+>{
+>    std::vector<int> numbers = {1, 2, 3, 4, 5};
+>
+>    // Creating a view that filters out even numbers
+>    auto even_numbers = numbers | std::views::filter([](int n) { return n % 2 == 0; });
+>
+>    for (int n : even_numbers) 
+>    {
+>        std::cout << n << " ";
+>    }
+>
+>    return 0;
+>}
+>```
+>
+> **When To Use**
+>
+> - When you need to create views of existing data to apply transformations or filters without creating new containers.
+>
+> - When you want to avoid unnecessary copies and memory allocations.
+>
+> **When Not to Use**
+>
+> - If you need to modify the underlying data structure, as `std::views` are read-only.
+>
+> - When working with compilers or libraries that do not support C++20 features.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Efficiency**: Views do not require additional memory allocations since they work on existing data structures.
+>
+> - **Lazy Evaluation**: Operations are only performed when the view is actually accessed.
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Limited Mutability**: Views are typically read-only and cannot modify the underlying data.
+>
+> - **Compatibility**: Requires C++20 support, which may not be available in older compilers or libraries.
+>
+><hr>
+>
+> **Actions**
+>
+> std::actions is a feature introduced in C++20 that provides a way to modify data in a range through a series of actions. Unlike std::views, which offer a read-only view of data, std::actions are designed for performing operations that change the data in a container. This can include tasks such as transforming, filtering, or performing other modifications directly on the elements.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>#include <iostream>
+>#include <vector>
+>#include <ranges>
+>#include <algorithm>
+>
+>int main()
+>{
+>   std::vector<int> numbers = {1, 2, 3, 4, 5};
+>
+>   // Define an action to double each element
+>   auto action = std::views::transform([](int& n) {n *= 2;});
+>
+>   // Apply the action to the vector
+>   numbers |= action;
+>
+>   // Print the modified elements
+>   for(int n : numbers)
+>   {
+>      std::cout << n << " ";
+>   }
+>
+>   return 0;
+>}
+>```
+>
+>
+>**When To Use**
+>
+> - When you need to apply a series of modifications or transformations to data in a container.
+>
+> - When you want to perform actions in a sequence that directly affects the data.
+>
+> **When Not to Use**
+>
+> - If you only need to view data without modifying it, as `std::actions` are intended for mutating operations.
+>
+> - When working with compilers or libraries that do not support C++20 features.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Mutability**: Allows for in-place modifications of data within containers.
+>
+> - **Flexibility**: Provides a powerful way to chain and compose actions to be applied to ranges.
+>
+>**<font color="#f56942">Disadvantages</font>**
+>
+> - **Complexity**: Can add complexity to code when chaining multiple actions, especially if not used carefully.
+>
+> - **Compatibility**: Requires C++20 support, which may not be available in older compilers or libraries.
 >
 >
 ><hr>
@@ -3597,8 +4194,10 @@ Supports alias templates, enabling more flexible and reusable code.
 >
 
 
+
+
 > ### <font color="#a442f5">Modules</font>
-> ### <font color="#ff009e">Basics or Modular Programming in C++</font>
+> ### <font color="#ff009e">Basics of Modular Programming</font>
 > ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
 >
 > **<font color="#428df5">Example</font>**
@@ -3634,7 +4233,39 @@ Supports alias templates, enabling more flexible and reusable code.
 
 
 > ### <font color="#a442f5">Coroutines</font>
-> ### <font color="#ff009e">Async Programming, Generators</font>
+> ### <font color="#ff009e">Async Programming</font>
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // code goes here...
+>```
+>
+> **When To Use**
+> 
+> - ExplanationExplanationExplanation.
+>
+> **When Not to Use**
+>
+> - ExplanationExplanationExplanation
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Explanation**: 
+> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">Generators</font>
 > ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
 >
 > **<font color="#428df5">Example</font>**
@@ -5129,77 +5760,7 @@ Templates can significantly increase compilation time, especially for larger pro
 >
 >
 >
-> ### <font color="#a442f5">Functors (Function Objects)</font>
-> Function objects, also known as functors, are objects that can be invoked or called as if they were functions.In C++, functors are primarily used as conjuction with STL algorithms to provide custom behavior for sorting, comparison, transformations and other operations on element in containers. Functors can encapsulate state and provide more flexibility than regular functions in certain scenarios.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> class GreaterThan
-> {
->     private:
->        int m_threshold;
->
->     public:
->        GreaterThan(int p_threshold) : m_threshold(p_threshold) {}
->        bool operator()(int value) const 
->        {
->           return value > threshold;
->        }  
-> }
-> GreaterThan gt5(5);  // Functor object with threshold 5
-> int count = std::count_if(numbers, numbers + 7, gt5);
->```
->
-> **When To Use**
-> 
-> - **Custom Sorting and Comparision**:
-> Use functors to define custom sorting criteria pr comparisons in sorting algorithms like 'std::sort' or 'std::priority_queue'.
->
-> - **Conditional Transformations**:
-> Use functors in algorithms like 'std::transform' to conditionally transform elements based on specific criteria.
->
-> - **Filtering**:
-> Use functors with algorithms like 'std::remove_if' or 'std::copy_if' to filter elements based on custom conditions.
->
-> - **Callbacks**:
-> Use functors as callback mechanisms where behavior needs to be customized at runtime, such as in event handling or callback-based APIs.
->
-> - **Stateful Operations**:
-> Use functors when operations require maintaining state across multiple invocations, such as parsers or state machines.
->   
-> **When Not to Use**
->
-> - **Simple Operations**:
-> For straightforward operations that do not require customization or state management, using regular functions or lambda functions may be simpler and more concise.
->
-> - **Performance-Sensitive Code**:
-> In cases where performance is critical and the overhead of object creation and function call is a concern, using inline functions or function pointers might be more appropriate.
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - **Flexibility**:
-> Functors can encapsulate complex behaviors and conditions that are not easily expressed with regular functions. This allows for more customized and flexible operations.
->
-> - **State Management**:
-> Functors can maintain state across multiple class, which can be useful when performing operations that require context or history.
->
-> - **Customization**: 
-> Functors allow algorithms to be customized with different behaviors without modifying the algorithm itself. This promotes code reuse and separation of concerns.
->
-> - **Performance**: 
-Functors can be inlined by the compiler, resulting in potentially more efficient code execution compared to using function pointers.
->
-> - **Integration with STL**: 
-> Functors seamlessly integrate with STL algorithms, which are designed to work with function objects, This makes them an integral part of STL-based programming.
->
->
-> **<font color="#f56942">Disadvantages</font>**
->
-> - **Verbosity**
->
-> - **Object-Oriented Overhead**: 
-> Functors are objects, so they incur the overhead of object-oriented programming, such as memory allocation and potential performance implications in some scenarios.
+
 
 
 
@@ -5542,55 +6103,6 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 
 
 
-
-
-
-### <font color="#ffc900">Lambda Expressions</font>
-> Lambda expressions, introduced in C++11, provide a concise way to define anonymous functions or function objects directly in-line within the code. They are particularly useful for writing quick functions that are used only once or for passing functions as arguments to other functions.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> // [capture](parameters) -> return_types { body } 
-> auto square = [](int x) -> int
-> { 
->     return x * x;
-> };
->
-> int val = 5;
-> int result = square(val);
-> std::cout << "Square of " << val << "is: " << result << std::endl;
->```
->
-> **When To Use**
-> 
-> - **Inline Functionality**: Use lambda expressions when you need a small function that is used only once and it would be inconvenient to define a separate named function.
->
-> - **Function Objects**: Use lambdas when passing a function as an argument to another function(e.g., in algorithms like 'std::transform', 'std::sort' etc.)
->
-> - **Conciseness**: Use lambdas to write concise and readable code, especially for operations that are straightforward and do not require a separate names function.
->
-> **When Not to Use**
->
-> - **Complex Logic**: Avoid lambdas for complex logic that spans multiple lines or requires extensive error handling, as lambdas are meant to be compact and focused.
->
-> - **Reuse**: If the same functionality is needed in multiple places, consider defining a named function instead for better code organization and reuse.
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - **Conciseness**: Allows writing functions directly where they are needed, reducing boilerplate code.
->
-> - **Capture**: Can capture variables from the enclosing scope, providing flexibility in accessing and modifying data.
->
-> - **Integration**: Integrates seamlessly with standard library algorithms and other functions that accept callable objects.
->
-> **<font color="#f56942">Disadvantages</font>**
->
-> - **Readability**: Overuse of complex lambdas can reduce code readability, especially for developers unfamiliar with lambda syntax.
->
-> - **Debugging**: Debugging can be more challenging with anonymous functions compared to named functions.
->
-> - **Capture Issues**: Care must be taken with capture lists to avoid unintended side effects or dangling references.
 
 
 
@@ -6048,181 +6560,10 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 
 
 
-### <font color="#ffc900">CALLBACKS & STD::FUNCTION</font>
-> Callback functions are functions passed as arguments to other functions or methods. They are often used to customize or extend the behavior of libraries and frameworks by allowing the caller to specify a function to be called at a particular event or moment. The 'std::function' type from the Standard Library is powerful tool for implementing callback functions because it can store, copy and invoke any callable target functions, lambda expressions, bind expressions or other function objects.
->
-> 'std::function' is a type-safe, general-purpose polymorphic function wrapper. It can encapsulate any callable target that is compatible with the signature specified when declaring the 'std::function' object. This includes:
->
-> - Regular functions (free functions),
-> - Member functions,
-> - Lambda expressions,
-> - Bind expressions (created using 'std::bind'),
-> - Functors (objects of a class that overloads the 'operator()').
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
->#include <iostream>
->#include <functional>
->
->// A simple free function
->void freeFunction(int value)
->{
->   std::cout << "Free function: " << value << std::endl;
->}
->
->// A functor (function object)
->struct Functor
->{
->   void operator()(int value) const
->   {
->      std::cout << "Functor: " << value << std::endl;
->   }
->}
->
->int main()
->{
->   // Using 'std::function' to wrap a free function
->   std::function<void(int)> callback = freeFunction;
->   callback(10);
->
->   // Using 'std::function' to wrap a lambda expression
->   callback = [](int value)
->   {
->      std::cout << "Lambda: " << value << std::endl;
->   };
->   callback(20);
->
->   // Using 'std::function' to wrap a functor
->   callback = Functor()
->   callback(30);
->
->   return 0;
->}
->```
->
-> **When To Use**
-> 
-> - **Customizing Library Behavior**:
-> Use 'std::function' when you need to pass a callback function to a library or framework that requires custom behavior.
->
-> - **Event Handling**:
-> When implementing event-driven systems, 'std::function' is ideal for storing and invoking event handlers.
->
-> - **Deferred Execution**:
-> When you need to store a function to be executed later, such as in asynchronous operations.
->
-> **When Not to Use**
->
-> - **Performance Critical Code**:
-> 'std::function' incurs some overhead due to type erasure and heap allocations. If performance is critical, prefer using template-based solutions or function pointers directly.
->
-> - **Simple Use Cases**:
-> If you need to pass a simple function pointer, and do not require the flexibility of 'std::function', a regular function pointer might be more efficient.
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - **Flexibility**: 
-> 'std::function' can store any callable target, providing a high level of flexibility in designing APIs.
->
-> - **Type Safety**:
-> Ensures that the stores callable matches the specified function signature, reducing the risk of runtime errors.
->
-> - **Ease of Use**:
-> Simplifies the process of passing and storing functions, especially in complex, callback-driven designs.
->
-> **<font color="#f56942">Disadvantages</font>**
->
-> - **Performance Overhead**:
-> Has some overhead compared to raw function pointers due to type erasure and potential heap allocations.
->
-> - **Memory Usage**:
-> The underlying implementation may allocate memory dynamically, which can be a concern in low-level or performance-critical applications.
->
-> - **Potential for Undefined Behavior**:
-> If the callabke target is a member function, care must be taken to ensure that the object outlives the 'std::function' instance or else it could lead to undefined behavior. 
 
 
 
 
-### <font color="#ffc900">FUNCTION COMPOSITION</font>
-> Refers to the process of combining multiple functions into a single function, where the output of one becomes the input to the next. This concept is common in functional programming but can also be effectively used in C++ through the use of function objects, lambdas and 'std::function'
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
->#include <iostream>
->#include <functional>
->
->// Define two simple functions
->int multiplyByTwo(int x)
->{
->   return (x * 2);
->}
->
->int addFive(int x)
->{
->   return (x + 5);
->}
->
->// A utility function to compose two functions
->std::function<int(int)> compose(std::function<int>(int)> f, std::function<int(int)> g)
->{
->   return [f, g](int x)
->   {
->      return g(f(x));
->   };
->}
->
->int main()
->{
->   // Compose multipleByTwo and AddFive
->   auto composedFunction = compose(multiplyByTwo, addFive);
->
->   // Use the composed function
->   int result = composedFunction(4); // Equivalent to addFive(multiplyByTwo(3))
->
->   return 0;
->}
->```
->
-> **When To Use**
-> 
-> - **Complex Transformations**:
-> When you need to apply multiple transformations to data and want to encapsulate the sequence of operations in a single callable entity.
->
-> - **Readable and Maintainable Code**:
-> Function composition can make your code more readable and maintainable by clearly expressing a sequence of operations.
->
-> - **Reusable Code**:
-> If you have a set of reusable operations that can be combined in different ways, function composition allows you to easily create new behaviors from existing functions.
->
-> **When Not to Use**
->
-> - **Performance Critical Code**:
-> Composing functions, especially using 'std::function', may introduce overhead due to additional function calls and potential heap allocations.
->
-> - **Simple Operations**:
-> For very simple operations, composing functions might overcomplicate the code compared to just writing the operations inline.
->
-> - **Immediate Execution**:
-> If functions are only used once and the composition does not add clarity or reusability, it is better to execute them directly without composition.
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - **Modularity**
->
-> - **Clarity**
->
-> - **Flexibility** 
-> 
-> **<font color="#f56942">Disadvantages</font>**
->
-> - **Performance Overhead**
->
-> - **Complexity**
->
-> - **Debugging Difficulty** 
 
 
 

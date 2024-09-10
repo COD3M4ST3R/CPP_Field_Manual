@@ -6,12 +6,6 @@
 <font color="#a442f5">PURPLE</font>
 <font color="#428df5">BLUE</font>
 
-
-
-
-
-
-
 ### <font color="#ffc900">MAIN</font>
 > ### <font color="#a442f5">SUB</font>
 > ### <font color="#ff009e">ELEMENT</font>
@@ -66,9 +60,9 @@
 
    - [Data Types](#data-types)
       - [Trivial types (e.g., int, float, double, short int)](#trival-types)
-      - [Compound types (std::pair, std::tuple) (New)](#compound-types)
+      - [Compound types (std::pair, std::tuple)](#compound-types)
       - [Standard library types (std::string, std::string_view)](#standard-library)
-      - [Modern types (std::optional, std::variant, std::any) (New)](#modern-types)
+      - [Modern types (std::optional, std::variant, std::any)](#modern-types)
 
    <br>
    <br>
@@ -98,11 +92,11 @@
       - [Encapsulation](#encapsulation)
       - [Inheritance](#inheritance)
       - [Polymorphism](#polymorphism)
-      - [Abstraction (Abstract Classes & Interfaces) (New)](#abstraction-abstract-classes--interfaces)
+      - [Abstraction (Abstract Classes & Interfaces)](#abstraction-abstract-classes--interfaces)
     
     - [Advanced OOP](#advanced-oop)
-      - [Virtual destructors (New)](#virtual-destructors)
-      - [Pure virtual functions (New)](#pure-virtual-functions)
+      - [Virtual destructors](#virtual-destructors)
+      - [Pure virtual functions](#pure-virtual-functions)
       - [RAII (Resource Acquisition Is Initialization)](#raiiresource-acquisition-is-initialization)
 
    <br>
@@ -118,8 +112,8 @@
    - [Advanced Templates](#advanced-templates)
       - [Template Specialization](#template-specialization)
       - [Variadic Templates](#variadic-templates)
-      - [Template Metaprogramming (TMP) (New)](#template-metaprogrammingtmp)
-      - [Concepts and requires clauses (C++20) (New)](#concepts--require-clauses)
+      - [Template Metaprogramming (TMP)](#template-metaprogrammingtmp)
+      - [Concepts and requires clauses (C++20)](#concepts--require-clauses)
    
    <br>
    <br>
@@ -133,7 +127,7 @@
       - [Unordered Containers (std::unordered_set, std::unordered_map)](#unordered-containers)
    
    - [Iterators](#iterators)
-      - [Input/Output, Forward, Bidirectional, Random Access (New)](#inputoutput-forward-bidirectional-random-access)
+      - [Input/Output, Forward, Bidirectional, Random Access](#inputoutput-forward-bidirectional-random-access)
    
    - [Algorithms](#algorithms)
       - [Sorting, Searching, Modifying](#sorting-searching-modifying)
@@ -156,11 +150,11 @@
       - [Event Handling](#event-handling)
       - [Command Pattern](#command-pattern)
 
-   - [Ranges (C++20) (New)](#ranges)
-      - [std::ranges, Views, Actions (New)](#stdranges-views-actions)
+   - [Ranges (C++20)](#ranges)
+      - [std::ranges, Views, Actions](#stdranges-views-actions)
       
-   - [Modules (C++20) (New)](#modules)
-      - [Basics of Modular Programming in C++ (New)](#basics-of-modular-programming)
+   - [Modules (C++20)](#modules)
+      - [Basics of Modular Programming in C++](#basics-of-modular-programming)
       
    - [Spaceship Operator (C++20)](#spaceship-operator)
 
@@ -168,17 +162,17 @@
    <br>
 
 
-7. Memory Management
+7. [Memory Management](#memory-management)
 
-- Automatic vs. Dynamic Memory (New)
-   - Stack vs. Heap
-   - Smart Pointers (std::unique_ptr, std::shared_ptr, std::weak_ptr)
-   - Manual Memory Management (New/Delete) (New)
+- [Automatic vs. Dynamic Memory](#automatic-vs-dynamic-memory)
+   - [Stack vs. Heap](#stack-vs-heap)
+   - [Smart Pointers (std::unique_ptr, std::shared_ptr, std::weak_ptr)](#smart-pointers)
+   - [Manual Memory Management (New/Delete)](#manual-memory) 
    
 - Advanced Memory Techniques
-   - Custom Allocators (New)
-   - Memory Pools (New)
-   - Garbage Collection Concepts (Beyond C++) (New)
+   - Custom Allocators 
+   - Memory Pools 
+   - Garbage Collection Concepts (Beyond C++) 
 
    <br>
    <br>
@@ -191,16 +185,16 @@
 
    - Error Handling
       - Exceptions (try, catch, throw)
-      - Custom Exception Classes (New)
-      - std::expected (C++23 and beyond) (New)
+      - Custom Exception Classes 
+      - std::expected (C++23 and beyond) 
    
    - Type Casting
       - Static, Dynamic, Reinterpret, Const Cast
       - C-Style Cast vs. Modern C++ Casts
    
    - Metaprogramming
-      - SFINAE (Substitution Failure Is Not An Error) (New)
-      - constexpr if, Fold Expressions (New)
+      - SFINAE (Substitution Failure Is Not An Error) 
+      - constexpr if, Fold Expressions 
    
    - PIMPL Idiom
       -  Pointer to Implementation Pattern
@@ -216,16 +210,16 @@
       - std::atomic, Memory Model
    
    - Synchronization
-      - Condition Variables (std::condition_variable) (New)
-      - Barriers, Latches (C++20) (New)
+      - Condition Variables (std::condition_variable) 
+      - Barriers, Latches (C++20) 
    
    - High-Level Concurrency
       - std::async, std::future, std::promise
    
    - Async Programming
       - Coroutines (C++20)
-         - Awaiting, Resumable Functions (New)
-      - Generators (New)
+         - Awaiting, Resumable Functions 
+      - Generators 
 
    <br>
    <br>
@@ -237,11 +231,11 @@
     
    - Inlining
     
-   - Profile-Guided Optimization (PGO) (New)
+   - Profile-Guided Optimization (PGO) 
     
    - Compiler Optimizations
-      - Link Time Optimization (LTO) (New)
-      - Understanding Compiler Flags (New)
+      - Link Time Optimization (LTO) 
+      - Understanding Compiler Flags 
 
    <br>
    <br>
@@ -264,24 +258,24 @@
 
 12. Standard Library Extensions & Miscellaneous
 
-   - Filesystem (std::filesystem) (New)
+   - Filesystem (std::filesystem) 
    
-   - Regular Expressions (std::regex) (New)
+   - Regular Expressions (std::regex) 
    
-   - Networking Library (Boost.Asio, potential C++ extensions) (New)
+   - Networking Library (Boost.Asio, potential C++ extensions) 
    
    - Date and Time (<chrono>)
 
-   - Unicode and Text Processing (New)
+   - Unicode and Text Processing 
    
    - Modern C++ Best Practices
-      - C++ Core Guidelines (New)
+      - C++ Core Guidelines 
     
    - Tooling and Ecosystem
-      - Linters, Static Analyzers, Testing Frameworks (New)
+      - Linters, Static Analyzers, Testing Frameworks 
     
    - External Libraries
-      - Boost, Eigen, Qt (New)
+      - Boost, Eigen, Qt 
 
    <br>
    <br>
@@ -289,13 +283,13 @@
 
 13. Additional Topics to Consider (Advanced Level)
 
-   - Reflection (Future C++ Standards) (New)
+   - Reflection (Future C++ Standards) 
    
-   - Interfacing with C and Other Languages (New)
+   - Interfacing with C and Other Languages 
    
-   - Cross-Platform Development Considerations (New)
+   - Cross-Platform Development Considerations 
    
-   - Compiler and Linker Fundamentals (New)
+   - Compiler and Linker Fundamentals 
 
    <br>
    <br>
@@ -1520,30 +1514,85 @@ Supports alias templates, enabling more flexible and reusable code.
 >
 >
 > ### <font color="#ff009e">Member Functions(const & non-const)</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> Member functions are functions defined inside a class that have access to its member (both data and other functions). Member functions can be classified as **const** or **non-const** depending on whether they are allowed to modify the object's state.
+>
+> - **Non-const Member Functions**:
+> These can modify the member variables of the object.
+>
+> - **Const Member Functions**:
+> These cannot modify the member variables of the object.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>#include <iostream>
+>
+>class Example
+>{
+>   private:
+>      int value;
+>
+>   public:
+>      // Non-const member function
+>      void setValue(int newValue)
+>      {
+>         value = newValue; // Can modify member variable
+>      }
+>
+>      // Const member function
+>      int getValue() const
+>      {
+>         return value; // Cannot modify member variable
+>      }
+>
+>      // Non-const member function that modifies the object
+>      void incrementValue()
+>      {
+>         value++;
+>      }
+>
+>      // Const member function that does not modify the object
+>      void printValue() const
+>      {
+>         std::cout << "Value: " << value << std::endl;
+>      }
+>};
+>
+>int main()
+>{
+>   Example example;
+>   example.setValue(10); // Non-const function modifies the value
+>   example.printValue(); // Const function only ready the value
+>   example.incrementValue(); // Non-const function moddifies the value
+>   example.printValue(); // Const function only ready the value
+>
+>   return 0;
+>}
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - Const Functions: Use const member functions when the function should only read the object’s data and not modify it. This ensures the function is safe and prevents accidental changes to the object.
+>
+> - Non-Const Functions: Use non-const member functions when you need to modify the state of the object.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - Const Functions: Avoid using const functions when you need to change the object’s state, as they do not allow modifications.
+>
+> - Non-Const Functions: Do not use non-const functions unnecessarily if the function doesn’t need to modify the object’s state.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Code Safety**: Const functions add safety by preventing unintended changes to the object’s state.
+>
+> - **Readability**: Clearly distinguishes between functions that modify the object and those that do not.
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Restrictive**: Const functions may be restrictive if you need to make changes but accidentally declare the function as const.
+>
+> - **Complexity**: Using const and non-const overloads of the same function may introduce complexity in code.
 >
 >
 >
@@ -1552,30 +1601,108 @@ Supports alias templates, enabling more flexible and reusable code.
 >
 >
 > ### <font color="#ff009e">Overloading(Function & Operator)</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> Refers the ability to define multiple functions or operators with the same name but different parameter types or numbers. This allows C++ to perform different actions depending on the inputs provided, making the code intutive and easier to read.
+>
+> - **Function Overloading**:
+> Allows multiple functions to have the same name but differ in the type or number of parameters. This enables defining functions with the same name but handling different data types or argument list.
+>
+> - **Operator Overloading**:
+> Allows operators (like **+, -, *, ==**, etc.) to be redefined for user-defined types such as classes or structs, providing intutive usage of operators with custom objects.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>// Function Overloading
+>
+>#include <iostream>
+>
+>// Function to add two integers
+>int add(int param_1, int param_2)
+>{
+>   return(param_1 + param_2);
+>}
+>
+>// Function to add two doubles
+>double add(double param_1, double param_2)
+>{
+>   return(param_1 + param_2);
+>}
+>
+>// Function to add three integers
+>int add(int param_1, int param_2, int param_3)
+>{
+>   return(param_1 + param_2 + param_3);
+>}
+>
+>int main()
+>{
+>   std::cout << "Add integers: " << add(3, 4) << std::endl;  // Calls add(int, int)
+>   std::cout << "Add doubles: " << add(3.5, 4.2) << std::endl;  // Calls add(double, double)
+>   std::cout << "Add three integers: " << add(1, 2, 3) << std::endl;  // Calls add(int, int, int)
+>}
+>```
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>// Operator Overloading
+>
+>#include <iostream>
+>
+>class Complex
+>{
+>   private:
+>      double real, image;
+>
+>   public:
+>      Complex(double r = 0, double i = 0) : real(r), image(i) {}
+>
+>      // Overloading the + operator to add two Complex objects
+>      Complex operator + (const Complex &obj)
+>      {
+>         return Complex(real + obj.real, image + obj.image);
+>      }
+>
+>      // Overloading the << operator to print a Complex object
+>      friend std::ostream& operator << (std::ostream  &output, const Complex &c)
+>      {
+>         output << c.real << " + " << c.image << "i";
+>
+>         return output;
+>      }
+>};
+>
+>int main()
+>{
+>   Complex c1(3.5, 2.5), c2(1.5, 5.4);
+>   Complex c3 = c1 + c2; // Calls operator+ for Complex
+>   std::cout << "Result of addition: " << c3 << std::endl;  // Calls operator<< for Complex
+>}
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - Function Overloading: Use when you want to perform similar operations with different data types or numbers of arguments (e.g., overloading a print function for different types of objects).
+>
+> - Operator Overloading: Use when you want to enable intuitive operator functionality (e.g., addition, subtraction) for custom types like complex numbers or vectors.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - Function Overloading: Avoid overloading functions unnecessarily if the behavior is fundamentally different, as it can lead to confusion in code readability.
+>
+> - Operator Overloading: Avoid overloading operators if it results in non-intuitive behavior that doesn't follow conventional meanings (e.g., using the + operator for something unrelated to addition).
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Code Readability**: Overloading allows the use of the same function or operator names for similar functionality, making code more intuitive.
+>
+> - **Flexibility**: Provides flexibility to handle multiple types with the same function name or operator.
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Code Complexity**: Overloading too many functions or operators can make the code harder to understand and maintain.
+>
+> - **Potential for Misuse**: If operators are overloaded in a non-intuitive way, it can lead to confusing and unreadable code.
 >
 >
 >
@@ -1584,30 +1711,97 @@ Supports alias templates, enabling more flexible and reusable code.
 >
 >
 > ### <font color="#ff009e">Struct vs Class</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> In C++, both **struct** and **class** are user-defined types that allow for data abstraction and encapsulation. The key difference between them lies in their default access specifiers and some stylistic conventions. Otherwise, they are largely similar and interchangeable in functionality.
+>
+> - **struct**: 
+> Originally designed for C-style data structures, in C++, a struct can have member functions, constructors, destructors, and operator overloads, just like a class. However, the default access specifier for members in a struct is public.
+>
+> - **class**: 
+> Designed for Object-Oriented Programming (OOP), a class can also have member functions, constructors, destructors, and operator overloads. The key distinction is that the default access specifier for members in a class is private.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>// struct
+>
+>#include <iostream>
+>
+>struct Person
+>{
+>   std::string name; // Public by default
+>   int age; // Public by default
+>
+>   void introduce()
+>   {
+>      std::cout << "Hi, my name is " << name << " and I am " << age << " years old." << std::endl;
+>   }
+>};
+>
+>int main()
+>{
+>   Person person = {"John Dodo", 69};
+>   person.introduce(); // Accessing public member function and variables
+>}
+>```
+>
+>> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // class
+>
+>#include <iostream>
+>
+>class Person{
+>   private:
+>      std::string name; // Private by default
+>      int age; // Private by default
+>
+>   public:
+>      // Constructor to initialize name and age
+>      Person(
+>         const std::string& n,
+>         int a
+>      ) : 
+>      name(n),
+>      age(a) {}
+>
+>      // Public member function to access private members
+>      void introduce()
+>      {
+>         std::cout << "Hi, my name is " << name << " and I am " << age << " years old." << std::endl;
+>      }
+>};
+>
+>int main()
+>{
+>   Person person("Joe Dudu", 69);
+>   person.introduce(); // Accessing public member function
+>}
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - Use struct: When defining simple data structures that are primarily used for holding data and have few or no member functions.
+>
+> - Use class: When implementing OOP features such as data hiding, encapsulation, inheritance, and polymorphism, where controlling access to members is essential.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - Use struct sparingly: If your structure involves complex behaviors or needs encapsulation, consider using a class for clarity.
+>
+> - Avoid class for trivial data types: If you only need a simple data structure with public members, using a struct is more idiomatic.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - struct: Easier and faster to set up for simple data types due to its default public access.
+>
+> - class: Provides better control over encapsulation and access to member variables and functions, fitting the OOP paradigm.
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - struct: May expose internal details unintentionally if default public access is not handled carefully.
+>
+> - class: Can introduce unnecessary complexity for simple data storage and access.
 >
 >
 >
@@ -4421,30 +4615,77 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 ### <font color="#ffc900">Memory Management</font>
 > ### <font color="#a442f5">Automatic vs Dynamic Memory</font>
 > ### <font color="#ff009e">Stack vs Heap</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> In C++, **stack** and **heap** are two types of memory used for storing variables and dynamically allocated memory. The distinction between them is important for understanding memory management, performance and application design in C++.
+>
+> **Stack**
+> 
+> The **stack** is a region of memory used for static memory allocation, where variables allocated and deallocated in a last-in, first-out (LIFO) manner. The stack is primarily used for local variables and function calls. It has a fixes size and is automatically managed by compiler.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+> // Stack Allocation
+>
+>#include <iostream>
+>
+>void stackFunction()
+>{
+>   int x = 10; // Allocated on the stack
+>   std::cout << "x = " << x << std::endl;
+>} // 'x' is automatically deallocated at the end of this function.
+>
+>int main()
+>{
+>   stackFunction(); // Stack variable 'x' is created and destroyed within the function call.
+>}
+>```
+>
+> **Heap**
+>
+> The **heap** is a region of memory used for dynamic memory allocation. Unlike the stack, the heap is managed manually by the programmer through the used of **new** and **delete** in C++. Memory allocated on the heap persist until it is explicitly freed and it is suitable for large objects or when the memory needs to be shared across different parts of the program.
+>
+>```cpp
+> // Heap Allocation
+>
+>#include <iostream>
+>
+>void heapFunction()
+>{
+>   int* ptr = new int(20); // Allocated on the heap
+>   std::cout << "Value: " << *ptr << std::endl;
+>
+>   delete ptr; // Manually deallocated
+>}
+>
+>int main()
+>{
+>   heapFunction(); // Memory allocated on the heap persist until *delete* is called.
+>}
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - Stack: When you need fast, temporary storage that is automatically managed and freed when out of scope, such as local variables or small, short-lived objects.
+>
+> - Heap: When you need dynamic memory that persists beyond the scope of a function, for large objects, or when you don’t know the exact memory requirements at compile-time.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - Stack: Avoid for large data structures (e.g., large arrays) or when the memory needs to persist beyond the function's scope.
+>
+> - Heap: Avoid for short-lived variables, as heap allocation and deallocation are slower and can lead to memory fragmentation over time.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - Stack: Fast allocation and deallocation; no need for manual memory management.
+>
+> - Heap: Flexibility in memory size and lifetime, suitable for large and dynamic memory needs.
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - Stack: Limited in size; may lead to stack overflow if too much memory is allocated.
+>
+> - Heap: Slower access due to manual management, and improper use can cause memory leaks and fragmentation.
 >
 >
 >
@@ -4453,64 +4694,183 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 >
 >
 > ### <font color="#ff009e">Smart Pointers</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> _**Smart Pointers has been already explained in [Passing Values by Smart Pointers](#by-smart-pointers)**._
+>
+> Smart pointers are a feature in C++ that manage the lifetime of dynamically allocated objects, helping to prevent memory leaks and dangling pointers by automatically deallocating memory when it is no longer needed. The Standard Library provides several types of smart pointers, each designed for different use cases.
+>
+> **std::unique_ptr**
+>
+> A smart pointer that owns and manages another object through a pointer and disposes of that object when the 'std::unique_ptr' goes out of scope. Unique ownership, non-copyable, movable.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+> std::unique_ptr<int> ptr1(new int(10));
+> // std::unique_ptr<int> ptr2 = ptr1; // Error: cannot copy
+> std::unique_ptr<int> ptr2 = std::move(ptr1);
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - When you need exclusive ownership of a resource.
+> - For managing the lifetime of resources that are not shared.
+> - For implementing RAII (Resource Acquisition Is Initialization) patters.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - When you need shared ownership or the ability to copy the smart pointer.
+> - When passing ownership to function that do not accept 'std::unique_ptr'.
+>
+> <hr>
+>
+> **std::shared_ptr**
+>
+> A smart pointer that retains shared ownership of an object through a pointer. Multiple 'std::shared_ptr' instances can manage the same object. Shared ownership, reference counting.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> std::shared_ptr<int> ptr1 = std::make_shared<int>(20);
+> std::shared_ptr<int> ptr2 = ptr2; // Okay: shared ownership.
+>```
+>
+> **When To Use**
+> - When multiple parts of your program need to share ownership of a resource.
+> - When object need to be shared across multiple scopes or threads.
+>
+> **When Not to Use**
+> - When exclusive ownership is sufficient or required.
+> - In performace-critical code where reference counting overhead is unacceptable.
+>
+> <hr>
+>
+> **std::weak_ptr**
+>
+> A smart pointer that holds a non-owning (weak) reference to an object that is managed by 'std::shared_ptr'. It is used to break circular references. Non-owning, does not affect reference count.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> std::shared_ptr<int> sp = std::make_shared<int>(30);
+> std::weak_ptr<int> wp = sp; // wp does not affect reference count.
+> if(auto sp2 = wp.lock()) // Check if the object still exist. 
+> { 
+>     // use sp2. 
+> } else{
+>     // sp2 has been destroyed.
+> }
+>```
+>
+> **When To Use**
+> - When you need to reference an object managed by 'std::shared_ptr' without affecting its lifetime.
+> - For breaking circular references between 'std::shared_ptr' instances.
+>
+> **When Not to Use**
+> - As a primary owning reference, since it does not manage the object's lifetime.
+> - When you do not need to break cycles between 'std::shared_ptr' instances.
+>
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Automatic Memory Management**: 
+> Smart pointers automatically manage the lifetime of dynamically allocated objects, reducing the risk of memory leaks.
+>
+> - **Exception Safety**:
+> They ensure that resources are properly relased even in the presence of exceptions.
+>
+> - **Clear Ownership Semantics**:
+> Different types of smart pointers provide clear semantics for ownership and resource management.
+>
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Overhead**: 'std::shared_ptr' has some overhead due to reference counting and atomic operations, which can impact performance.
+>
+> - **Complexity**:
+> Using smart pointers can add complexity, especially when dealing with circular dependencies and weak references.
+>
+> - **Incorrect Usage**:
+> Misuse of smart pointers(e.g., creating cycles with 'std::shared_ptr') can still lead to resource management issues.
 >
 >
 >
-><hr>
+> <hr>
 >
 >
 >
 > ### <font color="#ff009e">Manual Memory</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> In C++, **manual memory management** refers to the process where the programmer explicitly allocates and deallocates memory. Unlike languages with garbage collection (such as Java or Python), C++ relies on the programmer to manage dynamic memory usage. This involves using operators like _**new**_ and _**delete**_ to manage memory on the heap.
+>
+> When dynamic memory is required, the **heap** is required. Memory is allocated using the _**new**_ keyword and deallocated using _**delete**_ or _**delete[]**_ for arrays. Failing to deallocate memory can result in **memory leaks**, where memory is allocated but never freed, causing the application to use increasing amounts of memory over time which eventually end up crashing.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+> // Manual Memory Management
+>
+>#include <iostream>
+>
+>int main()
+>{
+>   // Allocating memory for a single integer.
+>   int* ptr = new int(54);
+>   std::cout << "Value: " << *ptr << std::endl;
+>
+>   // Deallocate the memory.
+>   delete ptr;
+>
+>   // Allocating memory for an array.
+>   int* arr = new int[5]{1, 23, 34, 244, 5};
+>   for(int i = 0; i < 5; i++)
+>   {
+>      std::cout << "Array value: " << arr[i] << std::endl;
+>   }
+>
+>   // Deallocate the array.
+>   delete[] arr;
+>
+>   return 0;
+>}
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - When you need dynamic memory allocation, particularly for objects whose size or lifetime cannot be determined at compile-time.
+>
+> - When you are handling large data structures that exceed the stack's memory limitations.
+>
+> - In systems programming or embedded systems where memory management needs to be tightly controlled.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - For short-lived objects or small, temporary data where stack allocation is more efficient.
+>
+> - If RAII (Resource Acquisition Is Initialization) can be used, as it automates memory management.
+>
+> - In high-level application code where using smart pointers (like std::shared_ptr or std::unique_ptr) is preferred.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Control**: Provides full control over memory allocation and deallocation, allowing for efficient use of resources.
+>
+> - **Flexibility**: Useful for allocating memory dynamically when the size or number of objects isn’t known until runtime.
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Memory Leaks**: If memory is allocated but not deallocated, it can lead to memory leaks.
 >
+> - **Manual Management**: Requires the programmer to manually manage memory, increasing the complexity and the potential for bugs like double deletion or dangling pointers.
 >
+> - **Fragmentation**: Can lead to memory fragmentation over time, especially in long-running programs.
+>
+> **<font color="#ff9a00">Best Practises</font>**
+>
+> - Always **delete** what you **new**, and **delete[]** what you **new[]**.
+>
+> - Use **RAII** or **smart pointers** when possible to avoid manual memory management pitfalls.
+>
+> - Consider **custom memory management** techniques (such as **memory pools**) for performance-critical applications.
 >
 ><hr>
 >
@@ -4522,30 +4882,83 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 
 > ### <font color="#a442f5">Advanced Memory Techniques</font>
 > ### <font color="#ff009e">Custom Allocators</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> Allocators are a fundamental part of the Standard Template Library (STL) in C++. They define memory management policies for containers, specifying how memory is allocated, deallocated, and managed. While the default allocator (std::allocator) is sufficient for most use cases, custom allocators can be created to optimize performance, improve memory usage, or adapt to specific requirements.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+> template <typename T>
+> class MyAllocator
+> {
+>    public:
+>        using value_type = T;
+>
+>         MyAllocator() = default;
+>         
+>         template <typename U>
+>         MyAllocator(const MyAllocator<U>&) {}
+>  
+>         T* allocate(std::size_t n) // 'allocate' as a key component.
+>         {
+>              return static_cast<T*>(::operator new(n * sizeof(T)));
+>         }
+>
+>         void deallocate(T* p, std::size_t n) // 'deallocate' as a key component.
+>         {
+>              ::operator delete(p);
+>         }
+>
+>         template <typename U, typename... Args>
+>         void construct(U* p, Args&&... args) // 'construct' as a key component.
+>         {
+>              new(p) U(std::forward<Args>(args)...);  
+>         }
+>
+>         void destroy(T* p) // 'destroy' as a key component.
+>         {
+>              p -> ~T();
+>         }
+>};
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - **Performance Optimization**:
+> Use custom allocators to optimize performance by reducing allocation overhead, improving cache locality, or minimizing fragmentation.
+>
+> - **Memory Management**:
+> Implement custom memory management strategies, such as pooling to control and optimize memory usage.
+>
+> - **Embedded Systems**:
+> In enviroments with limited resources, custom allocators can help manage memory more efficiently and predictably.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - **General-Purpose Code**:
+> Avoid using custom allocators for general-purpose code where the default allocator provides sufficient performance and simplicity.
+>
+> - **Complexity**
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Performance**: 
+> Custom allocators can improve performance by tailoring memory management to specific needs and usage patterns.
+>
+> - **Control**:
+> Provides fine-grained control over memory allocation and deallocation, enabling optimization that are not possible with the default allocator.
+>
+> - **Flexibility**:
+> Allows for implementation of specialized memory management strategies, such as pooling, slab allocation or garbage collection.
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Complexity**
+>
+> - **Portability**:
+> Custom allocators may rely on platform-specific features or behaviors, potentially reducing portability.
+>
+> - **Debugging**:
+> Memory management bugs can be difficult to debug and custom allocators may introduce new sources of errors. 
 >
 >
 >
@@ -5847,84 +6260,7 @@ Templates can significantly increase compilation time, especially for larger pro
 
 
 
-> ### <font color="#a442f5">Allocators (Custom)</font>
-> Allocators are a fundamental part of the Standard Template Library (STL) in C++. They define memory management policies for containers, specifying how memory is allocated, deallocated, and managed. While the default allocator (std::allocator) is sufficient for most use cases, custom allocators can be created to optimize performance, improve memory usage, or adapt to specific requirements.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> template <typename T>
-> class MyAllocator
-> {
->    public:
->        using value_type = T;
->
->         MyAllocator() = default;
->         
->         template <typename U>
->         MyAllocator(const MyAllocator<U>&) {}
->  
->         T* allocate(std::size_t n) // 'allocate' as a key component.
->         {
->              return static_cast<T*>(::operator new(n * sizeof(T)));
->         }
->
->         void deallocate(T* p, std::size_t n) // 'deallocate' as a key component.
->         {
->              ::operator delete(p);
->         }
->
->         template <typename U, typename... Args>
->         void construct(U* p, Args&&... args) // 'construct' as a key component.
->         {
->              new(p) U(std::forward<Args>(args)...);  
->         }
->
->         void destroy(T* p) // 'destroy' as a key component.
->         {
->              p -> ~T();
->         }
->};
->```
->
-> **When To Use**
-> 
-> - **Performance Optimization**:
-> Use custom allocators to optimize performance by reducing allocation overhead, improving cache locality, or minimizing fragmentation.
->
-> - **Memory Management**:
-> Implement custom memory management strategies, such as pooling to control and optimize memory usage.
->
-> - **Embedded Systems**:
-> In enviroments with limited resources, custom allocators can help manage memory more efficiently and predictably.
->
-> **When Not to Use**
->
-> - **General-Purpose Code**:
-> Avoid using custom allocators for general-purpose code where the default allocator provides sufficient performance and simplicity.
->
-> - **Complexity**
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - **Performance**: 
-> Custom allocators can improve performance by tailoring memory management to specific needs and usage patterns.
->
-> - **Control**:
-> Provides fine-grained control over memory allocation and deallocation, enabling optimization that are not possible with the default allocator.
->
-> - **Flexibility**:
-> Allows for implementation of specialized memory management strategies, such as pooling, slab allocation or garbage collection.
->
-> **<font color="#f56942">Disadvantages</font>**
->
-> - **Complexity**
->
-> - **Portability**:
-> Custom allocators may rely on platform-specific features or behaviors, potentially reducing portability.
->
-> - **Debugging**:
-> Memory management bugs can be difficult to debug and custom allocators may introduce new sources of errors. 
+
 
 
 
@@ -7459,3 +7795,9 @@ Templates can significantly increase compilation time, especially for larger pro
 > If you call 'get()' on a 'std::future', it will block the current thread until the result is available, which could cause issues if not managed carefully. 
 
 
+>
+>
+> ### [Nadir Suhan ILTER](https://suhanilter.com)
+>
+>
+> ### (UN)HONORABLE MENTION: _JAVASC****_.

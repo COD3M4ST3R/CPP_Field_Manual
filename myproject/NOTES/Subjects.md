@@ -169,24 +169,24 @@
    - [Smart Pointers (std::unique_ptr, std::shared_ptr, std::weak_ptr)](#smart-pointers)
    - [Manual Memory Management (New/Delete)](#manual-memory) 
    
-- Advanced Memory Techniques
-   - Custom Allocators 
-   - Memory Pools 
-   - Garbage Collection Concepts (Beyond C++) 
+- [Advanced Memory Techniques](#advanced-memory-techniques)
+   - [Custom Allocators](#custom-allocators) 
+   - [Memory Pools](#memory-pools) 
+   - [Garbage Collection Concepts (Beyond C++)](#garbage-collection-concepts) 
 
    <br>
    <br>
 
 
-8. Advanced C++ Features
+8. [Advanced C++ Features](#advanced-c-features)
 
-   - Move Semantics
-      - Move Constructors, Move Assignment
+   - [Move Semantics](#move-semantics)
+      - [Move Constructors, Move Assignment](#move-constructors-move-assignment)
 
-   - Error Handling
-      - Exceptions (try, catch, throw)
-      - Custom Exception Classes 
-      - std::expected (C++23 and beyond) 
+   - [Error Handling](#error-handling)
+      - [Exceptions (try, catch, throw)](#exceptions)
+      - [Custom Exception Classes](#custom-exception-classes) 
+      - [std::expected (C++23 and beyond)](#stdexpected) 
    
    - Type Casting
       - Static, Dynamic, Reinterpret, Const Cast
@@ -5179,30 +5179,67 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 ### <font color="#ffc900">Advanced C++ Features</font>
 > ### <font color="#a442f5">Error Handling</font>
 > ### <font color="#ff009e">Exceptions</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> C++ provides a mechanism called **exceptions** to handle runtime errors. This mechanism allows for throwing exceptions when an error occurs and catching them at a suitable location in the program to handle it gracefully. Exceptions provide a way to manage errors and other exceptional conditions without resorting to complex return value check.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>#include <iostream>
+>#include <stdexcept>
+>
+>void divide(int a, int b)
+>{
+>   if(b == 0)
+>   {
+>      throw std::runtime_error("Division by zero error!");
+>   }
+>   std::cout << "Result: " << a / b << std::endl;
+>}
+>
+>int main()
+>{
+>   try
+>   {
+>      divide(10, 0) // Throws an exception
+>   }catch(const std::runtime_error& error){
+>      std::cerr << "Caught an exception: " << e.what() << std::endl;
+>   }
+>
+>   return 0;
+>}
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - When dealing with errors that cannot be handled locally or require unwinding multiple layers of function calls.
+>
+> - When you need to handle resource allocation and deallocation in response to runtime errors (e.g., file I/O, memory allocation).
+>
+> - For dealing with runtime exceptions in libraries, such as file handling, network operations, or memory-related issues.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - For handling normal, expected control flow (e.g., breaking out of a loop), as exceptions should be used only for error handling.
+>
+> - In performance-critical sections where exception handling may introduce overhead.
+>
+> - In situations where resource management via RAII can automatically handle errors without needing explicit exception handling.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Clear Separation of Error Handling**: By separating normal logic and error handling code, exceptions make the code cleaner and more maintainable.
+>
+> - **Automatic Stack Unwinding**: When an exception is thrown, C++ automatically unwinds the stack, releasing resources and calling destructors, preventing memory leaks.
+>
+> - **Standardized Error Handling**: Using exceptions enforces a standard method for managing errors across a codebase.
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Performance Overhead**: Exceptions can introduce runtime overhead due to stack unwinding and context switching when an error is thrown.
+>
+> - **Non-Local Error Handling**: Handling errors far from where they occur can make debugging difficult, as control flow is less obvious.
+>
+> - **Complexity**: Excessive use of exceptions, especially for non-exceptional control flow, can complicate code and make it harder to follow.
 >
 >
 >
@@ -5211,30 +5248,94 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 >
 >
 > ### <font color="#ff009e">Custom Exception Classes</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> While the standard library provides a rich set of exceptions, such as **std::runtime_error** and **std::logic_error**, sometimes you need more specific exceptions tailored to your application. In such cases, creating custom exception classes allows you to handle errors in a more precise and meaningful way.
+>
+> A custom exception class is derived from **std::exception** or one of its derived classes. You can add additional members to store more information about the error, like error codes, messages or context.
+>
+> At a minimum, you should override the **what()** method, which returns a description of the error. The class can be expanded to contain more detailed information about the error condition.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>#include <iostream>
+>#include <exception>
+>#include <string>
+>
+>// Custom exception class derived from std::exception
+>class MyException : public std::exception
+>{
+>   private:
+>      std::string message;
+>
+>   public:
+>      MyException(
+>         const std::string& p_message
+>      )
+>      :
+>      message(p_message) {}
+>
+>      // Override the what() method from std::exception
+>      const char* what() const noexcept override
+>      {
+>         return message.c_str();
+>      }
+>};
+>
+>// Function that throws the custom exception
+>void riskyOperation(int value)
+>{
+>   if(value < 0)
+>   {
+>      throw MyException("Negative value error: " + std::to_string(value));
+>   }
+>   std::cout << "Operation successful with value: " << value << std::endl;
+>}
+>
+>int main()
+>{
+>   try
+>   {
+>      riskyOperation(-5);
+>   }catch(const MyException& error)
+>   {
+>      std::cerr << "Caught MyException: " << e.what() << std::endl;
+>   }
+>
+>   return 0;
+>}
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - When the standard library exceptions do not provide enough context or specificity for your application's needs.
+>
+> - When you need to encapsulate additional information (like error codes, context, or logs) in the exception.
+>
+> - In large applications where different modules or components may need different types of error reporting.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - For simple errors where a standard exception like std::runtime_error or std::logic_error suffices.
+>
+> - In very small or performance-sensitive sections where the cost of creating and throwing exceptions is too high.
+>
+> - When exceptions are used for non-exceptional control flow, which can lead to unnecessary complexity.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Enhanced Error Reporting**: Custom exceptions allow you to provide more specific and detailed error information relevant to your application.
+>
+> - **Consistency**: A custom hierarchy of exceptions can make error handling more consistent across different parts of a large application.
+>
+> - **Modular Error Handling**: You can categorize exceptions based on modules or functionality (e.g., I/O errors, network errors), improving maintainability.
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Overhead**: Custom exceptions, especially when misused, can introduce overhead and unnecessary complexity.
+>
+> - **Maintenance**: Over time, a large hierarchy of custom exceptions can be difficult to manage and may require additional effort to maintain.
+>
+> - **Over-Specialization**: In some cases, creating too many specialized exceptions can make error handling more cumbersome instead of more streamlined.
 >
 >
 >
@@ -5243,30 +5344,115 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 >
 >
 > ### <font color="#ff009e">std::expected</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> A class that intended to manage and represent expected and unexpected values in type-safe manner. It aims to provide an alternative to exceptions for error handling by explicitly returning an expected result or an error, enchancing clarity and reducing overhead.
+>
+> The **std::expected** class template holds either a value (expected) or an error (unexpected). It is similiar to **std::optional**, but with the added feature of carrying an error type. Instead of throwing exceptions, you return an **expected<T, E>** where **T** is the type of the excepted value, and **E** is the error type. This allows you to handle errors explicitly without using exceptions.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>#include <iostream>
+>#include <string>
+>#include <variant>
+>
+>// A simple implementation of 'excepted' for demonstration
+>template<typename T, typename E>
+>class Excepted
+>{
+>   private:
+>      std::variant<T, E> value;
+>
+>   public:
+>      Expected(
+>         const T& p_value
+>      )
+>      :
+>      value(p_value) {}
+>
+>      Expected(
+>         const E& p_error
+>      )
+>      :
+>      value(p_error) {}
+>
+>      bool has_value() const
+>      {
+>         return std::holds_alternative<T>(value);
+>      }
+>
+>      T value_or(const T& default_value) const
+>      {
+>         return has_value() ? std::get<T>(value) : default_value;
+>      }
+>
+>      T value() const
+>      {
+>         if(!has_value() throw std::runtime_error("Unexpected error!"));
+>
+>         return std::get<T>(value);
+>      }
+>
+>      E error() const 
+>      {
+>         return std::get<E>(value);
+>      }
+>}
+>
+>// Function that uses Expected instead of exceptions
+>Expected<int, std::string> safe_divide(int numerator, int denominator)
+>{
+>   if(denominator == 0)
+>   {
+>      return "Error: Division by zero";
+>   }
+>   return (numerator / denominator);
+>}
+>
+>int main()
+>{
+>   auto result = safe_divide(10, 0);
+>
+>   if(result.has_value())
+>   {
+>      std::cout << "Result: " << result.value() << std::endl;
+>   }else{
+>      std::cerr << "Error: " << result.error() << std::endl;
+>   }
+>
+>   return 0;
+>}
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - When you prefer explicit error handling without exceptions, particularly in environments where exceptions are discouraged (e.g., embedded systems).
+>
+> - When you want to represent operations that can fail, and both success and error cases need to be managed in the type system.
+>
+> - When returning a valid value or an error is more intuitive than throwing exceptions, especially in performance-critical applications.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - In codebases that rely heavily on exceptions, as introducing std::expected can lead to inconsistent error handling approaches.
+>
+> - When simplicity is preferred, and using exceptions (or even std::optional) suffices for error handling.
+>
+> - In systems where return values are not well suited for representing both success and failure (e.g., APIs where exceptions are required).
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Type-Safe Error Handling**: Errors and valid values are handled explicitly, improving code readability and safety.
+>
+> - **No Overhead of Exceptions**: Removes the potential performance overhead that comes with exception handling.
+>
+> - **Clarity**: Makes error handling more straightforward by avoiding the need for try/catch blocks.
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Boilerplate Code**: Error handling can introduce boilerplate code, especially if overused.
+>
+> - **Limited Debugging Information**: Compared to exceptions, you may lose stack traces and other debugging aids that exceptions provide.
+>
 >
 >
 >

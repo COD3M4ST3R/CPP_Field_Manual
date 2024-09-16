@@ -200,8 +200,7 @@
       - [constexpr if](#constexpr-if) 
       - [Fold Expressions](#fold-expressions)
 
-   - PIMPL Idiom
-      -  Pointer to Implementation Pattern
+   - [PIMPL Idiom](#pimpl-idiom)
 
    <br>
    <br>
@@ -5829,31 +5828,69 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 
 
 > ### <font color="#a442f5">PIMPL Idiom</font>
-> ### <font color="#ff009e">Pointer to Implementation Idiom</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> The PIMPL idiom (Pointer to IMPLementation) is a technique in C++ used to hide implementation details from a class's public interface. It decouples the interface from its implementation, reducing compile-time dependencies and improving encapsulation. This pattern separates the interface (visible to users) from the implementation (which can change without affecting the interface).
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>// Header File (Class.h)
+>class Example
+>{
+>   private:
+>      struct Impl; // Forward declaration of the implementation class.
+>      Impl* pImpl; // Pointer to implementation.
+>};
+>
+>// Source File (Class.cpp)
+>#include "Class.h"
+>#include <iostream>
+>
+>struct Example::Impl
+>{
+>   void doSomething()
+>   {
+>      std::cout << "Doing something in the implementation!" << std::endl;
+>   }
+>};
+>
+>Example::Example() : pImpl(new Impl) {}
+>
+>Example::~Example()
+>{
+>   delete pImpl;
+>}
+>
+>void Example::doSomething()
+>{
+>   pImpl -> doSomething();
+>}
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - When you want to hide implementation details of a class, reducing header dependencies.
+>
+> - Use when you want to improve compile-time by minimizing rebuilds when implementation details change.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - Avoid when performance is critical and the overhead of an extra indirection (due to pointer dereferencing) is unacceptable.
+>
+> - Not needed if the implementation details are minimal or unlikely to change.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Encapsulation**: Completely hides implementation details, enabling changes without affecting client code.
+>
+> - **Reduced Compile-Time Dependencies**: Changing the implementation doesn’t require recompiling code that depends on the interface.
+>
+< - **Stable ABI**: Useful for library developers who want to provide a stable ABI while allowing changes in implementation.
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Performance Overhead**: Indirection caused by the pointer adds a small performance cost.
+>
+> - **Memory Management**: You must manually manage dynamic memory (e.g., via new and delete or smart pointers), which adds complexity.
 >
 >
 >

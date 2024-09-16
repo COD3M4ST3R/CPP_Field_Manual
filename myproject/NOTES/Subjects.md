@@ -188,14 +188,18 @@
       - [Custom Exception Classes](#custom-exception-classes) 
       - [std::expected (C++23 and beyond)](#stdexpected) 
    
-   - Type Casting
-      - Static, Dynamic, Reinterpret, Const Cast
-      - C-Style Cast vs. Modern C++ Casts
+   - [Type Casting](#type-casting)
+      - [static_cast](#static_cast)
+      - [dynamic_cast](#dynamic_cast)
+      - [const_cast](#const_cast)
+      - [reinterpret_cast](#reinterpret_cast)
+      - [C-Style Cast](#c-style-cast-type-casting)
    
-   - Metaprogramming
-      - SFINAE (Substitution Failure Is Not An Error) 
-      - constexpr if, Fold Expressions 
-   
+   - [Metaprogramming](#metaprogramming)
+      - [SFINAE (Substitution Failure Is Not An Error)](#sfinaesubstitution-failure-is-not-an-error) 
+      - [constexpr if](#constexpr-if) 
+      - [Fold Expressions](#fold-expressions)
+
    - PIMPL Idiom
       -  Pointer to Implementation Pattern
 
@@ -5465,70 +5469,183 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 
 
 > ### <font color="#a442f5">Type Casting</font>
-> ### <font color="#ff009e">Static, Dynamic, Reinterpret & Const Cast</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> C++ provides several casting operators to convert between different types of pointers, references or objects. Each type of cast serves a specific purporse and has different impilcations for safety, performance and use cases. 
+>
+> ### <font color="#ff009e">static_cast</font>
+> It is the most common and safest type of cast in C++. It is used for well-defined conversions between types, such as converting a pointer to a base class to a pointer to a derived class or converting between numeric types.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+> int num = 10;
+> double d = static_cast<double>(num);
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - When you need to perform a conversion that is well-defined and non-polymorphic such as numeric conversions or pointer upcasts (from derived to base).
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - When dealing with polymorphic types where you might need a runtime check (use 'dynamic_cast' instead).
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Safety**:
+> Provides a compile-time type checking, making it safer than C-style casts. 
+> 
+> - **Clarity**:
+> It clearly indicates the intent to perform a specific type of conversion.
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
->
+> - **No Runtime Check**:
+> There is no runtime type checking, so incorrect downcasting (from base to derived) can lead to undefined behavior. 
 >
 >
 ><hr>
 >
 >
 >
-> ### <font color="#ff009e">C-Style Cast vs Modern C++ Casts</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> ### <font color="#ff009e">dynamic_cast</font>
+> Used for safe downcasting in polymorphic hieracrhies. It checks at runtime whether the conversion is valid and returns 'nullptr' if it is not.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>class Base
+>{
+>   public:
+>      virtual ~Base() = default;
+>};
+>
+>class Derived : public Base {};
+>
+>Base* basePtr = new Derived();
+>Derived* derivedPtr = dynamic_cast<Derived*>(basePtr);
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - When you need to safely downcast pointers or references in a polymorphic class hierarchy.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - When you do not require runtime type checking of when performance is critical (as 'dynamic_cast' can be slower due to runtime checks).
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Safety**: 
+> It provides runtime type safety by checking if the cast is valid.
+>
+> - **Polymorphism**:
+> It is essential for safely downcasting in polymorphic class hierarchies.
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Performance**:
+> It incurs a runtime overhead due to type checking.
+>
+> - **Limited to Polymorphism**:
+> It can only be used with polymorphic types (classes with virtual functions). 
 >
 >
 >
 ><hr>
 >
 >
+> ### <font color="#ff009e">const_cast</font>
+> It is used to add or remove the 'const' qualifer from a variable. It is the only cast that change the 'const' or 'volatile' qualifier.
 >
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>void foo(const int* p)
+>{
+>   int* q = const_cast<int*>(p);
+>   *q = 20;
+>}
+>```
+>
+> **When To Use**
+> 
+> - When you need to remove 'const' or 'volatile' qualifiers in a controlled environment where you know the cast is safe.
+>
+> **When Not to Use**
+>
+> - When the original object was declared as 'const' and modifying it would lead to undefined behavior.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Controlled Usage**:
+> It allows modification of otherwise immutable data in a controlled and intentional way. 
+> 
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Undefined Behavior**:
+> Modifying a 'const' object after using 'const_cast' leads to undefined behavior.
+>
+> - **Dangerous**:
+> Misusing 'const_cast' can easily lead to bugs and unstable code. 
+>
+>
+>
+>
+><hr>
+>
+>
+> ### <font color="#ff009e">reinterpret_cast</font>
+> It is used for low-level casts that can reinterpret the bits of a variable in a different way, typically used for converting between unrelated pointer types or casting a pointer to an integer type.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>int num = 42;
+>int* p = &num;
+>long addr = reinterpret_cast<long>(p);
+>```
+>
+> **When To Use**
+> 
+> - When you need to perform bitwise conversions between types, such as between pointers and integers or between unrelated pointer types.
+>
+> **When Not to Use**
+>
+> - When safety and portability are important, as 'reinterpret_cast' is prone to producing non-portable, unsafe code.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Flexibility**:
+> It allows for conversions that are otherwise not possible with other casts. 
+>
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Unsafe**:
+> There are no checks or guarantees and the cast might produce undefined behavior if misused.
+>
+> - **Portability Issues**:
+> The results of 'reinterpret_cast' may not be portable across different platforms or compilers.
+>
+>
+>
+><hr>
+>
+>
+> ### <font color="#ff009e">C-Style Cast (Type Casting)</font>
+> C++ also supports the old C-style cast, which is less safe because it combines the functionality of 'static_cast', 'const_cast' and 'reinterpret_cast' without distinguishing between them. It is considered best practice to avoid C-style casts in C++.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> int num = 43;
+> double d = (double)num;
+>```
+>
+> **<font color="#ff0000">Warning !</font>**
+> 
+> - It is better to avoid C-style casts in C++.
 
 
 
@@ -5536,30 +5653,72 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 
 > ### <font color="#a442f5">Metaprogramming</font>
 > ### <font color="#ff009e">SFINAE(Substitution Failure Is Not An Error)</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> SFINAE is a powerful feature of C++ that allows the compiler to choose the appropriate function template or specialization by rejecting invalid overloads during the template substitution process. Essentialyl, if an valid substitution occurs while deducing template parameters, the compiler does not produce an error. Instead, it continues searching for other viable candidates.
+>
+> This feature is often used in template metaprogramming to enable or disable certain function or class templates based on template parameters.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>#include <iostream>
+>#include <type_traits>
+>
+>// Function template enabled only if T is an integral type.
+>template<typename T>
+>typename std::enable_if<std::is_integral<T>::value, void>::type
+>print(T value)
+>{
+>   std::cout << "Integral: " << value << std::endl;
+>}
+>
+>// Function template enabled only if T is not an integral type
+>template<typename T>
+>typename std::enable_if<!std::is_integral<T>::value, void>::type
+>print(T value)
+>{
+>   std::cout << "Non-Integral: " << value << std::endl;
+>}
+>
+>int main()
+>{
+>   print(10); // Calls the integral version.
+>   print(3.14); // Calls the non-integral version.
+>
+>   return 0;
+>}
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - When you need to provide different behavior for templates depending on the properties of the template arguments.
+>
+> - When you want to enable or disable certain functions or methods based on compile-time conditions.
+>
+> - For advanced template metaprogramming and type checking, such as checking for the existence of methods or types in template parameters.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - If simpler solutions like function overloading or inheritance are sufficient, as SFINAE can introduce complexity.
+>
+> - In cases where performance is critical, as complex SFINAE-based solutions can slow down compilation.
+>
+> - If code readability is a top priority and template metaprogramming may confuse future maintainers.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Selective Template Instantiation**: SFINAE allows for fine-grained control over which templates are instantiated, enabling more flexible and reusable code.
+>
+> - **Type-Safe Code**: Ensures that only valid template specializations are instantiated based on the type traits of the template arguments.
+>
+> - **No Runtime Overhead**: All checks and decisions are made at compile time, with no impact on runtime performance.
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Complexity**: SFINAE can make code harder to read and maintain, especially for developers unfamiliar with template metaprogramming.
+>
+> - **Debugging**: Errors involving SFINAE can be difficult to understand and debug, as template error messages can be cryptic.
+>
+> - **Compile-Time Overhead**: Excessive use of SFINAE can lead to longer compilation times, especially in large codebases.
 >
 >
 >
@@ -5567,31 +5726,52 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 >
 >
 >
-> ### <font color="#ff009e">constexpr if, Fold Expressions</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> ### <font color="#ff009e">constexpr if</font>
+> It is a compile-time desicion-making feature introduced in C++17 that allows you to evaluate conditions at compile-time. It enables more flexible and efficient template programming by allowing parts of the code to be included or excluded during compilation based on a condition.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>template<typename T>
+>void printTypeInfo(T t)
+>{
+>   if constexpr(std::is_integral<T>::value)
+>   {
+>      std::cout << "Integral type\n";
+>   }else
+>   {
+>      std::cout << "Non-integral type\n";
+>   }
+>}
+>
+>int main()
+>{
+>   printTypeInfo(10); // Integral Type
+>   printTypeInfo(3.14); // Non-integra Type
+>}
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - Use constexpr if when you need to write template code that should behave differently based on certain compile-time conditions.
+>
+> - Useful when you want to prevent certain code paths from being instantiated if they aren't needed.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - Avoid using it when runtime decisions are needed, as constexpr if is purely for compile-time decisions.
+>
+> - When the logic does not benefit from compile-time evaluation.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - Efficiency: Only compiles the branches needed, reducing code bloat.
+>
+> - Clarity: Avoids complex enable_if constructs, making the code more readable.
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Complexity**: Overuse may lead to overly complex template code that is hard to maintain.
 >
 >
 >
@@ -5599,6 +5779,53 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 >
 >
 >
+> ### <font color="#ff009e">Fold Expressions</font>
+> Fold expressions in C++17 provide a way to apply binary operators to a parameter pack, simplifying the process of combining arguments.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>template<typename... Args>
+>auto sum(Args... args)
+>{
+>   return(args + ...); // Unary right fold.
+>}
+>
+>int main()
+>{
+>   std::cout << sum(1, 2, 3, 4);  // Output: 10
+>}
+>```
+>
+> **When To Use**
+> 
+> - When you need to perform an operation (like sum, product, or logical operations) over a parameter pack in a concise way.
+>
+> - Particularly useful in variadic templates to avoid manual recursion over template parameters.
+>
+> **When Not to Use**
+>
+> - Avoid when you don't need to operate over parameter packs or when the operation doesn't logically fit a fold expression.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Simplifies Variadic Templates**: Removes the need for recursive template code.
+>
+> - **Compact Syntax**: Makes code more concise and readable when performing operations on variadic parameters.
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Limited Use Case**: Only applicable to operations that can be folded.
+>
+>
+>
+><hr>
+>
+>
+>
+
+
+
 
 
 > ### <font color="#a442f5">PIMPL Idiom</font>
@@ -7430,180 +7657,6 @@ Templates can significantly increase compilation time, especially for larger pro
 
 
 
-### <font color="#ffc900">CASTS</font>
-> C++ provides several casting operators to convert between different types of pointers, references or objects. Each type of cast serves a specific purporse and has different impilcations for safety, performance and use cases. 
->
-> ### <font color="#a442f5">static_cast</font>
-> It is the most common and safest type of cast in C++. It is used for well-defined conversions between types, such as converting a pointer to a base class to a pointer to a derived class or converting between numeric types.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> int num = 10;
-> double d = static_cast<double>(num);
->```
->
-> **When To Use**
-> 
-> - When you need to perform a conversion that is well-defined and non-polymorphic such as numeric conversions or pointer upcasts (from derived to base).
->
-> **When Not to Use**
->
-> - When dealing with polymorphic types where you might need a runtime check (use 'dynamic_cast' instead).
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - **Safety**:
-> Provides a compile-time type checking, making it safer than C-style casts. 
-> 
-> - **Clarity**:
-> It clearly indicates the intent to perform a specific type of conversion.
->
-> **<font color="#f56942">Disadvantages</font>**
->
-> - **No Runtime Check**:
-> There is no runtime type checking, so incorrect downcasting (from base to derived) can lead to undefined behavior. 
-
-
-
-
-
-> ### <font color="#a442f5">dynamic_cast</font>
-> Used for safe downcasting in polymorphic hieracrhies. It checks at runtime whether the conversion is valid and returns 'nullptr' if it is not.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
->class Base
->{
->   public:
->      virtual ~Base() = default;
->};
->
->class Derived : public Base {};
->
->Base* basePtr = new Derived();
->Derived* derivedPtr = dynamic_cast<Derived*>(basePtr);
->```
->
-> **When To Use**
-> 
-> - When you need to safely downcast pointers or references in a polymorphic class hierarchy.
->
-> **When Not to Use**
->
-> - When you do not require runtime type checking of when performance is critical (as 'dynamic_cast' can be slower due to runtime checks).
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - **Safety**: 
-> It provides runtime type safety by checking if the cast is valid.
->
-> - **Polymorphism**:
-> It is essential for safely downcasting in polymorphic class hierarchies.
->
-> **<font color="#f56942">Disadvantages</font>**
->
-> - **Performance**:
-> It incurs a runtime overhead due to type checking.
->
-> - **Limited to Polymorphism**:
-> It can only be used with polymorphic types (classes with virtual functions). 
-
-
-
-
-
-> ### <font color="#a442f5">const_cast</font>
-> It is used to add or remove the 'const' qualifer from a variable. It is the only cast that change the 'const' or 'volatile' qualifier.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
->void foo(const int* p)
->{
->   int* q = const_cast<int*>(p);
->   *q = 20;
->}
->```
->
-> **When To Use**
-> 
-> - When you need to remove 'const' or 'volatile' qualifiers in a controlled environment where you know the cast is safe.
->
-> **When Not to Use**
->
-> - When the original object was declared as 'const' and modifying it would lead to undefined behavior.
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - **Controlled Usage**:
-> It allows modification of otherwise immutable data in a controlled and intentional way. 
-> 
->
-> **<font color="#f56942">Disadvantages</font>**
->
-> - **Undefined Behavior**:
-> Modifying a 'const' object after using 'const_cast' leads to undefined behavior.
->
-> - **Dangerous**:
-> Misusing 'const_cast' can easily lead to bugs and unstable code. 
-
-
-
-
-
-
-> ### <font color="#a442f5">reinterpret_cast</font>
-> It is used for low-level casts that can reinterpret the bits of a variable in a different way, typically used for converting between unrelated pointer types or casting a pointer to an integer type.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
->int num = 42;
->int* p = &num;
->long addr = reinterpret_cast<long>(p);
->```
->
-> **When To Use**
-> 
-> - When you need to perform bitwise conversions between types, such as between pointers and integers or between unrelated pointer types.
->
-> **When Not to Use**
->
-> - When safety and portability are important, as 'reinterpret_cast' is prone to producing non-portable, unsafe code.
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - **Flexibility**:
-> It allows for conversions that are otherwise not possible with other casts. 
->
->
-> **<font color="#f56942">Disadvantages</font>**
->
-> - **Unsafe**:
-> There are no checks or guarantees and the cast might produce undefined behavior if misused.
->
-> - **Portability Issues**:
-> The results of 'reinterpret_cast' may not be portable across different platforms or compilers.
-
-
-
-
-
-> ### <font color="#a442f5">C-Style Cast(Type Casting)</font>
-> C++ also supports the old C-style cast, which is less safe because it combines the functionality of 'static_cast', 'const_cast' and 'reinterpret_cast' without distinguishing between them. It is considered best practice to avoid C-style casts in C++.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> int num = 43;
-> double d = (double)num;
->```
->
-> **<font color="#ff0000">Warning !</font>**
-> 
-> - It is better to avoid C-style casts in C++.
 
 
 

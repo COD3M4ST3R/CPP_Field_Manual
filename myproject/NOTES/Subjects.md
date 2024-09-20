@@ -206,11 +206,15 @@
    <br>
 
 
-9. Concurrency & Multithreading
+9. [Concurrency & Multithreading](#concurrency--multithreading)
 
-   - Basics
-      - std::thread, std::mutex, std::lock_guard
-      - std::atomic, Memory Model
+   - [Basics](#basics)
+      - [Memory Model](#memory-model)
+      - [std::thread](#stdthread) 
+      - [std::mutex](#stdmutex) 
+      - [std::lock_guard](#stdlock_guard)
+      - [std::unique_lock](#stdunique_lock)
+      - [std::atomic](#stdatomic)
    
    - Synchronization
       - Condition Variables (std::condition_variable) 
@@ -5884,7 +5888,7 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 >
 > - **Reduced Compile-Time Dependencies**: Changing the implementation doesn’t require recompiling code that depends on the interface.
 >
-< - **Stable ABI**: Useful for library developers who want to provide a stable ABI while allowing changes in implementation.
+> - **Stable ABI**: Useful for library developers who want to provide a stable ABI while allowing changes in implementation.
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
@@ -5904,63 +5908,39 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 
 ### <font color="#ffc900">Concurrency & Multithreading</font>
 > ### <font color="#a442f5">Basics</font>
-> ### <font color="#ff009e">std::thread, std::mutex, std::lock_guard</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> ### <font color="#ff009e">Memory Model</font>
 >
-> **<font color="#428df5">Example</font>**
+> The **C++ memory model** defines the interaction between threads, memory and synchronization primitives like mutexes and atomics. It provides a framework for understanding how variables are shared between threads, ensuring that multithreaded programs behave predictably across different hardware and compiler architectures.
 >
->```cpp
-> // code goes here...
->```
+> At the core, the memory model explains how reads and writes to shared memory are ordered and how synchronization between threads can be achieved to prevent race conditions.
 >
-> **When To Use**
-> 
-> - ExplanationExplanationExplanation.
+> - **Sequential Consistency**
+>     - The memory model guarantees that all operations appear to occur in a fixed global order, which ensures predictability across multiple threads.
+>     - Howeever, actual hardware architectures may reorder memory operations for optimization, and thus, compiler and CPUs apply these optimizations while still adhering to the memory rules.
 >
-> **When Not to Use**
+> - **Data Races**
+>     - A data race occurs when two or more threads access shared memory concurrently, and at least one access is a write.
+>     - Data races result in undefined behavior in C++. The memory model ensures that correctly synchronized programs, using primitec like **mutexes** or **atomics** to avoid data races.
 >
-> - ExplanationExplanationExplanation
+> - **Atomic Operations**
+>     - Atomic types **std::atomic** ensure that operations on variables are indivisible and thread-safe.
+>     - They prevent data races by ensuring that all threads see consistent values, even on hardware where non-atomic operations may be reordered or split.
 >
-> **<font color="#b3f542">Advantages</font>**
+> - **Memory Ordering**
+>     - **Relaxed Ordering**:
+>        The program is only concerned with atomicity, not the order of operations across-threads.
+>     - **Acquire-Release Semantics**:
+>        Used with synchronization operations to ensure visibility of memory operations between threads.
+>        - **Acquire**:
+>           Prevents memory reordering of read operations before the acquire operations.
+>        - **Release**:
+>           Prevents memory reordering of write operations after the release operations.
+>     - **Sequentially Consistent**:
+>        A stricter ordering that ensures all operations appear to happen in a global, sequential order.
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
->
-> **<font color="#f56942">Disadvantages</font>**
->
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
->
->
->
-><hr>
->
->
->
-> ### <font color="#ff009e">std::atomic, Memory Model</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> // code goes here...
->```
->
-> **When To Use**
-> 
-> - ExplanationExplanationExplanation.
->
-> **When Not to Use**
->
-> - ExplanationExplanationExplanation
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
->
-> **<font color="#f56942">Disadvantages</font>**
->
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Locks and Synchronization Primitives**
+>     - C++ provides synchronization tools like **std::mutex**, **std::lock_guard** and **std::unique_lock** to prevent race conditions.
+>     - **Locks** ensure that only one thread can access a critical section at a time, providing mutual exclusion.
 >
 >
 >
@@ -5968,35 +5948,462 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 >
 >
 >
+>
+> ### <font color="#ff009e">std::thread</font>
+> Multithreading in C++ allows programs to perform multiple tasks simultaneously, leveraging modern multi-core processors to improve performance and responsiveness. C++ provides several standard library components to manage threads and synchronize access to shared resources, such as std::thread, std::mutex, and std::atomic.
+>
+> **std::thread**
+>
+> It is the basic building block for creating and managing threads in C++. It represents an independent thread of execution and allows you to run a function or callable object concurrently with other threads.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>#include <iostream>
+>#include <thread>
+>
+>void printMessage(const std::string& message)
+>{
+>   std::cout << message << std::endl;
+>}
+>
+>int main()
+>{
+>   std::thread t1(printMessage, "Thread 1");
+>   std::thread t2(printMessage, "Thread 2");
+>
+>   t1.join(); // Wait for t1 to finish.
+>   t2.join(); // Wait for t2 to finish.
+>   
+>   return 0;
+>}
+>```
+>
+> **When To Use**
+> 
+> - When you need to perform tasks concurrently, expecially in CPU-bound operations that can benefit from parallel execution.
+>
+> - When you want to run a function or callable object independently of the main program flow.
+>
+> **When Not to Use**
+>
+> - Avoid using 'std::thread' when tasks are I/O-bound, as this may not lead to significant performance improvements.
+>
+> - Do not use 'std::thread' for trivial tasks where the overhead of the thread management outweighs the benefits.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Concurrency** 
+> 
+> - **Control**
+>
+> - **Simpilicty**
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Overhead**
+>
+> - **Complexity**
+>
+> - **Potential for Bugs** 
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">std::mutex</font>
+> It is a synchronization primitive used to protect shared resources from being accessed simultaneously by multiple threads. It ensures that only one thread can access the resource at a time, preventing race conditions.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>#include <iostream>
+>#include <thread>
+>#include <mutex>
+>
+>std::muxet mtx;
+>
+>void printSafeMessage(const std::string& message)
+>{
+>   std::lock_guard<std::mutex> lock(mtx); // Lock the mutex.
+>   std::cout << message << std::endl; // Mutex is automatically released when lock goes out of scope.
+>}
+>
+>int main()
+>{
+>   std::thread t1(printSafeMessage, "Thread 1");
+>   std::thread t2(printSafeMessage, "Thread 2");
+>
+>   t1.join();
+>   t2.join();
+>
+>   return 0;
+>}
+>```
+>
+> **When To Use**
+> 
+> - When multiple threads need to access and modify shared resources concurrently.
+>
+> - Use it to prevent race conditions where the outcome of operations depends on the order of thread execution.
+>
+> **When Not to Use**
+>
+> - If you can design you program to avoid shared state or if you can use higher-level synchronization primitives like 'std::atomic'.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Protection**:
+> Provides threads-safe access to shared resources, preventing race conditions.
+>
+> - **Flexibility**
+>
+> - **Automatic Management**:
+> Can be easily managed using RAII, with classes like 'std::lock_guard' or 'std::unique_lock'. 
+>
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Performance**:
+> Locking and unlocking a mutex introduces overhead and can lead to contention, reducing performance.
+>
+> - **Deadlocks**:
+> Incorrect use of mutexes can lead to deadlocks, where two or more threads are stuck waiting for each other to release locks. 
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">std::lock_guard</font>
+> It is a mutex wrapper that provides a convenient way to manage locks in C++ multithreaded code. It ensures that a mutex is locked when the **lock_guard** object is created and automatically unlocked when the **lock_guard** goes out of scope. This RAII (Resource Acquisition Is Initialization) pattern prevents deadlocks and guarantees exception-safe locking.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>#include <iostream>
+>#include <thread>
+>#include <mutex>
+>
+>std::mutex mtx;
+>
+>void shared_print(const std::string& msg, int id)
+>{
+>   std::lock_guard<std::mutex> lock(mtx); // Lock mutex on entry, unlock on exit.
+>   std::cout << msg << ": " << id << std::endl;
+>}
+>
+>void thread_function()
+>{
+>   for(int i = 0; i < 10; ++i)
+>   {
+>      shared_print("From thread", i);
+>   }
+>}
+>
+>int main()
+>{
+>   std::thread t1(thread_function);
+>   std::thread t2(thread_function);
+>
+>   t1.join();
+>   t2.join();
+>
+>   return 0;
+>}
+>```
+>
+> **When To Use**
+> 
+> - Use when you need simple, automatic, and exception-safe locking and unlocking of a mutex.
+>
+> - Ideal for short critical sections where you need to synchronize access to shared resources between multiple threads.
+>
+> **When Not to Use**
+>
+> - Avoid when you need to lock and unlock a mutex at different points in the code (use std::unique_lock for more complex locking scenarios).
+>
+> - Not useful if your code doesn't involve multithreading or doesn't require mutex synchronization.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **RAII**: Ensures mutex is always unlocked when the lock_guard goes out of scope, even in case of exceptions.
+>        
+> - **Simplicity**: Simple and easy to use for basic mutex locking scenarios.
+>
+> - **Performance**: No additional overhead since it only locks and unlocks the mutex.
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Limited Flexibility**: Cannot be unlocked before the lock_guard goes out of scope, unlike std::unique_lock.
+>
+> - **No Try-Locking**: Doesn’t provide features like try_lock for non-blocking attempts to acquire a lock.
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">std::unique_lock</font>
+>
+> It is a versatile locking mechanism in C++ that provides more flexibility than **std::lock_guard**. It is used to manage the ownership of a mutex, providing explicit control over when to acquire and release the lock. Unlike **std::lock_guard**, which locks the mutex upon creation and unlocks it upon destruction, **std::unique_lock** allows for deferred locking, unlocking, and manual control over lock ownership.
+>
+> **Features**
+>
+> - **Deferred Locking**:
+> You can create a **std::unique_lock** without immediately locking the mutex, then lock it later when necessary.
+>
+> - **Manual Unlocking**:
+> You can unlock the mutex before the destructor is called, giving more fine-grained control over lock ownership.
+>
+> - **Timed Locking**:
+> It supports time-bound locking operations like **try_lock_for** and **try_lock_until**.
+>
+> - **Movable**:
+> Unlike **std::lock_guard**, **std::unique_lock** is movable, meaning it can be transferred between different scopes or objects.
+>
+>
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>#include <iostream>
+>#include <thread>
+>#include <mutex>
+>
+>std::mutex mtx;
+>
+>void sharedFunction(int threadID)
+>{
+>   std::unique_lock<std::mutex> lock(mtx); // Lock the mutex.
+>   std::cout << "Thread " << threadID << " is in the critical section." << std::endl;
+>   lock.unlock(); // Manually unlock before leaving the scope.
+>
+>   // Do other work without holding the lock.
+>
+>   lock.lock(); // Lock again before accessing the critical section.
+>   std::cout << "Thread " << threadID << " is re-entering the critical section.\n";
+>}
+>
+>int main()
+>{
+>   std::thread t1(sharedFunction, 1);
+>   std::thread t2(sharedFunction, 2);
+>
+>   t1.join();
+>   t2.join();
+>
+>   return 0;
+>}
+>```
+>
+> **When To Use**
+> 
+> - When you need more control over locking and unlocking behavior.
+>
+> - In cases where deferred or time-bound locking is required.
+>
+> - When you need to transfer lock ownership between functions or threads.
+>
+> **When Not to Use**
+>
+> - If you only need a simple lock/unlock mechanism, std::lock_guard is preferable due to its simplicity.
+>
+> - If there's no need for deferred locking or timed locking operations.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Flexibility**: Offers more control over lock acquisition and release.
+>
+> - **Deferred Locking**: Can defer locking to a later time, allowing greater flexibility in resource management.
+>
+>- **Timed Locking**: Supports timed locking functions, which can help prevent deadlocks in some cases.
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Complexity**: Slightly more complex than std::lock_guard due to the additional options for lock management.
+>
+> - **Overhead**: Slightly more overhead than std::lock_guard because of the additional functionality.
+>
+>
+>
+>
+><hr>
+>
+>
+>
+>
+> ### <font color="#ff009e">std::atomic</font>
+> Provides a way to perform operations on variables automatically, meaning the operations are completed as a single, indivisible step. This is essential for lock-free programming, where you want to avoid the overhead of mutexes but still need to ensure data consistency.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>#include <iostream>
+>#include <thread>
+>#include <atomic>
+>
+>std::atomic<int> counter(0);
+>
+>void incrementCounter()
+>{
+>   for(int i = 0; i < 1000 ; ++i)
+>   {
+>      ++counter;
+>   }
+>}
+>
+>int main()
+>{
+>   std::thread t1(incrementCounter);
+>   std::thread t1(incrementCounter);
+>
+>   t1.join();
+>   t2.join();
+>
+>   std::cout << "Final counter value: " << counter.load() << std::endl;
+>
+>   return 0;
+>}
+>```
+>
+> **When To Use**
+> 
+> - When you need to perform simple operations on shared data without the overhead of mutexes.
+>
+> - Use it for performance-critical code where minimal synchronization overhead is required-
+>
+> **When Not to Use**
+>
+> - Avoid for complex data structures where multiple variables need to be synchronized together.
+>
+> - Do not use it when the atomic operations provided are insufficient for you synchronization needs and a mutex woulf be safer or more appropriate. 
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Low Overhead**
+>
+> - **Simplicity**
+>
+> - **Lock-Free Programming** 
+> 
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Limited Scope**:
+> It is not suitable for all synchronization tasks, particularly when complex operations need to be performed atomically.
+>
+> - **Complexity**
+>
+> - **Portability** 
+>
+>
+>
+><hr>
+
 
 
 
 > ### <font color="#a442f5">Synchronization</font>
 > ### <font color="#ff009e">Condition Variables</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> 
+> Synchronization in multithreaded programming ensures that multiple threads do not interfere with each other when accessing shared resources. A common synchronization technique is using **condition variables**, which allow threads to wait for certain conditions to be met before proceeding.
+>
+> A **condition variable** is used with mutex to block one or more threads until another thread notifes them that a condition has been met. It allows for efficient waiting without busy-waiting, and it can synchronize the access to shared resources between threads.
+>
+> **How Condition Variables Work**
+>
+> **Wait**:
+> A thread that calls **wait** on a condition variable will be blocked until another thread notifies it that the condition it is waiting for has been met.
+>
+> **Notify**:
+> Another thread can call **notify_one()** or **notify_all()** to wake up one or all of the threads waiting on the condition variable.
+>
+> **Mutex**:
+> Condition variables always need to be used with a mutex to ensure that the condition check and wait operation are atomic.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+> // Threads t1 and t2 wait for the ready flag to become true before printing a message.
+> // The setReady() function sets the flag after simulating some work and notifies all waiting threads using cv.notify_all().
+>
+>#include <iostream>
+>#include <thread>
+>#include <mutex>
+>#include <condition_variable>
+>
+>std::mutex mtx;
+>std::condition_variable cv;
+>bool ready = false;
+>
+>void printThread(int id)
+>{
+>   std::unique_lock<std::mutex> lock(mtx);
+>   cv.wait(lock, [] {
+>      return ready; // Wait until 'ready' become true.
+>   });
+>   std::cout << "Thread " << id << " is running" << std::endl;
+>}
+>
+>void setReady()
+>{
+>   std::this_thread::sleep_for(std::chrono::seconds(1)); // Simulate work.
+>   {
+>      std::lock_guard<std::mutex> lock(mtx);
+>      ready = true;
+>   }
+>   cv.notify_all(); // Notify all waiting threads.
+>}
+>
+>int main()
+>{
+>   std::thread t1(printThread, 1);
+>   std::thread t2(printThread, 2);
+>
+>   std::thread setter(setReady);
+>
+>   t1.join();
+>   t2.join();
+>   setter.join();
+>
+>   return 0;
+>}
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - When you need to synchronize threads based on certain conditions.
+>
+> - When one or more threads need to wait for a shared resource to reach a specific state before proceeding.
+>
+> - When using mutexes and locks for thread-safe shared resource access.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - If the application is not multithreaded or does not require thread synchronization.
+>
+> - For simple tasks where busy-waiting or atomic operations can be used without much overhead.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Efficient Waiting**: Avoids busy-waiting by putting threads to sleep until the condition is met.
+>
+> - **Scalability**: Allows multiple threads to wait and be notified efficiently.
+>
+> - **Control**: Provides fine-grained control over thread execution order and conditions.
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Complexity**: More complex to implement and manage compared to simple locks or atomic variables.
+>
+> - **Potential for Deadlock**: Misuse of locks or condition variables can lead to deadlocks if not carefully handled.
+>
+> - **Spurious Wakeups**: Threads may wake up even if the condition is not met, so the condition should always be checked inside the wait loop.
 >
 >
 >
@@ -7933,192 +8340,14 @@ Templates can significantly increase compilation time, especially for larger pro
 
 
 ### <font color="#ffc900">MULTITHREADING</font>
-> Multithreading in C++ allows programs to perform multiple tasks simultaneously, leveraging modern multi-core processors to improve performance and responsiveness. C++ provides several standard library components to manage threads and synchronize access to shared resources, such as std::thread, std::mutex, and std::atomic.
-> ### <font color="#a442f5">std::thread</font>
-> It is the basic building block for creating and managing threads in C++. It represents an independent thread of execution and allows you to run a function or callable object concurrently with other threads.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
->#include <iostream>
->#include <thread>
->
->void printMessage(const std::string& message)
->{
->   std::cout << message << std::endl;
->}
->
->int main()
->{
->   std::thread t1(printMessage, "Thread 1");
->   std::thread t2(printMessage, "Thread 2");
->
->   t1.join(); // Wait for t1 to finish.
->   t2.join(); // Wait for t2 to finish.
->   
->   return 0;
->}
->```
->
-> **When To Use**
-> 
-> - When you need to perform tasks concurrently, expecially in CPU-bound operations that can benefit from parallel execution.
->
-> - When you want to run a function or callable object independently of the main program flow.
->
-> **When Not to Use**
->
-> - Avoid using 'std::thread' when tasks are I/O-bound, as this may not lead to significant performance improvements.
->
-> - Do not use 'std::thread' for trivial tasks where the overhead of the thread management outweighs the benefits.
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - **Concurrency** 
-> 
-> - **Control**
->
-> - **Simpilicty**
->
-> **<font color="#f56942">Disadvantages</font>**
->
-> - **Overhead**
->
-> - **Complexity**
->
-> - **Potential for Bugs** 
-
-
-
-
-
-> ### <font color="#a442f5">std::mutex</font>
-> It is a synchronization primitive used to protect shared resources from being accessed simultaneously by multiple threads. It ensures that only one thread can access the resource at a time, preventing race conditions.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
->#include <iostream>
->#include <thread>
->#include <mutex>
->
->std::muxet mtx;
->
->void printSafeMessage(const std::string& message)
->{
->   std::lock_guard<std::mutex> lock(mtx); // Lock the mutex.
->   std::cout << message << std::endl; // Mutex is automatically released when lock goes out of scope.
->}
->
->int main()
->{
->   std::thread t1(printSafeMessage, "Thread 1");
->   std::thread t2(printSafeMessage, "Thread 2");
->
->   t1.join();
->   t2.join();
->
->   return 0;
->}
->```
->
-> **When To Use**
-> 
-> - When multiple threads need to access and modify shared resources concurrently.
->
-> - Use it to prevent race conditions where the outcome of operations depends on the order of thread execution.
->
-> **When Not to Use**
->
-> - If you can design you program to avoid shared state or if you can use higher-level synchronization primitives like 'std::atomic'.
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - **Protection**:
-> Provides threads-safe access to shared resources, preventing race conditions.
->
-> - **Flexibility**
->
-> - **Automatic Management**:
-> Can be easily managed using RAII, with classes like 'std::lock_guard' or 'std::unique_lock'. 
->
->
-> **<font color="#f56942">Disadvantages</font>**
->
-> - **Performance**:
-> Locking and unlocking a mutex introduces overhead and can lead to contention, reducing performance.
->
-> - **Deadlocks**:
-> Incorrect use of mutexes can lead to deadlocks, where two or more threads are stuck waiting for each other to release locks. 
 
 
 
 
 
 
-> ### <font color="#a442f5">std::atomic</font>
-> Provides a way to perform operations on variables automatically, meaning the operations are completed as a single, indivisible step. This is essential for lock-free programming, where you want to avoid the overhead of mutexes but still need to ensure data consistency.
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
->#include <iostream>
->#include <thread>
->#include <atomic>
->
->std::atomic<int> counter(0);
->
->void incrementCounter()
->{
->   for(int i = 0; i < 1000 ; ++i)
->   {
->      ++counter;
->   }
->}
->
->int main()
->{
->   std::thread t1(incrementCounter);
->   std::thread t1(incrementCounter);
->
->   t1.join();
->   t2.join();
->
->   std::cout << "Final counter value: " << counter.load() << std::endl;
->
->   return 0;
->}
->```
->
-> **When To Use**
-> 
-> - When you need to perform simple operations on shared data without the overhead of mutexes.
->
-> - Use it for performance-critical code where minimal synchronization overhead is required-
->
-> **When Not to Use**
->
-> - Avoid for complex data structures where multiple variables need to be synchronized together.
->
-> - Do not use it when the atomic operations provided are insufficient for you synchronization needs and a mutex woulf be safer or more appropriate. 
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - **Low Overhead**
->
-> - **Simplicity**
->
-> - **Lock-Free Programming** 
-> 
->
-> **<font color="#f56942">Disadvantages</font>**
->
-> - **Limited Scope**:
-> It is not suitable for all synchronization tasks, particularly when complex operations need to be performed atomically.
->
-> - **Complexity**
->
-> - **Portability** 
+
+
 
 
 

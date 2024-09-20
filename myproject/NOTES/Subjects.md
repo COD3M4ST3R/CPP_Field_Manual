@@ -180,9 +180,6 @@
 
 8. [Advanced C++ Features](#advanced-c-features)
 
-   - [Move Semantics](#move-semantics)
-      - [Move Constructors, Move Assignment](#move-constructors-move-assignment)
-
    - [Error Handling](#error-handling)
       - [Exceptions (try, catch, throw)](#exceptions)
       - [Custom Exception Classes](#custom-exception-classes) 
@@ -216,23 +213,25 @@
       - [std::unique_lock](#stdunique_lock)
       - [std::atomic](#stdatomic)
    
-   - Synchronization
-      - Condition Variables (std::condition_variable) 
-      - Barriers, Latches (C++20) 
+   - [Synchronization](#synchronization)
+      - [Condition Variables (std::condition_variable)](#condition-variables)
+      - [Barriers, Latches (C++20)](#barriers-latches) 
    
-   - High-Level Concurrency
-      - std::async, std::future, std::promise
+   - [High-Level Concurrency](#high-level-concurrency)
+      - [std::async, std::future, std::promise](#stdasync-stdfuture-stdpromise)
    
-   - Async Programming
-      - Coroutines (C++20)
-         - Awaiting, Resumable Functions 
-      - Generators 
+   - [Async Programming](#async-programming)
+      - [Coroutines (C++20)](#coroutines)
+         - [Awaiting, Reusable Functions (Generators)](#awaiting-reusable-functions-generators) 
 
    <br>
    <br>
 
 
-10. Performance Optimization
+10. [Performance Optimization](#performance-optimization)
+
+   - [Move Semantics](#move-semantics)
+      - [Move Constructors, Move Assignment](#move-constructors-move-assignment)
     
    - Copy Elision
     
@@ -6412,30 +6411,121 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 >
 >
 > ### <font color="#ff009e">Barriers, Latches</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> In multithreading and parallel programming, barriers and latches are synchronization primitives used to control the execution of multiple threads, ensuring that they reach a certain point in the code before continuing. Both are useful when managing dependencies between threads.
+>
+> **Barriers**
+>
+> A barrier ensures that all participating threads reach a certain point in the code before any of them proceed. Once all threads have hit the barrier, they are relased and allowed to continue execution. This mechanism is particulary useful when threads must complete a specific task before moving to the next stage of computation.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>#include <iostream>
+>#include <thread>
+>#include <barrier>
+>#include <vector>
+>
+>std::barrier sync_point(4); // Barrier for 4 threads.
+>
+>void task(int id)
+>{
+>   std::cout << "Thread " << id << " at phase 1" << std::endl;
+>   sync_point.arrive_and_wait(); // Synchronize threads here.
+>   std::cout << "Thread " << id << " at phase 2" << std::endl;
+>}
+>
+>int main()
+>{
+>   std::vector<std::thread> threads;
+>
+>   for(int i = 0; i < 4; ++i)
+>   {
+>      threads.emplace_back(task, i);
+>   }
+>
+>   for(auto& t :threads)
+>   {
+>      t.join();
+>   }
+>
+>   return 0;
+>}
+>```
+>
+>
+> **Latches**
+>
+> A latch is another synchronization mechanism that works similarly to a barrier but is used for one-time synchronization. It allows threads to wait until a specified number of other threads have completed their tasks. Once the latch is triggered (i.e: reaches zero), it cannot be reset, and waiting threads are allowed to proceed.
+>
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>#include <iostream>
+>#include <thread>
+>#include <latch>
+>#include <vector>
+>
+>std::latch latch_point(3); // Latch for 3 threads.
+>
+>void task(int id)
+>{
+>   std::cout << "Thread " << id << " is done with its work" << std::endl;
+>   latch.point.count_down(); // Decrease latch count.
+>}
+>
+>void final_task()
+>{
+>   latch_point.wait(); // Wait until latch reaches 0
+>   std::cout << "All tasks are done. Executing final task." << std::endl;
+>}
+>
+>int main()
+>{
+>   std::vector<std::thread> threads;
+>
+>   for(int i = 0; i < 3; ++i)
+>   {
+>      threads.emplace_back(task, i);
+>   }
+>
+>   std::thread final(final_task);
+>
+>   for(auto& t : threads)
+>   {
+>      t.join();
+>   }
+>
+>   final.join();
+>
+>   return 0;
+>}
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - Use barriers when you need to synchronize multiple threads repeatedly at specific points in the code.
+>
+> - Use latches when you need to synchronize multiple threads only once before proceeding.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - Avoid using barriers if the synchronization points between threads are unnecessary or too frequent, as they can introduce performance bottlenecks.
+>
+> - Avoid latches if you need repeated synchronization, as they cannot be reset once they are released.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - Barriers: Ensure synchronization at multiple points in the execution, allowing coordinated progress between threads.
+>
+> - Latches: Simple and efficient for one-time synchronization.
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - Barriers: Can lead to performance issues if used excessively or incorrectly.
+>
+> - Latches: Limited to one-time synchronization, lacking flexibility for repeated usage.
 >
 >
 >
@@ -6448,30 +6538,91 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 
 > ### <font color="#a442f5">High-Level Concurrency</font>
 > ### <font color="#ff009e">std::async, std::future, std::promise</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+>
+> In modern C++, handling tasks concurrently is often crucial for optimizing performance and responsiveness. The Standard Library provides tools like std::async, std::future, and std::promise that help manage asynchronous operations, allowing tasks to be executed concurrently without the need for manual thread management.
+>
+> - **std::async:**
+> Launches a function asynchronously, potentially in a separate thread and returns as 'std::future' object representing the eventual result of the function.
+>
+> - **std::future**:
+> An object that holds the result of an asynchronous operation, allowing you to retrieve the result once it becomes available. It provides synchronization between the calling thread and the asnychronous task.
+>
+> - **std::promise**:
+> A mechanism to set a value or exception that 'std::future' object will eventually hold. It decouples the producer(who sets the value) from the consumer (who retrieves the value via the future).
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>#include <iostream>
+>#include <future>
+>#include <thread>
+>
+>// Function to computer square using std::async
+>int computerSquareAsync(int x)
+>{
+>   std::this_thread::sleep_for(std::chrono::seconds(2)); // Simulates a time-consuming operation.
+>
+>   return x * x;
+>} 
+>
+>// Function to compute square using std::promise and std::future
+>int computeSquareWithPromise(std::promise<int>&& promiseObj, int x)
+>{
+>   promiseObj.set_value(x * x); // Set the result for the associated future.
+>}
+>
+>int main()
+>{
+>   // Using std::async
+>   std::future<int> futureResultAsync = std::async(std::launch::async, computeSquareAsync, 10);
+>
+>   // Using std::promise and std::future
+>   std::promise<int> promiseObj;
+>   std::future<int> futureResultPromise = promiseObj.get_future();
+>   std::thread t(computeSquareWithPromise, std::move(promiseObj), 5);
+>
+>   // Do other work in the main thread
+>   std::cout << "Doing other work in main thread..." << std::endl;
+>
+>   // Retrieve results
+>   int resultAsync = futureResultAsync.get(); // Blocks until the result is ready.
+>   int resultPromise = futureResultAsync.get(); // Blocks until the promise is fulfilled.
+>
+>   // Print results
+>   std::cout << "Result from std::async: " << resultAsync << std::endl;
+>   std::cout << "Result from std::promise and std::future: " << resultPromise << std::endl;
+>
+>   // Join the thread
+>   t.join();
+>
+>   return 0;
+>}
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - Use 'std::async' when you want to offload a task to run concurrently without managing threads manually. It is perfect for scenarios where you need the result eventually but do not want to block the main thread.
 >
-> **When Not to Use**
->
-> - ExplanationExplanationExplanation
+> - Use 'std::promise' and 'std::future' combination when you need fine-grained control over the production and consumption of a result. It is useful in more complex concurrent workflows where tasks are not immediately tied to a function call but might depend on other factors.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Concurrency**:
+> All three tools enable concurrent execution of tasks, which can significantly improve program efficiency and responsiveness.
+>
+> - **Ease of Use**:
+> 'std::async' simplifies the creation of asynchronous tasks, while 'std::promise' and 'std::future' provide a powerful mechanism for decoupling task execution and result retrieval.
+>
+> - **Exception Handling**:
+> If an asynchronous task throws an exception, it is captured by the 'std::future' and can be handled later when 'get()' is called. 
+> 
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Overhead**
+>
+> - **Blocking**:
+> If you call 'get()' on a 'std::future', it will block the current thread until the result is available, which could cause issues if not managed carefully. 
 >
 >
 >
@@ -6482,40 +6633,163 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 
 
 
-
+> ### <font color="#a442f5">Async Programming</font>
 > ### <font color="#a442f5">Coroutines</font>
-> ### <font color="#ff009e">Awaiting, Resumable Functions</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> ### <font color="#ff009e">Awaiting, Reusable Functions (Generators)</font>
+> 
+> Coroutines are special functions C++ that can be paused and resumed at specific points. They are especially useful in **asynchronous programming** and situations where lazy evaluation is beneficial. In C++, coroutines were introduced in C++20, providing a powerful tool for writing asynchronous, non-blocking code without the need for traditional threading.
+>
+> **Awaiting**
+>
+> Awaiting is a feature of coroutines that allows you to suspend the execution of a function until a certain condition is met (such as the completion of an asynchronous task). The suspended coroutine can later be resumed from where it was left off, making coroutines very useful in event-driven or async programming models.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>#include <iostream>
+>#include <coroutine>
+>#include <chrono>
+>#include <thread>
+>
+>struct awaitable
+>{
+>   bool await_ready() const noexcept { return false; }
+>   void await_suspend(std::coroutine_handle<>) const noexcept
+>   {
+>      std::this_thread::sleep_for(std::chrono::seconds(1));
+>   }
+>   void await_resume() const noexcept {}
+>};
+>
+>struct Task
+>{
+>   struct promise_type
+>   {
+>      task get_return_object() { return {}; }
+>      std::suspend_never initial_suspend() { return {}; }
+>      std::suspend_never final_suspend() noexcept { return {};}
+>      void return_void() {}
+>      void unhandled_exception() {}
+>   };
+>};
+>
+>task myCoroutine()
+>{
+>   std::cout << "Coroutine started..." << std::endl;
+>   co_await awaitable{};
+>   std::cout << "Coroutine resumed after await..." << std::endl;   
+>}
+>
+>int main()
+>{
+>   myCoroutine();
+>   std::cout << "Main function completed." << std::endl;
+>
+>   return 0 ;
+>}
 >```
+>
+>
+>
+> **Reusable Functions (Generators)**
+>
+> Coroutines are also highly reusable, allowing you to write efficient, non-blocking and stateful functions that can be paused and resumed multiple times throughout their lifetime. This makes them perfect for generator-like functions, where a series of values can be lazily produced over time.
+>
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>#include <iostream>
+>#include <coroutine>
+>
+>struct generator
+>{
+>   struct promise_type
+>   {
+>      int current_value;
+>
+>      generator get_return_object() { return generator { std:.coroutine_handle<promise_type>::from_promise(*this)}; }
+>      std::suspend_always initial_suspend() { return {}; }
+>      std::suspend_always final_suspend() noexcept { return {}; }
+>      std::suspend_always yield_value( int value )
+>      {
+>         current_value = value;
+>         return {};
+>      }
+>      void return_void() {}
+>      void unhandled_exception() {std::exit(1); }
+>   };
+>
+>      std::coroutine_handle<promise_type> handle;
+>
+>      generator(std::coroutine_handle<promise_type> h) : handle(h) {}
+>      ~generator() { handle.destroy(); }
+>
+>      bool next()
+>      {
+>         if(handle.done()) return false;
+>         handle.resume();
+>         
+>         return true;
+>      }
+>
+>      int value() const { return handle.promise().current_value; }
+>};
+>
+>generator counter(int max)
+>{
+>   for(int i = 1; i <= max; ++i)
+>   {
+>      co_yield i;
+>   }
+>}
+>
+>int main()
+>{
+>   auto gen = counter(5);
+>   while(gen.next())
+>   {
+>      std::cout << "Value: " << gen.value() << std::endl;
+>   }
+>}
+>```
+>
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - When writing asynchronous or event-driven code, such as network programming, where non-blocking behavior is essential.
+>
+> - When implementing reusable generators or lazy-evaluation mechanisms to efficiently produce sequences of data.
+>
+> - When you need to handle a series of tasks asynchronously but want to avoid callback-based code complexity.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - In performance-critical sections where coroutines could add overhead compared to simpler, non-pausing functions.
+>
+> - In code that must run on compilers or environments without full support for C++20 or coroutines.
+>
+> - If the application logic doesn't require asynchronous execution or suspension, coroutines might add unnecessary complexity.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Asynchronous Execution**: Coroutines allow for non-blocking, asynchronous programming in a clear and intuitive way.
+>
+> - **Lazy Evaluation**: Coroutines can produce values on demand, improving efficiency in certain scenarios (like generators).
+>
+> - **Modular Code**: Coroutines simplify complex asynchronous workflows by removing the need for explicit state management.
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Performance Overhead**: Coroutines introduce some overhead, particularly in context switching.
+>
+> - **Complexity**: Understanding and debugging coroutines can be more complex than traditional synchronous code, especially for developers unfamiliar with the concept.
+>
+> - **Limited Compiler Support**: Not all compilers or platforms fully support coroutines, as they were introduced in C++20.
 >
 >
 >
 ><hr>
->
->
->
 
 
 
@@ -6524,30 +6798,155 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 ### <font color="#ffc900">Performance Optimization</font>
 > ### <font color="#a442f5">Move Semantics</font>
 > ### <font color="#ff009e">Move Constructors, Move Assignment</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> 
+> A move constructor allows an object to 'steal' the resources from another object (the 'moved-from' object). The moved-from object is typically left in a valid but unspecified state, often with its resources set to nullptr or other equivalent safe values.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+> // Syntax Example
+>class Example
+>{
+>   public:
+>      int* data;
+>
+>      // Move constructor
+>      Example(Example&& other) noexcept : data(other.data)
+>      {
+>         other.data = nullptr; // Leace the moved-from object in a safe state.
+>      }
+>
+>      ~Example()
+>      {
+>         delete data; // Clean up resources in the destructor.
+>      }
+>};
 >```
+>
+> **Move Assignment Operator**:
+> The move assignment operator is similiar to the move constructor but is used when an already initialized object is assigned a new value by transferring the resources from a source object. It releases any existing resources of the target object before taking over the resources of the source object.
+>
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+> // Syntax Example
+>class Example
+>{
+>   public:
+>      int* data;
+>
+>      // Move assignment operator
+>      Example& operator = (Example&& other) noexcept
+>      {
+>         if(this != &other) // Avoid self-assignment.
+>         {
+>            delete data; // Clean up existing resources.
+>            data = other.data // Transfer resources.
+>            other.data = nullptr; // Leave the moved-from object in a safe state.
+>         }
+>         return *this;
+>      }
+>
+>      ~Example()
+>      {
+>         delete data;
+>      }
+>};
+>```
+>
+>
+>> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>// Example with Move Constructor and Move Assignment Operator
+>#include <iostream>
+>
+>class Example
+>{
+>   public:
+>      int* data;
+>
+>      // Constructor
+>      Example(
+>         int value
+>      ) :
+>      data(new int(value))
+>      {
+>         std::cout << "Constructing: " << *data << std::endl;
+>      }
+>
+>      // Move Constructor
+>      Example(
+>         Example&& other
+>      ) noexcept :
+>      data(other.data)
+>      {
+>         other.data = nullptr; // Move the resource
+>         std::cout << "Move constructing" << std::endl;
+>      }
+>
+>      // Move assignment operator
+>      Example& operator = (Example&& other) noexcept
+>      {
+>         if(this != &other)
+>         {
+>            delete data; // Release existing resource.
+>            data = other.data // Move the resource.
+>            other.data = nullptr;
+>            std::cout << "Move assigning" << std::endl;
+>         }
+>         return *this;
+>      }
+>
+>      ~Example()
+>      {
+>         if(data)
+>         {
+>            std::cout << "Destroying: " << *data << std::endl;
+>            delete data;
+>         }
+>      }
+>};
+>
+>int main()
+>{
+>   Example example_1(42); // Normal construction.
+>   Example example_2 = std::move(example_1); // Move construction
+>
+>   Example example_3(100);
+>   example_3 = std::move(example_2); // Move assignment.
+>
+>   return 0;
+>}
+>```
+>
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - When managing resources such as dynamic memory, file handles, or network sockets that can be transferred between objects efficiently.
+>
+> - To optimize performance by avoiding unnecessary deep copies, especially when working with temporary objects or large data structures.
+>
+> - When working with containers (e.g., std::vector, std::map) that need to reallocate and transfer ownership of elements.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - If the class does not manage any resources that benefit from move semantics (e.g., classes containing only built-in types like int or double).
+>
+> - In situations where shallow copies are unsafe, or where sharing ownership of resources is required (e.g., shared memory).
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Performance**: Move semantics allow for faster operations by eliminating deep copies of data.
+>
+> - **Efficient Resource Management**: Move constructors and move assignment operators facilitate the transfer of ownership, which can reduce memory and computational overhead.
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Increased Code Complexity**: Implementing move semantics requires careful handling of resources and ensuring that the moved-from object remains in a valid state.
+>
+> - **Potential Bugs**: Incorrectly implemented move semantics can lead to dangling pointers or resource leaks if resources are not properly transferred or released.
 >
 >
 >
@@ -8350,96 +8749,6 @@ Templates can significantly increase compilation time, especially for larger pro
 
 
 
-
-
-
-
-### <font color="#ffc900">CONCURRENCY</font>
-
-> In modern C++, handling tasks concurrently is often crucial for optimizing performance and responsiveness. The Standard Library provides tools like std::async, std::future, and std::promise that help manage asynchronous operations, allowing tasks to be executed concurrently without the need for manual thread management.
->
-> - **std::async:**
-> Launches a function asynchronously, potentially in a separate thread and returns as 'std::future' object representing the eventual result of the function.
->
-> - **std::future**:
-> An object that holds the result of an asynchronous operation, allowing you to retrieve the result once it becomes available. It provides synchronization between the calling thread and the asnychronous task.
->
-> - **std::promise**:
-> A mechanism to set a value or exception that 'std::future' object will eventually hold. It decouples the producer(who sets the value) from the consumer (who retrieves the value via the future).
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
->#include <iostream>
->#include <future>
->#include <thread>
->
->// Function to computer square using std::async
->int computerSquareAsync(int x)
->{
->   std::this_thread::sleep_for(std::chrono::seconds(2)); // Simulates a time-consuming operation.
->
->   return x * x;
->} 
->
->// Function to compute square using std::promise and std::future
->int computeSquareWithPromise(std::promise<int>&& promiseObj, int x)
->{
->   promiseObj.set_value(x * x); // Set the result for the associated future.
->}
->
->int main()
->{
->   // Using std::async
->   std::future<int> futureResultAsync = std::async(std::launch::async, computeSquareAsync, 10);
->
->   // Using std::promise and std::future
->   std::promise<int> promiseObj;
->   std::future<int> futureResultPromise = promiseObj.get_future();
->   std::thread t(computeSquareWithPromise, std::move(promiseObj), 5);
->
->   // Do other work in the main thread
->   std::cout << "Doing other work in main thread..." << std::endl;
->
->   // Retrieve results
->   int resultAsync = futureResultAsync.get(); // Blocks until the result is ready.
->   int resultPromise = futureResultAsync.get(); // Blocks until the promise is fulfilled.
->
->   // Print results
->   std::cout << "Result from std::async: " << resultAsync << std::endl;
->   std::cout << "Result from std::promise and std::future: " << resultPromise << std::endl;
->
->   // Join the thread
->   t.join();
->
->   return 0;
->}
->```
->
-> **When To Use**
-> 
-> - Use 'std::async' when you want to offload a task to run concurrently without managing threads manually. It is perfect for scenarios where you need the result eventually but do not want to block the main thread.
->
-> - Use 'std::promise' and 'std::future' combination when you need fine-grained control over the production and consumption of a result. It is useful in more complex concurrent workflows where tasks are not immediately tied to a function call but might depend on other factors.
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - **Concurrency**:
-> All three tools enable concurrent execution of tasks, which can significantly improve program efficiency and responsiveness.
->
-> - **Ease of Use**:
-> 'std::async' simplifies the creation of asynchronous tasks, while 'std::promise' and 'std::future' provide a powerful mechanism for decoupling task execution and result retrieval.
->
-> - **Exception Handling**:
-> If an asynchronous task throws an exception, it is captured by the 'std::future' and can be handled later when 'get()' is called. 
-> 
->
-> **<font color="#f56942">Disadvantages</font>**
->
-> - **Overhead**
->
-> - **Blocking**:
-> If you call 'get()' on a 'std::future', it will block the current thread until the result is available, which could cause issues if not managed carefully. 
 
 
 >

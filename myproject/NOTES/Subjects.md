@@ -233,30 +233,31 @@
    - [Move Semantics](#move-semantics)
       - [Move Constructors, Move Assignment](#move-constructors-move-assignment)
     
-   - Copy Elision
+   - [Copy Elision](#copy-elision)
     
-   - Inlining
+   - [Inlining](#inlining)
     
-   - Profile-Guided Optimization (PGO) 
+   - [Profile-Guided Optimization (PGO)](#profile-guided-optimizationpgo) 
     
-   - Compiler Optimizations
-      - Link Time Optimization (LTO) 
-      - Understanding Compiler Flags 
+   - [Compiler Optimizations](#compiler-optimizations)
+      - [Link Time Optimization (LTO)](#link-time-optimizationlto) 
 
    <br>
    <br>
 
 
-11. Design Patterns in C++
+11. [Design Patterns in C++](#design-patters-in-c)
 
-   - Creational Patterns
-      - Singleton, Factory, Builder
+   - [Creational Patterns](#creational-patterns)
+      - [Singleton](#singleton-pattern)
+      - [Factory](#factory-pattern)
+      - [Builder](#builder-pattern)
       
-   - Structural Patterns
-      - Adapter, Composite, Proxy
+   - [Structural Patterns](#structural-patterns)
+      - [Adapter, Composite, Proxy](#adapter-composite-proxy)
       
-   - Behavioral Patterns
-      - Observer, Command, Strategy
+   - [Behavioral Patterns](#behavioral-patterns)
+      - [Observer, Command, Strategy](#observer-command-strategy)
 
    <br>
    <br>
@@ -6958,30 +6959,85 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 
 
 > ### <font color="#a442f5">Copy Elision</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> Copy elision is an optimization technique in C++ that allows the compiler to avoid unnecessary copying of objects. Instead of creating temporary objects and then copying or moving them, the compiler directly constructs the objects in its final location. This reduces overhead and improves performance, especially for objects that are expensive to copy.
+>
+> In certain cases, C++ mandates copy elision, while in others, it is up to the compiler to apply the optimization.
+>
+> Without it, when a function returns an object or when temporary objects are used, a copy or more operation would usually occur. With copy elision, the compiler can skip these operations and directly construct the object in the desired location.
+>
+> Starting with C++17, the language guarantees that copy elision must happen in specific scenarios, such as:
+>
+> - When returning a local object from a function.
+> - When initializing an object from a temporary object (e.g: return value of a function).
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>#include <iostream>
+>
+>class Example
+>{
+>   public:
+>      Example() { std::cout << "Default Constructor" << std::endl; }
+>      Example(const Example&) { std::cout << "Copy Constructor" << std::endl; }
+>      Example(Example&&) { std::cout << "Move Constructor" << std::endl; }
+>      ~Examyple() { std::cout << "Destructor" << std::endl; }
+>};
+>
+>Example createExample()
+>{
+>   Example example;
+>
+>   return example; // With copy elision, this will not call the copy or move constructor
+>}
+>
+>int main()
+>{
+>   Example example = createExample(); // Object is directly created without copy/move.
+>}
+>
+>/* 
+>Output without C++17 or without copy elision:
+>
+>Default Constructor
+>Copy Constructor (or Move Constructor)
+>Destructor
+>Destructor
+>*/
+>
+>/*
+>Output with C++17 copy elision:
+>
+>Default Constructor
+>Destructor
+>*/
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - Whenever returning local objects from a function or creating temporary objects, as the compiler will handle copy elision automatically.
+>
+> - In performance-sensitive code where avoiding unnecessary object copies can improve efficiency.
+>
+> - When constructing complex objects in return statements where the overhead of copying/moving can be significant.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - You don't have to worry about explicitly "using" copy elision since it's an optimization that the compiler handles. However, understanding it can help avoid unnecessary performance concerns with copying.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Performance Optimization**: Reduces the overhead of creating, copying, and moving objects.
+>
+> - **Simplifies Code**: Reduces the need for manually implementing complex copy/move constructors just to optimize performance.
+>
+> - **Guaranteed in C++17**: Certain copy elisions are now guaranteed by the C++17 standard, making optimizations more predictable.
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> **Non-obvious Behavior**: Relying on copy elision can make debugging harder because the compiler optimizations hide intermediate steps (such as copying or moving).
+>
+> - **Compiler-Dependent in Pre-C++17**: Before C++17, copy elision was not mandatory, so different compilers may behave differently.
 >
 >
 >
@@ -6993,30 +7049,55 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 
 
 > ### <font color="#a442f5">Inlining</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> It is a compiler optimization technique where the function code is expanded at the point where the function is called, rather than performing a regular function call. The **inline** keyword in C++ is a suggestion to the compiler that the function should be inlined, though the compiler can choose whether or not to inline the function based on its own criteria.
+>
+> Inlining is generally used to reduce the overhead of function calls, especially for small, frequently called functions.
+>
+> In normal function calls, control is transferred to the function, and after the function finishes, control is transferred back to the caller. This involves overhed such as pushing and popping function parameters to/from the stack. Inlining avoids its overhead by replacing the function call with the function code at compile time.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>inline int square(int x)
+>{
+>   return (x * x);
+>}
+>
+>int main()
+>{
+>   int result = square(5); // Instead a function call, this becomes 'int result = 5 * 5;'
+>}
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - **Small, Simple Functions**: Inlining is most effective for small functions where the function call overhead is significant relative to the function body.
+>
+> - **Performance-Critical Code**: When function call overhead needs to be minimized, such as in time-sensitive or high-performance code.
+>
+> - **Frequently Called Functions**: Functions that are called many times, especially inside loops, may benefit from inlining to reduce repeated call overhead.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - **Large Functions**: Inlining large functions can increase code size and potentially lead to performance degradation due to cache misses.
+>
+> - **Recursion**: Recursive functions should not be inlined, as it would lead to infinite inlining, which is not practical.
+>
+> - **Debugging**: Inlining can make debugging harder, as the function's code is expanded in multiple places, making it harder to trace
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Performance**: Inlining small functions can significantly reduce the overhead of function calls, especially in tight loops.
+>
+> - **Eliminates Call Overhead**: For small functions, inlining can eliminate the overhead of calling a function (stack operations, jumps).
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Code Bloat**: Inlining increases the size of the compiled code, especially if the function is inlined in multiple places, which can lead to increased binary size.
+>
+> - **Cache Efficiency**: Large inlined functions can negatively affect the CPU instruction cache, reducing performance.
+>
+> - **Compiler Control**: The inline keyword is only a suggestion, and the compiler might ignore it if it decides inlining isn't beneficial.
 >
 >
 >
@@ -7028,30 +7109,60 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 
 
 > ### <font color="#a442f5">Profile-Guided Optimization(PGO)</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> In traditional optimization, compiler try to optimize code based on static information, such as the structure of the code. With PGO, the compiler gains additional insights from runtime behavior, allowing it to make more informed optimization decisions. For example, the compiler can optimize the most frequently executed paths, rearrange code to improve cache utilization, or reduce branch mispredictions.
+>
+> The PGO process usually involves:
+>
+> - **Instrumented Build**: The compiler insters instrumentation code into the program to collect data.
+>
+> - **Profiling Run**: The program is executed with representative input data to generate profiling information.
+>
+> - **Optimized Build**: The profiling data is fed back to the compiler for a second compilation, which uses this data to generate an optimized version of the program.
 >
 > **<font color="#428df5">Example</font>**
 >
->```cpp
-> // code goes here...
+>```text
+> gcc -fprofile-generate program.cpp -o program
+>     // This generates the instrumented version of the program.
+>
+> ./program
+>     // The program generates profiling data (typically in .gcda files).
+>
+> gcc -fprofile-use program.cpp -o program_optimized
+>     // The compiler uses the collected profiling data to optimize the program.
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - **Performance-Critical Applications**: Use PGO in applications where maximum performance is required, such as video games, high-frequency trading systems, and large-scale enterprise software.
+>
+> - **Complex Programs with Varying Workloads**: For applications with many branches or code paths, PGO helps optimize the most frequently used paths.
+>
+> - **Optimization of Hot Code**: When you need to focus optimization on the most frequently executed parts of the program (hot paths) to improve overall efficiency.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - **Small Programs**: PGO is less beneficial for small programs where the overhead of profiling and optimization may not result in significant performance improvements.
+>
+> - **Non-Representative Workloads**: If it's difficult to get a representative workload for profiling, PGO might not be effective and could even degrade performance.
+>
+> - **Development or Debug Builds**: The additional instrumentation from profiling may slow down the development process and make debugging more difficult.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Better Performance**: By focusing optimization on hot paths, PGO can result in significant performance improvements in critical areas of the code.
+>
+> - **Cache Optimization**: The compiler can better optimize code layout, improving cache utilization and reducing cache misses.
+>
+> - **Reduced Branch Misprediction**: PGO helps the compiler reorder branches based on runtime behavior, reducing costly branch mispredictions.
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Increased Build Complexity**: PGO adds complexity to the build process, requiring multiple compilation steps and workload-based profiling.
+>
+> - **Longer Build Times**: The profiling and recompilation process can increase build times, which can be a drawback in fast development cycles.
+>
+> - **Dependence on Workload**: If the profiling run doesn't accurately reflect real-world usage, the optimizations may not be effective or could degrade performance for actual use cases.
 >
 >
 >
@@ -7064,62 +7175,54 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 
 > ### <font color="#a442f5">Compiler Optimizations</font>
 > ### <font color="#ff009e">Link Time Optimization(LTO)</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> Link Time Optimization (LTO) is a compiler optimization technique that allows the compiler to perform optimizations across translation units during the linking phase of program. This approach gives the compiler a global view of the program, enabling optimizations that are no possible when each source file is compiled in isolation.
+>
+> With LTO, the intermediate representation (IR) of the program's code is passed from the compilation stage to the linking stage, allowing the linker to perform optimizations across all translation units. This can lead to performance improvements, reducing binary size and improved inlining opportunities.
 >
 > **<font color="#428df5">Example</font>**
 >
->```cpp
-> // code goes here...
+>```text
+> gcc -flto -c file_1.cpp -o file_1.o
+> gcc -flto -c file_2.cpp -o file_2.o
+>     // This generates object files (.o) with LTO information included.
+>
+> gcc -flto file_1.o file_2.o -o program
+>     // The linker will now use the LTO information to perform optimizations across translation units, generating a more optimized binary.
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - **Large Programs with Many Translation Units**: LTO is particularly effective for large projects with multiple source files, where cross-file optimizations can result in better performance.
+>
+> - **Performance-Critical Applications**: Use LTO when you need to squeeze out every bit of performance by allowing optimizations across the entire program.
+>
+> - **Reducing Code Size**: LTO can help reduce the final binary size by eliminating redundant code across translation units.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - **Small Projects**: For small projects with only a few translation units, LTO may not provide significant benefits and can add unnecessary complexity.
+>
+> - **Frequent Build Cycles**: LTO can increase link times, so it might not be ideal in development cycles where quick iterations are necessary.
+>
+> - **Non-Supported Toolchains**: Not all toolchains and compilers support LTO, and using it in such cases can cause build issues.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Global Optimization**: LTO enables the compiler to optimize across translation units, improving performance and efficiency.
+>
+> - **Better Inlining**: Functions defined in one translation unit can be inlined into other translation units, leading to faster execution.
+>
+> - **Dead Code Elimination**: Unused functions and variables across translation units can be identified and removed, reducing the binary size.
+>
+> - **Improved Optimizations**: Other optimizations like constant propagation and loop optimizations can also be performed across translation units.
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Longer Build Times**: LTO introduces additional overhead during the linking stage, which can slow down build times, especially for large projects.
 >
+> - **Increased Memory Usage**: LTO requires more memory during the linking stage, which can be problematic for very large projects or limited build environments.
 >
->
-><hr>
->
->
->
-> ### <font color="#ff009e">Understanding Compiler Flags</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
->
-> **<font color="#428df5">Example</font>**
->
->```cpp
-> // code goes here...
->```
->
-> **When To Use**
-> 
-> - ExplanationExplanationExplanation.
->
-> **When Not to Use**
->
-> - ExplanationExplanationExplanation
->
-> **<font color="#b3f542">Advantages</font>**
->
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
->
-> **<font color="#f56942">Disadvantages</font>**
->
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Complex Debugging**: Debugging a program optimized with LTO can be more difficult due to aggressive inlining and other cross-unit optimizations.
 >
 >
 >
@@ -7133,31 +7236,202 @@ Functors can be inlined by the compiler, resulting in potentially more efficient
 
 ### <font color="#ffc900">Design Patters in C++</font>
 > ### <font color="#a442f5">Creational Patterns</font>
-> ### <font color="#ff009e">Singleton, Factory, Builder</font>
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> ### <font color="#ff009e">Singleton Pattern</font>
+> The Singleton Pattern ensures that a class has only one instance and provides a global point of access to that instance. It restricts object creating and manages its own instantiation.
 >
 > **<font color="#428df5">Example</font>**
 >
 >```cpp
-> // code goes here...
+>class Singleton
+>{
+>   private:
+>      static Singleton* instance;
+>
+>      // Private constructor to prevent instantiation
+>      Singleton() {}
+>
+>   public:
+>      // Static method to control access to the singleton instance
+>      static Singleton* getInstance()
+>      {
+>         if(!instance)
+>         {
+>            instance = new Singleton();
+>         }
+>         return instance;
+>      }
+>};
+>
+>// Initialize pointer to zero at start
+>Singleton* Singleton::instance == nullptr;
 >```
 >
 > **When To Use**
 > 
-> - ExplanationExplanationExplanation.
+> - When you need to ensure that only one instance of a class exists throughout the system.
+>
+> - When you need global access to the same object, such as for managing configurations, logging, or database connections.
 >
 > **When Not to Use**
 >
-> - ExplanationExplanationExplanation
+> - When you need more than one instance of the class (e.g., for scalability or parallel processing).
+>
+> - When the global state is not desirable, as it can make testing and debugging more difficult.
 >
 > **<font color="#b3f542">Advantages</font>**
 >
-> - **Explanation**: 
-> ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExp anationExplanationExplanationExplanationExplanationExplanation
+> - **Controlled access**: Ensures a single, controlled instance.
+>
+> - **Global access**: Easy access to the object from anywhere in the program.
 >
 > **<font color="#f56942">Disadvantages</font>**
 >
-> - **Explanation**: ExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanationExplanation
+> - **Global state**: Can introduce hidden dependencies between classes.
+>
+> - **Thread safety**: Requires special handling in multi-threaded applications to avoid race conditions.
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">Factory Pattern</font>
+> The Factory Pattern provides an interface for creating object but allows subclasses to alter the type of objects that will be created. It defines a method for creating an object, but subclasses decide which class to instantiate.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>class Product
+>{
+>   public:
+>      virtual void use() = 0;
+>}
+>
+>class ConcreteProductA : public Product
+>{
+>   public:
+>      void use() override { std::cout << "Using Product A" << std::endl; }
+>};
+>
+>class ConcreteProductB : public Product 
+>{
+>   public:
+>      void use() override { std::cout << "Using Product B" << std::endl; }
+>};
+>
+>class Factory
+>{
+>   public:
+>      static Product* createProduct(const std::string& type)
+>      {
+>         if(type == "A") return new ConcreteProductA();
+>         if(type == "B") return new ConcreteProductB();
+>
+>         return nullptr;
+>      }
+>};
+>```
+>
+> **When To Use**
+> 
+> - When a class cannot anticipate the type of objects it needs to create.
+>
+> - When you want to encapsulate the creation logic of an object and delegate this responsibility to subclasses.
+>
+> **When Not to Use**
+>
+> - If the object creation logic is trivial or the creation of objects is not dynamic.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Flexibility**: The code is decoupled from the specific types of products being created.
+>
+> - **Single Responsibility Principle**: Object creation logic is isolated from the rest of the program
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Complexity**: Introduces an additional level of abstraction, which may not be needed for simple applications.
+>
+>
+>
+><hr>
+>
+>
+>
+> ### <font color="#ff009e">Builder Pattern</font>
+> The Builder Pattern separates the construction of a complex object from its representation. It allows for step-by-step object creation and can vary the internal representation of the product.
+>
+> **<font color="#428df5">Example</font>**
+>
+>```cpp
+>class Product
+>{
+>   public:
+>      std::string part_A;
+>      std::string part_B;
+>      
+>      void show()
+>      {
+>         std::cout << "Part_A: " << part_A << ", Part_B: " << part_B << std::endl;
+>      }
+>};
+>
+>class Builder
+>{
+>   public:
+>      virtual void buildPart_A() = 0;
+>      virtual void buildPart_B() = 0;
+>      virtual Product* getProduct() = 0;
+>};
+>
+>class ConcreteBuilder : public Builder
+>{
+>   Product* product;
+>
+>
+>public:
+>    ConcreteBuilder() { product = new Product(); }
+>
+>    void buildPart_A() override { product -> part_A = "Built Part A"; }
+>    void buildPart_B() override { product -> part_B = "Built Part B"; }
+>    Product* getProduct() override { return product; }
+>};
+>
+>class Director 
+>{
+>public:
+>    void construct(Builder* builder) 
+>    {
+>        builder -> buildPart_A();
+>        builder -> buildPart_B();
+>    }
+>};
+>```
+>
+> **When To Use**
+> 
+> - When creating complex objects with multiple configurations.
+>
+> - When you want to control the construction process of an object more granularly.
+>
+> **When Not to Use**
+>
+> - For simple objects where step-by-step construction is not necessary.
+>
+> - When the complexity of the object doesn't justify the overhead of using a builder.
+>
+> **<font color="#b3f542">Advantages</font>**
+>
+> - **Separation of concerns**: The process of building an object is separated from the object itself.
+>
+> - **Flexibility**: Allows different representations or configurations of the same object.
+>
+> **<font color="#f56942">Disadvantages</font>**
+>
+> - **Increased complexity**: Requires additional code for the builder and director classes.
+>
+> - **Not suitable for all scenarios**: Can be overkill for simple object creation.
 >
 >
 >

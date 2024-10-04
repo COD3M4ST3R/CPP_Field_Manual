@@ -10,7 +10,10 @@
 #
 #	LOG
 #		27.09.2023:
-#			COD3M4ST3R -> File has been initialized	
+#			COD3M4ST3R -> File has been initialized.	
+#       04.10.2024:
+#           COD3M4ST3R -> Unnecessary spaces has been removed.
+
 
 
 ### ATTRIBUTES
@@ -18,7 +21,6 @@
 cmake_minimum_required(
     VERSION 3.22.1
 )
-
 
 # Set the CPP version
 set(
@@ -34,12 +36,8 @@ set(
     CMAKE_CXX_EXTENSIONS OFF
 )
 
-
-
 # Set the project name
 project(myproject) 
-
-
 
 ### CHANGE DEFAULT BUILD TYPE
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
@@ -48,14 +46,11 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
     set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
 endif()
 
-
-
 ### CHANGE DEFAULT INSTALL LOCATION
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     message(STATUS "Setting default CMAKE_INSTALL_PREFIX path to ${CMAKE_BINARY_DIR}/install")
     set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install" CACHE STRING "The path to use for make install" FORCE)
 endif()
-
 
 ### ADD LIBRARIES
 # Generate the static library from the library sources
@@ -68,8 +63,6 @@ add_library(
     Sort SHARED ${PROJECT_SOURCE_DIR}/source/Sort.cpp
 )
 
-
-
 ### ADD HEADERS
 # Add headers of the library
 target_include_directories(
@@ -81,14 +74,11 @@ target_include_directories(
     Sort PUBLIC ${PROJECT_SOURCE_DIR}/include
 )
 
-
-
 ### CREATE EXECUTABLE
 # Create an executable file 
 add_executable(
     ${CMAKE_PROJECT_NAME} ${PROJECT_SOURCE_DIR}/main/main.cpp
 )
-
 
 ### LINK LIBRARIES
 # Link the library with it's binary files
@@ -98,14 +88,10 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
     ${Boost_LIBS}
 )
 
-
-
 ### SET PER-TARGET C++ FLAG ON LIBRARY - EXCLUDE EX2 HEADER FROM COMPILE
 target_compile_definitions(
     ${CMAKE_PROJECT_NAME} PRIVATE EX2
 )
-
-
 
 ### INSTALL
 # Location of the binaries that will be created for installation
@@ -124,6 +110,3 @@ install(
 install(
     FILES myproject.conf DESTINATION etc
 )
-
-
-

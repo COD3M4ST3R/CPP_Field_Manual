@@ -1,0 +1,3 @@
+This project is designed to guide you through your journey in C++ programming, starting from the very basics. Here, you'll find a foundational structure for creating C++ projects, along with a comprehensive manual to help you develop and master your skills in C++.
+
+If you find a mistake, please feel free to fix it. If you discover a better way to do things, let’s implement it together. And if a new version of C++ is released, let’s update this project collaboratively!
